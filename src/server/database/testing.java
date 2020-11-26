@@ -1,23 +1,27 @@
 package server.database;
 
 import java.sql.*;
-import com.mysql.cj.jdbc.*;
+//import com.mysql.cj.jdbc.*;
+import java.net.HttpURLConnection;
 import org.json.*;
 
 
 public class testing {
 	public static void main(String[] args) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/testing", "user",
+//			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 					"something_fun");
 			// here sonoo is database name, root is username and password
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from test");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM User;");
+			int id = 0;
 			while (rs.next()) {
-				JSONObject jsonobj = new JSONObject("{\"test_name\":" + rs.getInt(1) + ", \"test_number\":" + rs.getString(2)+"}");
+				JSONObject jsonobj = new JSONObject("{\"user_id\":" + rs.getInt(1) + ", \"user_first_name\":" + rs.getString(3)+", \"user_last_name\":" + rs.getString(3) +"}");
 				System.out.println(jsonobj); //send this to client
+				id = jsonobj.getInt("user_id");
 			}
+			stmt.executeUpdate("INSERT INTO `Airport_Scheduling_Database`.`User` (`UserID`, `Email`, `First_name`, `Last_name`, `Password`, `Phone_number`) VALUES ('"+(id+1)+"', 'aaaaaa', 'sdfasdf', 'fdsafdsa', 'fdsaasdf', '4324324234');");
 			con.close();
 
 		} catch (Exception e) {
