@@ -3,23 +3,25 @@ package server.database;
 import java.sql.*;
 //import com.mysql.cj.jdbc.*;
 import java.net.HttpURLConnection;
+import java.util.Scanner;
+
 import org.json.*;
 
 
 public class testing {
 	public static void main(String[] args){
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter UserID: ");
+		int id = scan.nextInt();
+		System.out.println("Please enter Password: ");
+		String password = scan.next();
 
 		testing test = new testing();
-		System.out.println("\nCorrect login for User 3");
-		test.login(3,"p3");
-		System.out.println("\nIncorrect login for User 3");
-		test.login(3,"p4");
-		System.out.println("\nCorrect login for User 6");
-		test.login(6,"p6");
+		test.login(id,password,scan);
 
 	}
 
-	public void login(int id, String password){
+	public void login(int id, String password, Scanner scan){
 		try {
 			// Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
@@ -33,6 +35,7 @@ public class testing {
 				tempID = rs.getInt(1);
 				System.out.println(jsonobj); //send this to client
 			}
+
 			if(tempID != -1){
 				ResultSet studentFind = stmt.executeQuery("SELECT * FROM Student WHERE StudentID = " + tempID);
 				while(studentFind.next()){
@@ -52,6 +55,7 @@ public class testing {
 				ResultSet adminFind = stmt.executeQuery("SELECT * FROM Admin WHERE AdminID = " + tempID);
 				while(adminFind.next()){
 					System.out.println("User is a admin");
+					adminPortal(tempID,con,scan);
 				}
 			}else{
 				System.out.println("Login failed");
@@ -61,6 +65,57 @@ public class testing {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	public void adminPortal(int id, Connection con, Scanner scan){
+		try {
+			// here sonoo is database name, root is username and password
+			Statement stmt = con.createStatement();
+			boolean loop = true;
+			while(loop) {
+				System.out.println("\nWelcome to the admin portal\n" +
+						"Menu Options:\n " +
+						"1 - View Users\n " +
+						"2 - View Aircraft\n " +
+						"3 - View Aircraft Schedule\n " +
+						"4 - View Flight\n " +
+						"5 - Exit\n" +
+						"Please enter your selection:");
+				int caseID = scan.nextInt();
+				switch (caseID) {
+					case 1:
+						ResultSet allUsers = stmt.executeQuery("SELECT * FROM User");
+						while (allUsers.next()) {
+							JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"user_first_name\":" +
+									allUsers.getString(3) + ", \"user_last_name\":" + allUsers.getString(3) + "}");
+							System.out.println(jsonobj); //send this to client
+						}
+						break;
+					case 2:
+						ResultSet allAircraft = stmt.executeQuery("SELECT * FROM Aircraft");
+						while (allAircraft.next()) {
+							JSONObject jsonobj = new JSONObject("{\"Aircraft_ID\":" + allAircraft.getInt(1) + ", \"Registration\":" +
+									allAircraft.getString(2) + ", \"Type\":" + allAircraft.getString(3) + "}");
+							System.out.println(jsonobj); //send this to client
+						}
+						break;
+					case 3:
+						System.out.println("beep boop case 3 stuff");
+						break;
+					case 4:
+						System.out.println("beep boop case 4 stuff");
+						break;
+					case 5:
+						loop = false;
+						break;
+
+				}
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		scan.close();
+		System.out.println("Bye Admin");
 	}
 
 
