@@ -46,6 +46,8 @@ public class Login {
                 ResultSet MXFind = stmt.executeQuery("SELECT * FROM MX_Engineer WHERE MX_EngineerID = " + tempID);
                 while(MXFind.next()){
                     System.out.println("User is a mechanical enginner");
+                    MXMenu mx = new MXMenu(con,scan);
+                    mx.MXPortal(tempID);
                 }
 
                 ResultSet adminFind = stmt.executeQuery("SELECT * FROM Admin WHERE AdminID = " + tempID);
