@@ -129,28 +129,90 @@ public class AdminMenu {
                         System.out.println("Please enter the student phone");
                         String phone = scan.nextLine();
                         stmt.executeUpdate("INSERT INTO User(UserID, Email, First_name, Last_name, Password, Phone_number) "
-                                + "VALUES (NULL, " + email + ", " + fname + ", " + lname + ", " + password + ", " + phone + ")" );
-                        System.out.println("Please enter the student Pilot License Class");
+                                + "VALUES (0, '" + email + "', '" + fname + "', '" + lname + "', '" + password + "', '" + phone + "')" );
+                        System.out.println("Please enter the student Pilot License Number");
                         String license = scan.nextLine();
                         stmt.executeUpdate("INSERT INTO Student(StudentID,Pilot_license_no) "
-                                + "VALUES (LAST_INSERT_ID(), " + license + ")" );
+                                + "VALUES (LAST_INSERT_ID(), '" + license + "')" );
                     }catch(Exception e){
                         System.out.println("Unable to add new Student");
                         System.out.println(e);
                     }
                     break;
                 case 2:
-                    removeUser(id);
+                    try {
+                        scan.nextLine();
+                        System.out.println("Please enter the instructor email");
+                        String email = scan.nextLine();
+                        System.out.println("Please enter the instructor first name");
+                        String fname = scan.nextLine();
+                        System.out.println("Please enter the instructor lname");
+                        String lname = scan.nextLine();
+                        System.out.println("Please enter the instructor password");
+                        String password = scan.nextLine();
+                        System.out.println("Please enter the instructor phone");
+                        String phone = scan.nextLine();
+                        stmt.executeUpdate("INSERT INTO User(UserID, Email, First_name, Last_name, Password, Phone_number) "
+                                + "VALUES (0, '" + email + "', '" + fname + "', '" + lname + "', '" + password + "', '" + phone + "')" );
+                        System.out.println("Please enter the instructor's Pilot License Number");
+                        String license = scan.nextLine();
+                        System.out.println("Please enter the instructor's Instructor Class");
+                        String iClass = scan.nextLine();
+                        stmt.executeUpdate("INSERT INTO Instructor(InstructorID,Pilot_license_no,Instructor_Class) "
+                                + "VALUES (LAST_INSERT_ID(), '" + license + "', '" + iClass + "')" );
+                    }catch(Exception e){
+                        System.out.println("Unable to add new Instructor");
+                        System.out.println(e);
+                    }
                     break;
                 case 3:
-                    System.out.println("Idk how we wanna edit users");
+                    try{
+                        scan.nextLine();
+                        System.out.println("Please enter the mechanical engineer email");
+                        String email = scan.nextLine();
+                        System.out.println("Please enter the mechanical engineer first name");
+                        String fname = scan.nextLine();
+                        System.out.println("Please enter the mechanical engineer lname");
+                        String lname = scan.nextLine();
+                        System.out.println("Please enter the mechanical engineer password");
+                        String password = scan.nextLine();
+                        System.out.println("Please enter the mechanical engineer phone");
+                        String phone = scan.nextLine();
+                        stmt.executeUpdate("INSERT INTO User(UserID, Email, First_name, Last_name, Password, Phone_number) "
+                                + "VALUES (0, '" + email + "', '" + fname + "', '" + lname + "', '" + password + "', '" + phone + "')" );
+                        System.out.println("Please enter the mechanical engineer's Engineer License Number");
+                        String license = scan.nextLine();
+                        System.out.println("Please enter the mechanical engineer's Rating");
+                        String rating = scan.nextLine();
+                        stmt.executeUpdate("INSERT INTO MX_Engineer(MX_EngineerID,Eng_license_no,Rating) "
+                                + "VALUES (LAST_INSERT_ID(), '" + license + "', '" + rating + "')" );
+                    }catch(Exception e){
+                        System.out.println("Unable to add new Mechanical Engineer");
+                        System.out.println(e);
+                    }
                     break;
                 case 4:
-                    ResultSet allUsers = stmt.executeQuery("SELECT * FROM User");
-                    while (allUsers.next()) {
-                        JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"user_first_name\":" +
-                                allUsers.getString(3) + ", \"user_last_name\":" + allUsers.getString(3) + "}");
-                        System.out.println(jsonobj); //send this to client
+                    try{
+                        scan.nextLine();
+                        System.out.println("Please enter the admin email");
+                        String email = scan.nextLine();
+                        System.out.println("Please enter the admin engineer first name");
+                        String fname = scan.nextLine();
+                        System.out.println("Please enter the admin engineer lname");
+                        String lname = scan.nextLine();
+                        System.out.println("Please enter the admin engineer password");
+                        String password = scan.nextLine();
+                        System.out.println("Please enter the admin engineer phone");
+                        String phone = scan.nextLine();
+                        stmt.executeUpdate("INSERT INTO User(UserID, Email, First_name, Last_name, Password, Phone_number) "
+                                + "VALUES (0, '" + email + "', '" + fname + "', '" + lname + "', '" + password + "', '" + phone + "')" );
+                        System.out.println("Please enter the admin's role");
+                        String role = scan.nextLine();
+                        stmt.executeUpdate("INSERT INTO Admin(AdminID,Role) "
+                                + "VALUES (LAST_INSERT_ID(), '" + role + "')" );
+                    }catch(Exception e){
+                        System.out.println("Unable to add new Admin");
+                        System.out.println(e);
                     }
                     break;
             }
@@ -172,20 +234,47 @@ public class AdminMenu {
             int caseID = scan.nextInt();
             switch (caseID) {
                 case 1:
-                    addUser(id);
+                    try {
+                        System.out.println("Please enter the student ID");
+                        int sid = scan.nextInt();
+                        stmt.executeUpdate("DELETE FROM Student WHERE StudentID = " + sid);
+                        stmt.executeUpdate("DELETE FROM User WHERE UserID = " + sid);
+                    }catch(Exception e){
+                        System.out.println("Unable to delete student");
+                        System.out.println(e);
+                    }
                     break;
                 case 2:
-                    removeUser(id);
+                    try {
+                        System.out.println("Please enter the Instructor ID");
+                        int iid = scan.nextInt();
+                        stmt.executeUpdate("DELETE FROM Instructor WHERE InstructorID = " + iid);
+                        stmt.executeUpdate("DELETE FROM User WHERE UserID = " + iid);
+                    }catch(Exception e){
+                        System.out.println("Unable to delete instructor");
+                        System.out.println(e);
+                    }
                     break;
                 case 3:
-                    System.out.println("Idk how we wanna edit users");
+                    try {
+                        System.out.println("Please enter the Mechanical Engineer ID");
+                        int eid = scan.nextInt();
+                        stmt.executeUpdate("DELETE FROM MX_Engineer WHERE MX_EngineerID = " + eid);
+                        stmt.executeUpdate("DELETE FROM User WHERE UserID = " + eid);
+                    }catch(Exception e){
+                        System.out.println("Unable to delete mechanical engineer");
+                        System.out.println(e);
+                    }
                     break;
                 case 4:
-                    ResultSet allUsers = stmt.executeQuery("SELECT * FROM User");
-                    while (allUsers.next()) {
-                        JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"user_first_name\":" +
-                                allUsers.getString(3) + ", \"user_last_name\":" + allUsers.getString(3) + "}");
-                        System.out.println(jsonobj); //send this to client
+                    try {
+                        System.out.println("Please enter the Admin ID");
+                        int aid = scan.nextInt();
+                        stmt.executeUpdate("DELETE FROM Admin WHERE AdminID = " + aid);
+                        stmt.executeUpdate("DELETE FROM User WHERE UserID = " + aid);
+                    }catch(Exception e){
+                        System.out.println("Unable to delete admin");
+                        System.out.println(e);
                     }
                     break;
             }
@@ -207,10 +296,25 @@ public class AdminMenu {
             int caseID = scan.nextInt();
             switch (caseID) {
                 case 1:
-                    addUser(id);
+                    scan.nextLine();
+                    System.out.println("Please enter the aircraft registration");
+                    String reg = scan.nextLine();
+                    System.out.println("Please enter the aircraft type");
+                    String type = scan.nextLine();
+                    System.out.println("Please enter the aircraft serial number");
+                    String serial = scan.nextLine();
+                    stmt.executeUpdate("INSERT INTO Aircraft(AircraftID, Registration, Type, Serial_no) "
+                            + "VALUES (0, '" + reg + "', '" + type + "', '" + serial + "')" );
                     break;
                 case 2:
-                    removeUser(id);
+                    try {
+                        System.out.println("Please enter the Aircraft ID");
+                        int aid = scan.nextInt();
+                        stmt.executeUpdate("DELETE FROM Aircraft WHERE AircraftID = " + aid);
+                    }catch(Exception e){
+                        System.out.println("Unable to delete Aircraft");
+                        System.out.println(e);
+                    }
                     break;
                 case 3:
                     System.out.println("Idk how we wanna edit aircraft");
@@ -242,10 +346,40 @@ public class AdminMenu {
             int caseID = scan.nextInt();
             switch (caseID) {
                 case 1:
+                    scan.nextLine();
+                    System.out.println("Please enter the flight's aircraft ID");
+                    String aid = scan.nextLine();
+                    System.out.println("Please enter the flight's student ID");
+                    String sid = scan.nextLine();
+                    System.out.println("Please enter the flight's instructor ID");
+                    String iid = scan.nextLine();
+                    System.out.println("Please enter the flight exercise");
+                    String ex = scan.nextLine();
+                    System.out.println("Please enter the flight scheduled start time in DATETIME format");
+                    String start = scan.nextLine();
+                    System.out.println("Please enter the flight scheduled end time in DATETIME format");
+                    String end = scan.nextLine();
+
+                    System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
+
+                    stmt.executeUpdate("INSERT INTO Flight(FlightID, Aircraft_id, Student_id, Instructor_id, Exercise, Sched_start, Sched_end) "
+                            + "VALUES (0, '" + aid + "', '" + sid + "', '" + iid + "', '" + ex + "', '" + start + "', '" + end + "')" );
+                    stmt.executeUpdate("INSERT INTO Aircraft_Schedule(Aircraft_id, Flight_id, Sched_start, Sched_end) "
+                            + "VALUES (" + aid + "', LAST_INSERT_ID() , '" + start + "', '" + end + "')" );
 
                     break;
                 case 2:
-
+                    try {
+                        System.out.println("Please enter the Flight ID");
+                        int fid = scan.nextInt();
+                        System.out.println("Please enter the Aircraft ID");
+                        int aaid = scan.nextInt();
+                        stmt.executeQuery("DELETE FROM Flight WHERE Flight_id = " + fid + " AND Aircraft_id = " + aaid);
+                        stmt.executeQuery("DELETE FROM Aircraft_Schedule WHERE Flight_id = " + fid + " AND Aircraft_id = " + aaid);
+                    }catch(Exception e){
+                        System.out.println("Unable to delete Flight");
+                        System.out.println(e);
+                    }
                     break;
                 case 3:
                     System.out.println("Idk how we wanna edit flights");
