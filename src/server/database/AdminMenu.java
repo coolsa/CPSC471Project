@@ -91,8 +91,9 @@ public class AdminMenu {
                 case 4:
                     ResultSet allUsers = stmt.executeQuery("SELECT * FROM User");
                     while (allUsers.next()) {
-                        JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"user_first_name\":" +
-                                allUsers.getString(3) + ", \"user_last_name\":" + allUsers.getString(3) + "}");
+                        JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"email\":" + allUsers.getString(2) +
+                                ", \"user_first_name\":" + allUsers.getString(3) + ", \"user_last_name\":" + allUsers.getString(4) +
+                                ", \"password\":" + allUsers.getString(5) + ", \"phone\":" + allUsers.getString(6) + "}");
                         System.out.println(jsonobj); //send this to client
                     }
                     break;
@@ -374,8 +375,8 @@ public class AdminMenu {
                         int fid = scan.nextInt();
                         System.out.println("Please enter the Aircraft ID");
                         int aaid = scan.nextInt();
-                        stmt.executeQuery("DELETE FROM Flight WHERE Flight_id = " + fid + " AND Aircraft_id = " + aaid);
-                        stmt.executeQuery("DELETE FROM Aircraft_Schedule WHERE Flight_id = " + fid + " AND Aircraft_id = " + aaid);
+                        stmt.executeUpdate("DELETE FROM Flight WHERE FlightID = " + fid + " AND Aircraft_id = " + aaid);
+                        stmt.executeUpdate("DELETE FROM Aircraft_Schedule WHERE Flight_id = " + fid + " AND Aircraft_id = " + aaid);
                     }catch(Exception e){
                         System.out.println("Unable to delete Flight");
                         System.out.println(e);
@@ -387,10 +388,10 @@ public class AdminMenu {
                 case 4:
                     ResultSet allFlights = stmt.executeQuery("SELECT * FROM Flight");
                     while (allFlights.next()) {
-                        JSONObject jsonobj = new JSONObject("{\"FlightID\":" + allFlights.getInt(0) + ", \"Aircraft_id\":" +
-                                allFlights.getString(1) + ", \"Student_id\":" + allFlights.getString(2) + ", \"Instructor_id\":" +
-                                allFlights.getString(3) + ", \"Exercise\":" + allFlights.getString(5) + ", \"Sched_start\":" +
-                                allFlights.getString(4) + ", \"Sched_end\":" + allFlights.getString(6) +"}");
+                        JSONObject jsonobj = new JSONObject("{\"FlightID\":" + allFlights.getInt(1) + ", \"Aircraft_id\":" +
+                                allFlights.getString(2) + ", \"Student_id\":" + allFlights.getString(3) + ", \"Instructor_id\":" +
+                                allFlights.getString(4) + ", \"Exercise\":" + allFlights.getString(5) + ", \"Sched_start\":" +
+                                allFlights.getString(6) + ", \"Sched_end\":" + allFlights.getString(7) +"}");
                         System.out.println(jsonobj); //send this to client
                     }
                     break;

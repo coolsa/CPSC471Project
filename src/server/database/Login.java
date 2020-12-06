@@ -36,6 +36,8 @@ public class Login {
                 ResultSet studentFind = stmt.executeQuery("SELECT * FROM Student WHERE StudentID = " + tempID);
                 while(studentFind.next()){
                     System.out.println("User is a student");
+                    StudentMenu st = new StudentMenu(con,scan);
+                    st.StudentPortal(id);
                 }
 
                 ResultSet instructorFind = stmt.executeQuery("SELECT * FROM Instructor WHERE InstructorID = " + tempID);
