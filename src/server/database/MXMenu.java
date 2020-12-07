@@ -63,7 +63,7 @@ public class MXMenu {
             int fid = scan.nextInt();
             System.out.println("Please enter the aircraft ID");
             int aid = scan.nextInt();
-            CallableStatement cs = con.prepareCall("CancelUserFlight(?,?)");
+            CallableStatement cs = con.prepareCall("CALL CancelUserFlight(?,?)");
             cs.setInt(1, fid);
             cs.setInt(2, aid);
             cs.executeUpdate();
@@ -89,7 +89,7 @@ public class MXMenu {
             System.out.println("IMPLEMENT TIME CHECK FOR CONFLICTS!!!!!!!!!!");
 
             String end = scan.nextLine();
-            CallableStatement cs = con.prepareCall("ModifyFlight(?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL ModifyFlight(?,?,?,?)");
             cs.setInt(1, fid);
             cs.setInt(2, aid);
             cs.setString(3,start);

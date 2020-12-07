@@ -72,7 +72,7 @@ public class InstructorMenu {
      */
     public void ViewInstructorSchedule(int id){
         try{
-            CallableStatement cs1 = con.prepareCall("SelectInstructorFlight(?)");
+            CallableStatement cs1 = con.prepareCall("CALL SelectInstructorFlight(?)");
             cs1.setInt(1, id);
             ResultSet allUsersFlights = cs1.executeQuery();
             while (allUsersFlights.next()) {
@@ -93,7 +93,7 @@ public class InstructorMenu {
      */
     public void ViewInstructorProfile(int id){
         try{
-            CallableStatement cs2 = con.prepareCall("SelectUser(?)");
+            CallableStatement cs2 = con.prepareCall("CALL SelectUser(?)");
             cs2.setInt(1, id);
             ResultSet allUsers = cs2.executeQuery();
             JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"email\":" + allUsers.getString(2) +
@@ -127,7 +127,7 @@ public class InstructorMenu {
 
             System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
 
-            CallableStatement cs3 = con.prepareCall("BookFlight(?,?,?,?,?,?)");
+            CallableStatement cs3 = con.prepareCall("CALL BookFlight(?,?,?,?,?,?)");
             cs3.setInt(1, aid);
             cs3.setInt(2, sid);
             cs3.setInt(3, iid);
@@ -153,7 +153,7 @@ public class InstructorMenu {
 
             System.out.println("\n==============================\nImplement check to see if the user is on the current Flight\n==================================\n");
 
-            CallableStatement cs4 = con.prepareCall("CancelUserFlight(?,?)");
+            CallableStatement cs4 = con.prepareCall("CALL CancelUserFlight(?,?)");
             cs4.setInt(1, fid);
             cs4.setInt(2, aid2);
             cs4.executeUpdate();
@@ -169,7 +169,7 @@ public class InstructorMenu {
      */
     public void ViewAssignedStudents(int id){
         try{
-            CallableStatement cs5 = con.prepareCall("SelectInstructorsTeaches(?)");
+            CallableStatement cs5 = con.prepareCall("CALL SelectInstructorsTeaches(?)");
             cs5.setInt(1, id);
             ResultSet allStudents = cs5.executeQuery();
             while (allStudents.next()) {

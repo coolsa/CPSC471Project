@@ -70,7 +70,7 @@ public class StudentMenu {
      */
     public void ViewStudentSchedule(int id){
         try {
-            CallableStatement cs1 = con.prepareCall("SelectStudentFlight(?)");
+            CallableStatement cs1 = con.prepareCall("CALL SelectStudentFlight(?)");
             cs1.setInt(1, id);
             ResultSet allUsersFlights = cs1.executeQuery();
             while (allUsersFlights.next()) {
@@ -90,9 +90,10 @@ public class StudentMenu {
      */
     public void ViewStudentProfile(int id){
         try {
-            CallableStatement cs2 = con.prepareCall("SelectUser(?)");
+            CallableStatement cs2 = con.prepareCall("CALL SelectUser(?)");
             cs2.setInt(1, id);
             ResultSet allUsers = cs2.executeQuery();
+            allUsers.next();
             JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"email\":" + allUsers.getString(2) +
                         ", \"user_first_name\":" + allUsers.getString(3) + ", \"user_last_name\":" + allUsers.getString(4) +
                         ", \"password\":" + allUsers.getString(5) + ", \"phone\":" + allUsers.getString(6) + "}");
@@ -123,7 +124,7 @@ public class StudentMenu {
 
             System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
 
-            CallableStatement cs3 = con.prepareCall("BookFlight(?,?,?,?,?,?)");
+            CallableStatement cs3 = con.prepareCall("CALL BookFlight(?,?,?,?,?,?)");
             cs3.setInt(1, aid);
             cs3.setInt(2, sid);
             cs3.setInt(3, iid);
@@ -143,15 +144,24 @@ public class StudentMenu {
         try {
             System.out.println("Please enter the Flight ID");
             int fid = scan.nextInt();
-            System.out.println("Please enter the Aircraft ID");
-            int aid2 = scan.nextInt();
-            System.out.println("\n==============================\nImplement check to see if the user is on the current Flight\n==================================\n");
-            //stmt.executeUpdate("DELETE FROM Flight WHERE FlightID = " + fid + " AND Aircraft_id = " + aaid);
-            //stmt.executeUpdate("DELETE FROM Aircraft_Schedule WHERE Flight_id = " + fid + " AND Aircraft_id = " + aaid);
-            CallableStatement cs4 = con.prepareCall("CancelUserFlight(?,?)");
-            cs4.setInt(1, fid);
-            cs4.setInt(2, aid2);
-            cs4.executeUpdate();
+            //System.out.println("Please enter the Aircraft ID");
+            //int aid2 = scan.nextInt();
+            CallableStatement cs4a = con.prepareCall("CALL SelectFlight(?)");
+            cs4a.setInt(1, fid);
+            ResultSet rs = cs4a.executeQuery();
+            rs.next();
+            JSONObject jsonobj = new JSONObject("{\"Student_id\":" + rs.getInt(3) + ", \"Aircraft_id\":" + rs.getInt(2) + "}");
+            int tempID = (int)jsonobj.get("Student_id");
+            int aid2 = (int)jsonobj.get("Aircraft_id");
+            if(tempID == id) {
+                System.out.println("\n==============================\nImplement check to see if the user is on the current Flight\n==================================\n");
+                CallableStatement cs4b = con.prepareCall("CALL CancelUserFlight(?,?)");
+                cs4b.setInt(1, fid);
+                cs4b.setInt(2, aid2);
+                cs4b.executeUpdate();
+            }else{
+                System.out.println("The flight entered is not your flight");
+            }
         }catch(Exception e){
             System.out.println("Unable to delete Flight");
             System.out.println(e);
@@ -163,7 +173,7 @@ public class StudentMenu {
      */
     public void ViewAssignedInstructors(int id){
         try {
-            CallableStatement cs5 = con.prepareCall("SelectStudentsTeaches(?)");
+            CallableStatement cs5 = con.prepareCall("CALL SelectStudentsTeaches(?)");
             cs5.setInt(1, id);
             ResultSet allInstructors = cs5.executeQuery();
             while (allInstructors.next()) {

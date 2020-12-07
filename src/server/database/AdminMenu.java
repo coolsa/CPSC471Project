@@ -660,7 +660,7 @@ public class AdminMenu {
             System.out.println("Please enter the aircraft serial number");
             String serial = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("AddAircraft(?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddAircraft(?,?,?)");
             cs.setString(1, reg);
             cs.setString(2, type);
             cs.setString(3, serial);
@@ -702,7 +702,7 @@ public class AdminMenu {
             System.out.println("Please enter the aircraft serial number");
             String serial = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("AddAircraft(?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddAircraft(?,?,?,?)");
             cs.setInt(1,aid);
             cs.setString(1, reg);
             cs.setString(2, type);
@@ -751,7 +751,7 @@ public class AdminMenu {
 
             System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
 
-            CallableStatement cs = con.prepareCall("AddFlight(?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?)");
             cs.setInt(1, aid);
             cs.setInt(2, sid);
             cs.setInt(3, iid);
@@ -774,7 +774,7 @@ public class AdminMenu {
             System.out.println("Please enter the Aircraft ID");
             int aid2 = scan.nextInt();
 
-            CallableStatement cs2 = con.prepareCall("DeleteFlight(?,?)");
+            CallableStatement cs2 = con.prepareCall("CALL DeleteFlight(?,?)");
             cs2.setInt(1, fid);
             cs2.setInt(2, aid2);
             cs2.executeUpdate();
@@ -807,7 +807,7 @@ public class AdminMenu {
 
             System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
 
-            CallableStatement cs = con.prepareCall("AddFlight(?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?,?)");
             cs.setInt(1,fid);
             cs.setInt(2, aid);
             cs.setInt(3, sid);
@@ -830,8 +830,8 @@ public class AdminMenu {
             ResultSet allFlights = cs4.executeQuery();
             while (allFlights.next()) {
                 JSONObject jsonobj = new JSONObject("{\"FlightID\":" + allFlights.getInt(1) + ", \"Aircraft_id\":" +
-                        allFlights.getString(2) + ", \"Student_id\":" + allFlights.getString(3) + ", \"Instructor_id\":" +
-                        allFlights.getString(4) + ", \"Exercise\":" + allFlights.getString(5) + ", \"Flight_start\":" +
+                        allFlights.getInt(2) + ", \"Student_id\":" + allFlights.getInt(3) + ", \"Instructor_id\":" +
+                        allFlights.getInt(4) + ", \"Exercise\":" + allFlights.getString(5) + ", \"Flight_start\":" +
                         allFlights.getString(6) + ", \"Flight_end\":" + allFlights.getString(7) + "}");
                 System.out.println(jsonobj); //send this to client
             }
