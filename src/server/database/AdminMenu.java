@@ -111,16 +111,16 @@ public class AdminMenu {
             int caseID = scan.nextInt();
             switch (caseID) {
                 case 1:
-                    AddStudent();
+                    AddStudent(id);
                     break;
                 case 2:
-                    AddInstructor();
+                    AddInstructor(id);
                     break;
                 case 3:
-                    AddMX();
+                    AddMX(id);
                     break;
                 case 4:
-                    AddAdmin();
+                    AddAdmin(id);
                     break;
             }
         } catch (Exception e) {
@@ -143,16 +143,16 @@ public class AdminMenu {
             int caseID = scan.nextInt();
             switch (caseID) {
                 case 1:
-                    RemoveStudent();
+                    RemoveStudent(id);
                     break;
                 case 2:
-                    RemoveInstructor();
+                    RemoveInstructor(id);
                     break;
                 case 3:
-                    RemoveMX();
+                    RemoveMX(id);
                     break;
                 case 4:
-                    RemoveAdmin();
+                    RemoveAdmin(id);
                     break;
             }
         } catch (Exception e) {
@@ -176,14 +176,14 @@ public class AdminMenu {
             int caseID = scan.nextInt();
             switch (caseID) {
                 case 1:
-                    AddAircraft();
+                    AddAircraft(id);
                     break;
                 case 2:
-                    RemoveAircraft();
+                    RemoveAircraft(id);
                     break;
                 case 3:
                     System.out.println("Idk how we wanna edit aircraft");
-                    EditAircraft();
+                    EditAircraft(id);
                     break;
                 case 4:
                     ViewAllAircraft();
@@ -210,17 +210,46 @@ public class AdminMenu {
             int caseID = scan.nextInt();
             switch (caseID) {
                 case 1:
-                    AddFlight();
+                    AddFlight(id);
                     break;
                 case 2:
-                    RemoveFlight();
+                    RemoveFlight(id);
                     break;
                 case 3:
                     System.out.println("Idk how we wanna edit flights");
-                    EditFlight();
+                    EditFlight(id);
                     break;
                 case 4:
                     ViewAllFlight();
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void EditUser(int id){
+        try {
+            System.out.println("\nRemove Users:\n" +
+                    "Menu Options:\n " +
+                    "1 - Remove Student\n " +
+                    "2 - Remove Instructor\n " +
+                    "3 - Remove Mechanical Engineer\n " +
+                    "4 - Remove Admin\n " +
+                    "Please enter your selection:");
+            int caseID = scan.nextInt();
+            switch (caseID) {
+                case 1:
+                    EditStudent(id);
+                    break;
+                case 2:
+                    EditInstructor(id);
+                    break;
+                case 3:
+                    EditMX(id);
+                    break;
+                case 4:
+                    EditAdmin(id);
                     break;
             }
         } catch (Exception e) {
@@ -268,7 +297,7 @@ public class AdminMenu {
     /**
      * Adds the user inputed student to the database
      */
-    public void AddStudent(){
+    public void AddStudent(int id){
         try{
             scan.nextLine();
             System.out.println("Please enter the student email");
@@ -284,13 +313,14 @@ public class AdminMenu {
             System.out.println("Please enter the student Pilot License Number");
             String license = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL AddStudent(?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddStudent(?,?,?,?,?,?,?)");
             cs.setString(1, email);
             cs.setString(2,fname);
             cs.setString(3,lname);
             cs.setString(4,pass);
             cs.setString(5,phone);
             cs.setString(6,license);
+            cs.setInt(7,id);
             cs.executeQuery();
         }catch(Exception e){
             System.out.println("Unable to add new Student");
@@ -301,7 +331,7 @@ public class AdminMenu {
     /**
      * Adds the user inputed instructor to the database
      */
-    public void AddInstructor(){
+    public void AddInstructor(int id){
         try {
             scan.nextLine();
             System.out.println("Please enter the instructor email");
@@ -319,7 +349,7 @@ public class AdminMenu {
             System.out.println("Please enter the instructor's Instructor Class");
             String iClass = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL AddInstructor(?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddInstructor(?,?,?,?,?,?,?,?)");
             cs.setString(1, email);
             cs.setString(2,fname);
             cs.setString(3,lname);
@@ -327,6 +357,7 @@ public class AdminMenu {
             cs.setString(5,phone);
             cs.setString(6,license);
             cs.setString(7,iClass);
+            cs.setInt(8,id);
             cs.executeQuery();
         }catch(Exception e){
             System.out.println("Unable to add new Instructor");
@@ -337,7 +368,7 @@ public class AdminMenu {
     /**
      * Adds the user inputed mechanical engineer to the database
      */
-    public void AddMX(){
+    public void AddMX(int id){
         try{
             scan.nextLine();
             System.out.println("Please enter the mechanical engineer email");
@@ -355,7 +386,7 @@ public class AdminMenu {
             System.out.println("Please enter the mechanical engineer's Rating");
             String rating = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL AddMX_Engineer(?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddMX_Engineer(?,?,?,?,?,?,?,?)");
             cs.setString(1, email);
             cs.setString(2,fname);
             cs.setString(3,lname);
@@ -363,6 +394,7 @@ public class AdminMenu {
             cs.setString(5,phone);
             cs.setString(6,license);
             cs.setString(7,rating);
+            cs.setInt(8,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to add new Mechanical Engineer");
@@ -373,7 +405,7 @@ public class AdminMenu {
     /**
      * Adds the user inputed admin to the database
      */
-    public void AddAdmin(){
+    public void AddAdmin(int id){
         try{
             scan.nextLine();
             System.out.println("Please enter the admin email");
@@ -389,13 +421,14 @@ public class AdminMenu {
             System.out.println("Please enter the admin's role");
             String role = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL AddAdmin(?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddAdmin(?,?,?,?,?,?,?)");
             cs.setString(1, email);
             cs.setString(2,fname);
             cs.setString(3,lname);
             cs.setString(4,pass);
             cs.setString(5,phone);
             cs.setString(6,role);
+            cs.setInt(7,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to add new Admin");
@@ -406,12 +439,13 @@ public class AdminMenu {
     /**
      * Admin menu to remove the user selected student
      */
-    public void RemoveStudent(){
+    public void RemoveStudent(int id){
         try {
             System.out.println("Please enter the Student ID");
             int sid = scan.nextInt();
-            CallableStatement cs1 = con.prepareCall("CALL RemoveStudent(?)");
+            CallableStatement cs1 = con.prepareCall("CALL RemoveStudent(?,?)");
             cs1.setInt(1, sid);
+            cs1.setInt(2, id);
             cs1.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to delete Student");
@@ -422,12 +456,13 @@ public class AdminMenu {
     /**
      * Admin menu to remove the user selected instructor
      */
-    public void RemoveInstructor(){
+    public void RemoveInstructor(int id){
         try {
             System.out.println("Please enter the Instructor ID");
             int iid = scan.nextInt();
-            CallableStatement cs2 = con.prepareCall("CALL RemoveInstructor(?)");
+            CallableStatement cs2 = con.prepareCall("CALL RemoveInstructor(?,?)");
             cs2.setInt(1, iid);
+            cs2.setInt(2,id);
             cs2.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to delete Instructor");
@@ -438,12 +473,13 @@ public class AdminMenu {
     /**
      * Admin menu to remove the user selected mechanical engineer
      */
-    public void RemoveMX(){
+    public void RemoveMX(int id){
         try {
             System.out.println("Please enter the Mechanical Engineer ID");
             int mid = scan.nextInt();
-            CallableStatement cs3 = con.prepareCall("CALL RemoveMXEngineer(?)");
+            CallableStatement cs3 = con.prepareCall("CALL RemoveMXEngineer(?,?)");
             cs3.setInt(1, mid);
+            cs3.setInt(2,id);
             cs3.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to delete  Mechanical Engineer");
@@ -454,12 +490,13 @@ public class AdminMenu {
     /**
      * Admin menu to remove the user selected admin
      */
-    public void RemoveAdmin(){
+    public void RemoveAdmin(int id){
         try {
             System.out.println("Please enter the Admin ID");
             int aid = scan.nextInt();
-            CallableStatement cs4 = con.prepareCall("CALL RemoveAdmin(?)");
+            CallableStatement cs4 = con.prepareCall("CALL RemoveAdmin(?,?)");
             cs4.setInt(1, aid);
+            cs4.setInt(2,id);
             cs4.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to delete Admin");
@@ -467,40 +504,10 @@ public class AdminMenu {
         }
     }
 
-
-    public void EditUser(int id){
-        try {
-            System.out.println("\nRemove Users:\n" +
-                    "Menu Options:\n " +
-                    "1 - Remove Student\n " +
-                    "2 - Remove Instructor\n " +
-                    "3 - Remove Mechanical Engineer\n " +
-                    "4 - Remove Admin\n " +
-                    "Please enter your selection:");
-            int caseID = scan.nextInt();
-            switch (caseID) {
-                case 1:
-                    EditStudent();
-                    break;
-                case 2:
-                    EditInstructor();
-                    break;
-                case 3:
-                    EditMX();
-                    break;
-                case 4:
-                    EditAdmin();
-                    break;
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
     /**
      * Admin menu to edit the desired student
      */
-    public void EditStudent(){
+    public void EditStudent(int id){
         try {
             scan.nextLine();
             System.out.println("Please enter the student id");
@@ -518,7 +525,7 @@ public class AdminMenu {
             System.out.println("Please enter the student Pilot License Number");
             String license = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL EditStudent(?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL EditStudent(?,?,?,?,?,?,?,?)");
             cs.setInt(1, sid);
             cs.setString(2, email);
             cs.setString(3,fname);
@@ -526,6 +533,7 @@ public class AdminMenu {
             cs.setString(5,pass);
             cs.setString(6,phone);
             cs.setString(7,license);
+            cs.setInt(8,id);
             cs.executeQuery();
         }catch(Exception e){
             System.out.println("Unable to add new Student");
@@ -536,7 +544,7 @@ public class AdminMenu {
     /**
      * Admin menu to edit the desired instructor
      */
-    public void EditInstructor(){
+    public void EditInstructor(int id){
         try {
             scan.nextLine();
             System.out.println("Please enter the instructor id");
@@ -556,7 +564,7 @@ public class AdminMenu {
             System.out.println("Please enter the instructor's Instructor Class");
             String iClass = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL EditInstructor(?,?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL EditInstructor(?,?,?,?,?,?,?,?,?)");
             cs.setInt(1,iid);
             cs.setString(2, email);
             cs.setString(3,fname);
@@ -565,6 +573,7 @@ public class AdminMenu {
             cs.setString(6,phone);
             cs.setString(7,license);
             cs.setString(8,iClass);
+            cs.setInt(9,id);
             cs.executeQuery();
         }catch(Exception e){
             System.out.println("Unable to add new Instructor");
@@ -575,7 +584,7 @@ public class AdminMenu {
     /**
      * Admin menu to edit the desired mechanical engineer
      */
-    public void EditMX(){
+    public void EditMX(int id){
         try{
             scan.nextLine();
             System.out.println("Please enter the mechanical engineer id");
@@ -595,7 +604,7 @@ public class AdminMenu {
             System.out.println("Please enter the mechanical engineer's Rating");
             String rating = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL EditMX_Engineer(?,?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL EditMX_Engineer(?,?,?,?,?,?,?,?,?)");
             cs.setInt(1,mid);
             cs.setString(2, email);
             cs.setString(3,fname);
@@ -604,6 +613,7 @@ public class AdminMenu {
             cs.setString(6,phone);
             cs.setString(7,license);
             cs.setString(8,rating);
+            cs.setInt(9,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to add new Mechanical Engineer");
@@ -614,7 +624,7 @@ public class AdminMenu {
     /**
      * Admin menu to edit the desired admin
      */
-    public void EditAdmin(){
+    public void EditAdmin(int id){
         try{
             scan.nextLine();
             System.out.println("Please enter the admin id");
@@ -632,7 +642,7 @@ public class AdminMenu {
             System.out.println("Please enter the admin's role");
             String role = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL AddAdmin(?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddAdmin(?,?,?,?,?,?,?,?)");
             cs.setInt(1,aid);
             cs.setString(2, email);
             cs.setString(3,fname);
@@ -640,6 +650,7 @@ public class AdminMenu {
             cs.setString(5,pass);
             cs.setString(6,phone);
             cs.setString(7,role);
+            cs.setInt(8,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to add new Admin");
@@ -650,7 +661,7 @@ public class AdminMenu {
     /**
      * Add the inputed aircraft to the database
      */
-    public void AddAircraft(){
+    public void AddAircraft(int id){
         try {
             scan.nextLine();
             System.out.println("Please enter the aircraft registration");
@@ -660,10 +671,11 @@ public class AdminMenu {
             System.out.println("Please enter the aircraft serial number");
             String serial = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL AddAircraft(?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddAircraft(?,?,?,?)");
             cs.setString(1, reg);
             cs.setString(2, type);
             cs.setString(3, serial);
+            cs.setInt(4,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -673,13 +685,14 @@ public class AdminMenu {
     /**
      * Remove the desired aircraft from the database
      */
-    public void RemoveAircraft(){
+    public void RemoveAircraft(int id){
         try {
             System.out.println("Please enter the Aircraft ID");
             int aid = scan.nextInt();
 
-            CallableStatement cs2 = con.prepareCall("CALL RemoveAircraft(?)");
+            CallableStatement cs2 = con.prepareCall("CALL RemoveAircraft(?,?)");
             cs2.setInt(1, aid);
+            cs2.setInt(2,id);
             cs2.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to delete Aircraft");
@@ -690,7 +703,7 @@ public class AdminMenu {
     /**
      * Edit the desired aircraft from the database
      */
-    public void EditAircraft(){
+    public void EditAircraft(int id){
         try {
             scan.nextLine();
             System.out.println("Please enter the aircraft id");
@@ -702,11 +715,12 @@ public class AdminMenu {
             System.out.println("Please enter the aircraft serial number");
             String serial = scan.nextLine();
 
-            CallableStatement cs = con.prepareCall("CALL AddAircraft(?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddAircraft(?,?,?,?,?)");
             cs.setInt(1,aid);
-            cs.setString(1, reg);
-            cs.setString(2, type);
-            cs.setString(3, serial);
+            cs.setString(2, reg);
+            cs.setString(3, type);
+            cs.setString(4, serial);
+            cs.setInt(5,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -733,7 +747,7 @@ public class AdminMenu {
     /**
      * Add user inputed flight to the database
      */
-    public void AddFlight(){
+    public void AddFlight(int id){
         try {
             scan.nextLine();
             System.out.println("Please enter the flight's aircraft ID");
@@ -751,13 +765,14 @@ public class AdminMenu {
 
             System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
 
-            CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?,?)");
             cs.setInt(1, aid);
             cs.setInt(2, sid);
             cs.setInt(3, iid);
             cs.setString(4, ex);
             cs.setString(5, start);
             cs.setString(6, end);
+            cs.setInt(7,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
@@ -767,16 +782,17 @@ public class AdminMenu {
     /**
      * Remove desired flight from the database
      */
-    public void RemoveFlight(){
+    public void RemoveFlight(int id){
         try {
             System.out.println("Please enter the Flight ID");
             int fid = scan.nextInt();
             System.out.println("Please enter the Aircraft ID");
             int aid2 = scan.nextInt();
 
-            CallableStatement cs2 = con.prepareCall("CALL DeleteFlight(?,?)");
+            CallableStatement cs2 = con.prepareCall("CALL DeleteFlight(?,?,?)");
             cs2.setInt(1, fid);
             cs2.setInt(2, aid2);
+            cs2.setInt(3,id);
             cs2.executeUpdate();
         }catch(Exception e){
             System.out.println("Unable to delete Flight");
@@ -787,7 +803,7 @@ public class AdminMenu {
     /**
      * Edit desired flight from the database
      */
-    public void EditFlight(){
+    public void EditFlight(int id){
         try {
             scan.nextLine();
             System.out.println("Please enter the flight's id");
@@ -807,7 +823,7 @@ public class AdminMenu {
 
             System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
 
-            CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?,?,?)");
             cs.setInt(1,fid);
             cs.setInt(2, aid);
             cs.setInt(3, sid);
@@ -815,6 +831,7 @@ public class AdminMenu {
             cs.setString(5, ex);
             cs.setString(6, start);
             cs.setString(7, end);
+            cs.setInt(8,id);
             cs.executeUpdate();
         }catch(Exception e){
             System.out.println(e);

@@ -159,7 +159,6 @@ public class InstructorMenu {
             int tempID = (int)jsonobj.get("Instructor_id");
             int aid2 = (int)jsonobj.get("Aircraft_id");
             if(tempID == id) {
-                System.out.println("\n==============================\nImplement check to see if the user is on the current Flight\n==================================\n");
                 CallableStatement cs4b = con.prepareCall("CALL CancelUserFlight(?,?)");
                 cs4b.setInt(1, fid);
                 cs4b.setInt(2, aid2);

@@ -122,16 +122,20 @@ public class StudentMenu {
             System.out.println("Please enter the flight scheduled end time in DATETIME (YYYY-MM-DD hh: mm: ss.nnn)");
             String end = scan.nextLine();
 
+            CallableStatement cs3a = con.prepareCall("CALL SelectAllFlights");
+            ResultSet rs = cs3a.executeQuery();
+            JSONObject jsonobj = new JSONObject("{\"Flight_start_date\":" + rs.getDate(6) + ", \"Flight_end\":" + rs.getDate(7) + "}");
+
             System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
 
-            CallableStatement cs3 = con.prepareCall("CALL BookFlight(?,?,?,?,?,?)");
-            cs3.setInt(1, aid);
-            cs3.setInt(2, sid);
-            cs3.setInt(3, iid);
-            cs3.setString(4, ex);
-            cs3.setString(5, start);
-            cs3.setString(6, end);
-            cs3.executeUpdate();
+            CallableStatement cs3b = con.prepareCall("CALL BookFlight(?,?,?,?,?,?)");
+            cs3b.setInt(1, aid);
+            cs3b.setInt(2, sid);
+            cs3b.setInt(3, iid);
+            cs3b.setString(4, ex);
+            cs3b.setString(5, start);
+            cs3b.setString(6, end);
+            cs3b.executeUpdate();
         }catch(Exception e){
             System.out.println(e);
         }
@@ -154,7 +158,6 @@ public class StudentMenu {
             int tempID = (int)jsonobj.get("Student_id");
             int aid2 = (int)jsonobj.get("Aircraft_id");
             if(tempID == id) {
-                System.out.println("\n==============================\nImplement check to see if the user is on the current Flight\n==================================\n");
                 CallableStatement cs4b = con.prepareCall("CALL CancelUserFlight(?,?)");
                 cs4b.setInt(1, fid);
                 cs4b.setInt(2, aid2);
