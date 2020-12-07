@@ -148,15 +148,25 @@ public class InstructorMenu {
         try {
             System.out.println("Please enter the Flight ID");
             int fid = scan.nextInt();
-            System.out.println("Please enter the Aircraft ID");
-            int aid2 = scan.nextInt();
+            //System.out.println("Please enter the Aircraft ID");
+            //int aid2 = scan.nextInt();
 
-            System.out.println("\n==============================\nImplement check to see if the user is on the current Flight\n==================================\n");
-
-            CallableStatement cs4 = con.prepareCall("CALL CancelUserFlight(?,?)");
-            cs4.setInt(1, fid);
-            cs4.setInt(2, aid2);
-            cs4.executeUpdate();
+            CallableStatement cs4a = con.prepareCall("CALL SelectFlight(?)");
+            cs4a.setInt(1, fid);
+            ResultSet rs = cs4a.executeQuery();
+            rs.next();
+            JSONObject jsonobj = new JSONObject("{\"Instructor_id\":" + rs.getInt(4) + ", \"Aircraft_id\":" + rs.getInt(2) + "}");
+            int tempID = (int)jsonobj.get("Instructor_id");
+            int aid2 = (int)jsonobj.get("Aircraft_id");
+            if(tempID == id) {
+                System.out.println("\n==============================\nImplement check to see if the user is on the current Flight\n==================================\n");
+                CallableStatement cs4b = con.prepareCall("CALL CancelUserFlight(?,?)");
+                cs4b.setInt(1, fid);
+                cs4b.setInt(2, aid2);
+                cs4b.executeUpdate();
+            }else{
+                System.out.println("The flight entered is not your flight");
+            }
         }catch(Exception e){
             System.out.println("Unable to delete Flight");
             System.out.println(e);
