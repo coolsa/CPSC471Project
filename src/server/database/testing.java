@@ -3,13 +3,36 @@ package server.database;
 import java.sql.*;
 //import com.mysql.cj.jdbc.*;
 import java.net.HttpURLConnection;
+import java.util.Scanner;
+
 import org.json.*;
 
 
 public class testing {
+	public static void main(String[] args) throws SQLException {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter UserID: ");
+		int id = scan.nextInt();
+		System.out.println("Please enter Password: ");
+		String password = scan.next();
+
+		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+				"something_fun");
+
+		Login login = new Login(con,scan);
+		login.login(id,password);
+
+		con.close();
+		scan.close();
+
+	}
+
+
+	//CLOUD OLD TEST MAIN
+	/*
 	public static void main(String[] args) {
 		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
+			// Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 					"something_fun");
 			// here sonoo is database name, root is username and password
@@ -26,4 +49,5 @@ public class testing {
 			System.out.println(e);
 		}
 	}
+	 */
 }
