@@ -1,17 +1,14 @@
-package org.openapitools.api.impl;
+package server.api.impl;
 
-import org.openapitools.api.*;
-import org.openapitools.model.*;
+import server.api.*;
+import server.model.*;
 
 
-import org.openapitools.model.Admin;
-import org.openapitools.model.Instructor;
-import org.openapitools.model.MXEngineer;
-import org.openapitools.model.Student;
-import org.openapitools.model.User;
+import server.model.Admin;
+import server.model.Student;
 
 import java.util.List;
-import org.openapitools.api.NotFoundException;
+import server.api.NotFoundException;
 
 import java.io.InputStream;
 
@@ -42,7 +39,7 @@ public class UserApiServiceImpl implements UserApiService {
       // do some magic!
       return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
   }
-      public Response addTeacherForStudent(Long userId,Instructor instructor,SecurityContext securityContext)
+      public Response addTeacherForStudent(Long userId, Instructor instructor,SecurityContext securityContext)
       throws NotFoundException {
       // do some magic!
       return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

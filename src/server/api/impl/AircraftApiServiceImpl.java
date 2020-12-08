@@ -1,15 +1,9 @@
-package org.openapitools.api.impl;
+package server.api.impl;
 
-import org.openapitools.api.*;
-import org.openapitools.model.*;
-
-
-import org.openapitools.model.Aircraft;
-import org.openapitools.model.AircraftSchedule;
-import org.openapitools.model.Flight;
+import server.api.*;
+import server.model.*;
 
 import java.util.List;
-import org.openapitools.api.NotFoundException;
 
 import java.io.InputStream;
 

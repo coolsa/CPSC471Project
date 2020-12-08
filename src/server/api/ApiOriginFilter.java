@@ -1,4 +1,4 @@
-package org.openapitools.api;
+package server.api;
 
 import java.io.IOException;
 

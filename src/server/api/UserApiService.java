@@ -1,14 +1,7 @@
-package org.openapitools.api;
+package server.api;
 
-import org.openapitools.api.*;
-import org.openapitools.model.*;
-
-
-import org.openapitools.model.Admin;
-import org.openapitools.model.Instructor;
-import org.openapitools.model.MXEngineer;
-import org.openapitools.model.Student;
-import org.openapitools.model.User;
+import server.api.*;
+import server.model.*;
 
 import java.util.List;
 import org.openapitools.api.NotFoundException;

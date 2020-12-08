@@ -1,4 +1,4 @@
-package org.openapitools.model;
+package server.model;
 
 import java.util.Objects;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import org.openapitools.model.AircraftScheduleAircraftId;
+import server.model.AircraftScheduleAircraftId;
 import javax.validation.constraints.*;
 import io.swagger.annotations.*;
 

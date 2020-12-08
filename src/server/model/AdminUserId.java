@@ -1,4 +1,4 @@
-package org.openapitools.model;
+package server.model;
 
 import java.util.Objects;
 import java.util.ArrayList;

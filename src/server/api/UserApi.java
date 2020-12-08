@@ -1,16 +1,10 @@
-package org.openapitools.api;
+package server.api;
 
-import org.openapitools.model.*;
-import org.openapitools.api.UserApiService;
+import server.model.*;
+import server.api.*;
 
 import io.swagger.annotations.ApiParam;
 import io.swagger.jaxrs.*;
-
-import org.openapitools.model.Admin;
-import org.openapitools.model.Instructor;
-import org.openapitools.model.MXEngineer;
-import org.openapitools.model.Student;
-import org.openapitools.model.User;
 
 import java.util.Map;
 import java.util.List;
