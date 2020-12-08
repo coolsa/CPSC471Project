@@ -9,6 +9,8 @@ import org.openapitools.model.Aircraft;
 import org.openapitools.model.AircraftSchedule;
 import org.openapitools.model.Flight;
 import io.swagger.annotations.*;
+import server.database.AdminMenu;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -56,7 +61,16 @@ public interface AircraftApi {
         consumes = { "application/json" },
         method = RequestMethod.POST)
     default ResponseEntity<Void> addAircraft(@ApiParam(value = "The new aircraft to add."  )  @Valid @RequestBody(required = false) Aircraft aircraft) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    	try {
+        	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+    				"something_fun");
+        	AdminMenu am = new AdminMenu(con);
+        	am.AddAircraft(aircraft, 8);
+        	}catch(Exception e) {
+        		System.out.println(e);
+        	}
+    	
+    	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
 
@@ -160,7 +174,18 @@ public interface AircraftApi {
         @ApiResponse(code = 200, message = "success response") })
     @RequestMapping(value = "/aircraft/flight/{flight_id}",
         method = RequestMethod.DELETE)
-    default ResponseEntity<Void> deleteFlight(@ApiParam(value = "the id of the aircraft.",required=true) @PathVariable("flight_id") Long flightId) {
+    default ResponseEntity<Void> deleteFlight(@ApiParam(value = "the id of the aircraft.",required=true) @PathVariable("flight_id") int flightId)
+    {
+    	try {
+    	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+				"something_fun");
+    	AdminMenu am = new AdminMenu(con);
+    	am.RemoveFlight(flightId, 100, 8);
+    	}catch(Exception e) {
+    		System.out.println(e);
+    	}
+    	
+    	
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
