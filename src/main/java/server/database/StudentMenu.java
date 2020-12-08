@@ -2,12 +2,17 @@ package server.database;
 
 import org.json.JSONObject;
 import org.openapitools.model.Flight;
+import org.openapitools.model.Instructor;
+import org.openapitools.model.Student;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class StudentMenu {
@@ -15,49 +20,51 @@ public class StudentMenu {
 	private Connection con;
 
 	// Constructor
-	StudentMenu(Connection con) {
+	public StudentMenu(Connection con) {
 		this.con = con;
 	}
 
 	/**
 	 * Allows students to see their upcoming flights
 	 */
-	public void ViewStudentSchedule(int id) {
+	public List<Flight> ViewStudentSchedule(int id) {
 		try {
 			CallableStatement cs1 = con.prepareCall("CALL SelectStudentFlight(?)");
 			cs1.setInt(1, id);
 			ResultSet allUsersFlights = cs1.executeQuery();
+			
+			AdminMenu am = new AdminMenu(con);
 
-			// IMPLEMENT LATER
+			List<Flight> flights = new ArrayList<Flight>();
 
 			while (allUsersFlights.next()) {
-				JSONObject jsonobj = new JSONObject("{\"FlightID\":" + allUsersFlights.getInt(1) + ", \"aircraft_id\":"
-						+ allUsersFlights.getInt(2) + ", \"instructor_id\":" + allUsersFlights.getInt(4)
-						+ ", \"exercise\":" + allUsersFlights.getString(5) + ", \"sched_start\":"
-						+ allUsersFlights.getDate(6) + ", \"sched_end\":" + allUsersFlights.getDate(7) + "}");
-				System.out.println(jsonobj); // send this to client
+				Flight newFlight = new Flight();
+				newFlight.setFlightId((long)allUsersFlights.getInt(1));
+				newFlight.setAircraftId(am.SelectAircraft(allUsersFlights.getInt(2)));
+				newFlight.setStudentId(am.SelectStudent(id));
+				newFlight.setInstructorId(am.SelectInstructor(allUsersFlights.getInt(4)));
+				newFlight.setExercise(allUsersFlights.getString(5));
+				newFlight.setFlightStart(allUsersFlights.getObject(6, OffsetDateTime.class));
+				newFlight.setFlightEnd(allUsersFlights.getObject(7, OffsetDateTime.class));
+				flights.add(newFlight);
 			}
+			return flights;
 		} catch (Exception e) {
 			System.out.println(e);
+			return null;
 		}
 	}
 
 	/**
 	 * Allows students to view their profile
 	 */
-	public void ViewStudentProfile(int id) {
+	public Student ViewStudentProfile(int id) {
 		try {
-			CallableStatement cs2 = con.prepareCall("CALL SelectUser(?)");
-			cs2.setInt(1, id);
-			ResultSet allUsers = cs2.executeQuery();
-			allUsers.next();
-			JSONObject jsonobj = new JSONObject("{\"user_id\":" + allUsers.getInt(1) + ", \"email\":"
-					+ allUsers.getString(2) + ", \"user_first_name\":" + allUsers.getString(3) + ", \"user_last_name\":"
-					+ allUsers.getString(4) + ", \"password\":" + allUsers.getString(5) + ", \"phone\":"
-					+ allUsers.getString(6) + "}");
-			System.out.println(jsonobj); // send this to client
+			AdminMenu am = new AdminMenu(con);
+			return am.SelectStudent(id);
 		} catch (Exception e) {
 			System.out.println(e);
+			return null;
 		}
 	}
 
@@ -137,21 +144,23 @@ public class StudentMenu {
 	/**
 	 * Allows students to view their instructors
 	 */
-	public void ViewAssignedInstructors(int id) {
+	public List<Instructor> ViewAssignedInstructors(int id) {
 		try {
 			CallableStatement cs5 = con.prepareCall("CALL SelectStudentsTeaches(?)");
 			cs5.setInt(1, id);
 			ResultSet allInstructors = cs5.executeQuery();
 
-			// IMPLEMENT LATER
+			AdminMenu am = new AdminMenu(con);
 
+			List<Instructor> teachers = new ArrayList<Instructor>();
 			while (allInstructors.next()) {
-				JSONObject jsonobj = new JSONObject("{\"user_id\":" + allInstructors.getInt(1) + ", \"instructor_id\":"
-						+ allInstructors.getInt(2) + "}");
-				System.out.println(jsonobj); // send this to client
+				teachers.add(am.SelectInstructor(allInstructors.getInt(1)));
 			}
+			
+			return teachers;
 		} catch (Exception e) {
 			System.out.println(e);
+			return null;
 		}
 	}
 }

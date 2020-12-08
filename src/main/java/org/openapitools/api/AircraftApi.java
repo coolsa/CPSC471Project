@@ -5,11 +5,15 @@
  */
 package org.openapitools.api;
 
+import org.json.JSONObject;
 import org.openapitools.model.Aircraft;
 import org.openapitools.model.AircraftSchedule;
 import org.openapitools.model.Flight;
 import io.swagger.annotations.*;
 import server.database.AdminMenu;
+import server.database.InstructorMenu;
+import server.database.MXMenu;
+import server.database.StudentMenu;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -61,17 +65,25 @@ public interface AircraftApi {
 			"application/json" }, method = RequestMethod.POST)
 	default ResponseEntity<List<Object>> addAircraft(
 			@ApiParam(value = "The new aircraft to add.") @Valid @RequestBody(required = false) Aircraft aircraft) {
+		
+		//ADD AIRCRAFT
     	try {
-        	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-    				"something_fun");
-        	AdminMenu am = new AdminMenu(con);
-        	am.AddAircraft(aircraft, 8);
-        	}catch(Exception e) {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = 8;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        if(am.isAdmin(8)) {
+	        	am.AddAircraft(aircraft, id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }catch(Exception e) {
         		System.out.println(e);
-        	}
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     	
-    	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
 	}
 
 	/**
@@ -102,16 +114,33 @@ public interface AircraftApi {
                 }
             }
         });
-        try {
-        	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-				"something_fun");
-        	AdminMenu am = new AdminMenu(con);
-        	am.AddFlight(flight, 8);
-    	}catch(Exception e) {
-    		System.out.println(e);
-    	}
-    	
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        
+        //ADD FLIGHT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = 8;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        
+	        if(am.isStudent(id)) {
+	        	StudentMenu st = new StudentMenu(con);
+	        	st.BookFlight(flight, id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }else if(am.isInstructor(id)) {
+	        	InstructorMenu in = new InstructorMenu(con);
+	        	in.BookFlight(flight,id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        else if(am.isAdmin(8)) {
+	        	am.AddFlight(flight, id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
@@ -137,6 +166,8 @@ public interface AircraftApi {
 			@ApiParam(value = "The aircraft  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("aircraft_id") Long aircraftId,
 			@ApiParam(value = "The schedule to add for an aircraft.", required = true) @Valid @RequestBody AircraftSchedule aircraftSchedule) {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		
+		//NO LONGER NEEDED, IS HANDLED BY ADD FLIGHT
 
 	}
 
@@ -157,8 +188,24 @@ public interface AircraftApi {
 	@RequestMapping(value = "/aircraft/{aircraft_id}", method = RequestMethod.DELETE)
 	default ResponseEntity<Void> deleteAircraft(
 			@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("aircraft_id") Long aircraftId) {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
+		
+		//REMOVE AIRCRAFT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = 8;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        if(am.isAdmin(8)) {
+	        	am.RemoveAircraft(aircraftId.intValue(),id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 	}
 
 	/**
@@ -178,19 +225,36 @@ public interface AircraftApi {
 	@RequestMapping(value = "/aircraft/flight/{flight_id}", method = RequestMethod.DELETE)
 	default ResponseEntity<Void> deleteFlight(
 			@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("flight_id") Long flightId) {
+		
+		//REMOVE FLIGHT
     	try {
-    	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-				"something_fun");
-    	AdminMenu am = new AdminMenu(con);
-    	am.RemoveFlight(flightId.intValue(), 100, 8);
-    	}catch(Exception e) {
-    		System.out.println(e);
-    	}
-    	
-    	
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = 8;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        if(am.isStudent(id)) {
+	        	StudentMenu st = new StudentMenu(con);
+	        	st.CancelFlight(flightId.intValue(), id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }else if(am.isInstructor(id)) {
+	        	InstructorMenu in = new InstructorMenu(con);
+	        	in.CancelFlight(flightId.intValue(),id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }else if(am.isMX(id)) {
+	        	MXMenu mx = new MXMenu(con);
+	        	mx.CancelFlight(flightId.intValue(), id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }else if(am.isAdmin(8)) {
+	        	am.RemoveFlight(flightId.intValue(), id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 	}
 
 	/**
@@ -216,6 +280,8 @@ public interface AircraftApi {
 			@ApiParam(value = "the flight id to fetch, from the schedual", required = true) @PathVariable("flight_id") Long flightId) {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
+		//NO LONGER NEEDED, HANDLED BY DELETE FLIGHT
+		
 	}
 
 	/**
@@ -233,7 +299,7 @@ public interface AircraftApi {
 			@ApiResponse(code = 404, message = "Aircraft not found"),
 			@ApiResponse(code = 200, message = "success response", response = Object.class) })
 	@RequestMapping(value = "/aircraft/{aircraft_id}", produces = { "application/json" }, method = RequestMethod.GET)
-	default ResponseEntity<Object> getAircraftByID(
+	default ResponseEntity<Aircraft> getAircraftByID(
 			@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("aircraft_id") Long aircraftId) {
 		getRequest().ifPresent(request -> {
 			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -244,7 +310,20 @@ public interface AircraftApi {
 				}
 			}
 		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		//SELECT AIRCRAFT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        Aircraft aircraft = am.SelectAircraft(aircraftId.intValue());
+	        return new ResponseEntity<Aircraft>(aircraft, HttpStatus.OK);
+
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
@@ -260,7 +339,7 @@ public interface AircraftApi {
 			@ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 200, message = "success response", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/aircraft", produces = { "application/json" }, method = RequestMethod.GET)
-	default ResponseEntity<List<Object>> getAllAircraft() {
+	default ResponseEntity<List<Aircraft>> getAllAircraft() {
 		getRequest().ifPresent(request -> {
 			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
 				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
@@ -270,7 +349,20 @@ public interface AircraftApi {
 				}
 			}
 		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		//SELECT ALL AIRCRAFT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        List<Aircraft> aircraftList = am.ViewAllAircraft();
+	        return new ResponseEntity<List<Aircraft>>(aircraftList, HttpStatus.OK);
+
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
@@ -288,7 +380,7 @@ public interface AircraftApi {
 			@ApiResponse(code = 404, message = "Aircraft not found"),
 			@ApiResponse(code = 200, message = "success response", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/aircraft/flight/", produces = { "application/json" }, method = RequestMethod.GET)
-	default ResponseEntity<List<Object>> getAllFlights() {
+	default ResponseEntity<List<Flight>> getAllFlights() {
 		getRequest().ifPresent(request -> {
 			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
 				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
@@ -298,7 +390,20 @@ public interface AircraftApi {
 				}
 			}
 		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		//SELECT ALL FLIGHT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        List<Flight> flightList = am.ViewAllFlight();
+	        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
@@ -317,10 +422,32 @@ public interface AircraftApi {
 			@ApiResponse(code = 404, message = "Flight or aircraft not found"),
 			@ApiResponse(code = 200, message = "success response") })
 	@RequestMapping(value = "/aircraft/flight/{flight_id}", method = RequestMethod.GET)
-	default ResponseEntity<Void> getFlightByID(
-			@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("flight_id") Long flightId) {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		default ResponseEntity<Flight> getFlightByID(
+				@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("flight_id") Long flightId) {
+			getRequest().ifPresent(request -> {
+				for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+					if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+						String exampleString = "";
+						ApiUtil.setExampleResponse(request, "", exampleString);
+						break;
+					}
+				}
+			});
+		
+		//SELECT FLIGHT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        Flight flight = am.SelectFlight(flightId.intValue());
+	        return new ResponseEntity<Flight>(flight, HttpStatus.OK);
 
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 	}
 
 	/**
@@ -351,12 +478,15 @@ public interface AircraftApi {
 				}
 			}
 		});
+		
+		// NOT IMPLEMENTED
+		
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
 
 	/**
-	 * PUT /aircraft/{aircraft_id} : fetch an aircraft by its id.
+	 * PUT /aircraft/{aircraft_id} : update aircraft by its id.
 	 *
 	 * @param aircraftId the id of the aircraft. (required)
 	 * @param aircraft   the updated aircraft (required)
@@ -364,7 +494,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Aircraft not found (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "fetch an aircraft by its id.", nickname = "updateAircraft", notes = "", authorizations = {
+	@ApiOperation(value = "update an aircraft", nickname = "updateAircraft", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -374,8 +504,25 @@ public interface AircraftApi {
 	default ResponseEntity<Void> updateAircraft(
 			@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("aircraft_id") Long aircraftId,
 			@ApiParam(value = "the updated aircraft", required = true) @Valid @RequestBody Aircraft aircraft) {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
+		//UPDATE AIRCRAFT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = 8;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        if(am.isAdmin(8)) {
+	        	am.EditAircraft(aircraft, id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+		
 	}
 
 	/**
@@ -398,16 +545,30 @@ public interface AircraftApi {
 	default ResponseEntity<Void> updateFlight(
 			@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("flight_id") Long flightId,
 			@ApiParam(value = "The updated flight, replaces at the id passed", required = true) @Valid @RequestBody Flight flight) {
-        try {
-        	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-				"something_fun");
-        	AdminMenu am = new AdminMenu(con);
-        	am.EditFlight(flight, 8);
-    	}catch(Exception e) {
-    		System.out.println(e);
-    	}
-    	
-    	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		
+        //UPDATE FLIGHT
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = 8;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        
+	        if(am.isMX(id)) {
+	        	MXMenu mx = new MXMenu(con);
+	        	mx.ModifyFlight(flight, id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        else if(am.isAdmin(8)) {
+	        	am.EditFlight(flight, id);
+	        	return new ResponseEntity<>(HttpStatus.OK);
+	        }
+	        
+	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         
 	}
 

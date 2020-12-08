@@ -62,6 +62,7 @@ public interface UserApi {
 	@RequestMapping(value = "/user/admin", consumes = { "application/json" }, method = RequestMethod.POST)
 	default ResponseEntity<Void> addAdmin(
 			@ApiParam(value = "User admin that needs to be added") @Valid @RequestBody(required = false) Object body) {
+
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
@@ -271,6 +272,7 @@ public interface UserApi {
 	@RequestMapping(value = "/user/{user_id}", method = RequestMethod.DELETE)
 	default ResponseEntity<Void> deleteUser(
 			@ApiParam(value = "The name that needs to be deleted", required = true) @PathVariable("user_id") Long userId) {
+    	
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
@@ -304,7 +306,7 @@ public interface UserApi {
 	 * @return Permission Denied (status code 401) or Invalid input (status code
 	 *         405) or successful operation (status code 200)
 	 */
-	@ApiOperation(value = "Add a new user to the system", nickname = "getAllUsers", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "Fetches all Users", nickname = "getAllUsers", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 405, message = "Invalid input"),

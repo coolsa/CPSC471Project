@@ -485,12 +485,15 @@ public class AdminMenu {
     /**
      * Remove desired flight from the database
      */
-    public void RemoveFlight(int fid, int aid, int id){
+    public void RemoveFlight(int fid, int id){
         try {
-        	System.out.println(fid + " " + aid + " " + id);
+        	CallableStatement cs = con.prepareCall("CALL SelectFlight(?)");
+        	cs.setInt(1, fid);
+        	ResultSet rs = cs.executeQuery();
+        	
             CallableStatement cs2 = con.prepareCall("CALL RemoveFlight(?,?,?)");
             cs2.setInt(1, fid);
-            cs2.setInt(2, aid);
+            cs2.setInt(2, rs.getInt(2));
             cs2.setInt(3, id);
             cs2.executeUpdate();
         }catch(Exception e){
@@ -555,12 +558,9 @@ public class AdminMenu {
             while (allFlights.next()) {
             	Flight flight = new Flight();
             	flight.setFlightId((long)allFlights.getInt(1));
-            	//INCOMPLETE
-            	/*
-            	flight.setAircraftId(allFlights.getInt(2));
-            	flight.setStudentId(allFlights.getInt(3));
-            	flight.setInstructorId(allFlights.getInt(4));
-            	*/
+            	flight.setAircraftId(SelectAircraft(allFlights.getInt(2)));
+            	flight.setStudentId(SelectStudent(allFlights.getInt(3)));
+            	flight.setInstructorId(SelectInstructor(allFlights.getInt(4)));
             	flight.setExercise(allFlights.getString(5));
             	flight.setFlightStart(allFlights.getObject(6, OffsetDateTime.class));
             	flight.setFlightEnd(allFlights.getObject(7, OffsetDateTime.class));
@@ -571,6 +571,251 @@ public class AdminMenu {
             System.out.println(e);
             return null;
         }
+    }
+    
+    /**
+     * Returns true if a student, false if not
+     */
+    public boolean isStudent(int id) {
+    	try {
+	        CallableStatement cs4 = con.prepareCall("CALL SelectStudent(?)");
+	        cs4.setInt(1,id);
+	        ResultSet student = cs4.executeQuery();
+	        if(student.next()){
+	        	return true;
+	        }else {
+	        	return false;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns true if a instructor, false if not
+     */
+    public boolean isInstructor(int id) {
+    	try {
+	        CallableStatement cs4 = con.prepareCall("CALL SelectInstructor(?)");
+	        cs4.setInt(1,id);
+	        ResultSet instructor = cs4.executeQuery();
+	        if(instructor.next()){
+	        	return true;
+	        }else {
+	        	return false;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns true if a mechanical engineer, false if not
+     */
+    public boolean isMX(int id) {
+    	try {
+	        CallableStatement cs4 = con.prepareCall("CALL SelectMX_Engineer(?)");
+	        cs4.setInt(1,id);
+	        ResultSet mx = cs4.executeQuery();
+	        if(mx.next()){
+	        	return true;
+	        }else {
+	        	return false;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns true if a admin, false if not
+     */
+    public boolean isAdmin(int id) {
+    	try {
+	        CallableStatement cs4 = con.prepareCall("CALL SelectAdmin(?)");
+	        cs4.setInt(1,id);
+	        ResultSet admin = cs4.executeQuery();
+	        if(admin.next()){
+	        	return true;
+	        }else {
+	        	return false;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns true if a student, false if not
+     */
+    public Student SelectStudent(int id) {
+    	try {
+    		CallableStatement cs3 = con.prepareCall("CALL SelectUser(?)");
+	        cs3.setInt(1,id);
+	        ResultSet user = cs3.executeQuery();
+	        CallableStatement cs4 = con.prepareCall("CALL SelectStudent(?)");
+	        cs4.setInt(1,id);
+	        ResultSet student = cs4.executeQuery();
+	        if(student.next()){
+	        	Student newStudent = new Student();
+	        	newStudent.getUserId().setId((long)user.getInt(1));
+	        	newStudent.getUserId().setEmail(user.getString(2));
+	        	newStudent.getUserId().setFirstName(user.getString(3));
+	        	newStudent.getUserId().setLastName(user.getString(4));
+	        	newStudent.getUserId().setPassword(user.getString(5));
+	        	newStudent.getUserId().setPhone(user.getString(6));
+	        	newStudent.setPilotLicenseNo(student.getString(7));
+	        	return newStudent;
+	        }else {
+	        	return null;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+    }
+    
+    /**
+     * Returns true if a instructor, false if not
+     */
+    public Instructor SelectInstructor(int id) {
+    	try {
+    		CallableStatement cs3 = con.prepareCall("CALL SelectUser(?)");
+	        cs3.setInt(1,id);
+	        ResultSet user = cs3.executeQuery();
+	        CallableStatement cs4 = con.prepareCall("CALL SelectInstructor(?)");
+	        cs4.setInt(1,id);
+	        ResultSet instructor = cs4.executeQuery();
+	        if(instructor.next()){
+	        	Instructor newInstructor = new Instructor();
+	        	newInstructor.getUserId().setId((long)user.getInt(1));
+	        	newInstructor.getUserId().setEmail(user.getString(2));
+	        	newInstructor.getUserId().setFirstName(user.getString(3));
+	        	newInstructor.getUserId().setLastName(user.getString(4));
+	        	newInstructor.getUserId().setPassword(user.getString(5));
+	        	newInstructor.getUserId().setPhone(user.getString(6));
+	        	newInstructor.setPilotLicenseNo(instructor.getString(7));
+	        	newInstructor.setInstructorClass(instructor.getString(8));
+	        	return newInstructor;
+	        }else {
+	        	return null;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+    }
+    
+    /**
+     * Returns true if a mechanical engineer, false if not
+     */
+    public MXEngineer SelectMX(int id) {
+    	try {
+    		CallableStatement cs3 = con.prepareCall("CALL SelectUser(?)");
+	        cs3.setInt(1,id);
+	        ResultSet user = cs3.executeQuery();
+	        CallableStatement cs4 = con.prepareCall("CALL SelectMX_Engineer(?)");
+	        cs4.setInt(1,id);
+	        ResultSet mx = cs4.executeQuery();
+	        if(mx.next()){
+	        	MXEngineer newMX = new MXEngineer();
+	        	newMX.getUserId().setId((long)user.getInt(1));
+	        	newMX.getUserId().setEmail(user.getString(2));
+	        	newMX.getUserId().setFirstName(user.getString(3));
+	        	newMX.getUserId().setLastName(user.getString(4));
+	        	newMX.getUserId().setPassword(user.getString(5));
+	        	newMX.getUserId().setPhone(user.getString(6));
+	        	newMX.setEngLicenseNo(mx.getString(7));
+	        	newMX.setRating(mx.getString(8));
+	        	return newMX;
+	        }else {
+	        	return null;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+    }
+    
+    /**
+     * Returns admin if it can be found
+     */
+    public Admin SelectAdmin(int id) {
+    	try {
+    		CallableStatement cs3 = con.prepareCall("CALL SelectUser(?)");
+	        cs3.setInt(1,id);
+	        ResultSet user = cs3.executeQuery();
+	        CallableStatement cs4 = con.prepareCall("CALL SelectAdmin(?)");
+	        cs4.setInt(1,id);
+	        ResultSet admin = cs4.executeQuery();
+	        if(admin.next()){
+	        	Admin newAdmin = new Admin();
+	        	newAdmin.getUserId().setId((long)user.getInt(1));
+	        	newAdmin.getUserId().setEmail(user.getString(2));
+	        	newAdmin.getUserId().setFirstName(user.getString(3));
+	        	newAdmin.getUserId().setLastName(user.getString(4));
+	        	newAdmin.getUserId().setPassword(user.getString(5));
+	        	newAdmin.getUserId().setPhone(user.getString(6));
+	        	newAdmin.setRole(admin.getString(7));
+	        	return newAdmin;
+	        }else {
+	        	return null;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+    }
+    
+    public Aircraft SelectAircraft(int aid) {
+    	try {
+	        CallableStatement cs4 = con.prepareCall("CALL SelectAircraft(?)");
+	        cs4.setInt(1,aid);
+	        ResultSet aircraft = cs4.executeQuery();
+	        
+	        if(aircraft.next()) {
+	        	Aircraft newAircraft = new Aircraft();
+	        	newAircraft.setId((long)aid);
+	        	newAircraft.setRegistration(aircraft.getString(2));
+	        	newAircraft.setType(aircraft.getString(3));
+	        	newAircraft.setSerialNo(aircraft.getString(4));
+	        	return newAircraft;
+	        }else {
+	        	return null;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+    }
+    
+    public Flight SelectFlight(int fid) {
+    	try {
+	        CallableStatement cs4 = con.prepareCall("CALL SelectFlight(?)");
+	        cs4.setInt(1,fid);
+	        ResultSet flight = cs4.executeQuery();
+	        
+	        if(flight.next()) {
+            	Flight newFlight = new Flight();
+            	newFlight.setFlightId((long)flight.getInt(1));
+            	newFlight.setAircraftId(SelectAircraft(flight.getInt(2)));
+            	newFlight.setStudentId(SelectStudent(flight.getInt(3)));
+            	newFlight.setInstructorId(SelectInstructor(flight.getInt(4)));
+            	newFlight.setExercise(flight.getString(5));
+            	newFlight.setFlightStart(flight.getObject(6, OffsetDateTime.class));
+            	newFlight.setFlightEnd(flight.getObject(7, OffsetDateTime.class));
+            	return newFlight;
+	        }else {
+	        	return null;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
     }
 
 }

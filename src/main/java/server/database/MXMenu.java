@@ -17,18 +17,22 @@ public class MXMenu {
     private Connection con;
 
     //Constructor
-    MXMenu(Connection con) {
+    public MXMenu(Connection con) {
         this.con = con;
     }
 
     /**
      * Allows mechanical engineers to cancel a flight
      */
-    public void CancelFlight(int fid, int aid, int id){
+    public void CancelFlight(int fid, int id){
         try {
+        	CallableStatement cs2 = con.prepareCall("CALL SelectFlight(?)");
+        	cs2.setInt(1, fid);
+        	ResultSet rs = cs2.executeQuery();
+        	
             CallableStatement cs = con.prepareCall("CALL CancelMXFlight(?,?,?)");
             cs.setInt(1, fid);
-            cs.setInt(2, aid);
+            cs.setInt(2, rs.getInt(2));
             cs.setInt(3,id);
             cs.executeUpdate();
         }catch(Exception e){
