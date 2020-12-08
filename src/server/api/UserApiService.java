@@ -4,7 +4,7 @@ import server.api.*;
 import server.model.*;
 
 import java.util.List;
-import org.openapitools.api.NotFoundException;
+import server.api.NotFoundException;
 
 import java.io.InputStream;
 
