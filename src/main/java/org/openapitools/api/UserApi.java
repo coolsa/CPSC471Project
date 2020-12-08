@@ -11,6 +11,8 @@ import org.openapitools.model.MXEngineer;
 import org.openapitools.model.Student;
 import org.openapitools.model.User;
 import io.swagger.annotations.*;
+import server.database.AdminMenu;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
