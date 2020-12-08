@@ -38,13 +38,15 @@ public class Login {
                     CallableStatement cs2 = con.prepareCall("CALL SelectStudent(?)");
                     cs2.setInt(1, tempID);
                     ResultSet studentFind = cs2.executeQuery();
-                    studentFind.next();
-                    JSONObject jsonobj2 = new JSONObject("{\"StudentID\":" + studentFind.getInt(1) +  "}");
-                    int studentID = (int)jsonobj2.get("StudentID");
-                    if (tempID == studentID){
-                        System.out.println("User is a student");
-                        StudentMenu st = new StudentMenu(con, scan);
-                        st.StudentPortal(id);
+                    boolean isStudent = studentFind.next();
+                    if(isStudent) {
+                        JSONObject jsonobj2 = new JSONObject("{\"StudentID\":" + studentFind.getInt(1) + "}");
+                        int studentID = (int) jsonobj2.get("StudentID");
+                        if (tempID == studentID) {
+                            System.out.println("User is a student");
+                            StudentMenu st = new StudentMenu(con, scan);
+                            st.StudentPortal(id);
+                        }
                     }
                 }catch(Exception e) {
                     System.out.println(e);
@@ -57,13 +59,15 @@ public class Login {
                     CallableStatement cs3 = con.prepareCall("CALL SelectInstructor(?)");
                     cs3.setInt(1, tempID);
                     ResultSet instructorFind = cs3.executeQuery();
-                    instructorFind.next();
-                    JSONObject jsonobj3 = new JSONObject("{\"InstructorID\":" + instructorFind.getInt(1) +  "}");
-                    int instructorID = (int)jsonobj3.get("InstructorID");
-                    if (tempID == instructorID){
-                        System.out.println("User is a instructor");
-                        InstructorMenu in = new InstructorMenu(con, scan);
-                        in.InstructorPortal(id);
+                    boolean isInstructor = instructorFind.next();
+                    if(isInstructor) {
+                        JSONObject jsonobj3 = new JSONObject("{\"InstructorID\":" + instructorFind.getInt(1) + "}");
+                        int instructorID = (int) jsonobj3.get("InstructorID");
+                        if (tempID == instructorID) {
+                            System.out.println("User is a instructor");
+                            InstructorMenu in = new InstructorMenu(con, scan);
+                            in.InstructorPortal(id);
+                        }
                     }
                 }catch(Exception e) {
                     System.out.println(e);
@@ -76,13 +80,15 @@ public class Login {
                     CallableStatement cs4 = con.prepareCall("CALL SelectMX_Engineer(?)");
                     cs4.setInt(1, tempID);
                     ResultSet mxFind = cs4.executeQuery();
-                    mxFind.next();
-                    JSONObject jsonobj4 = new JSONObject("{\"MX_EngineerID\":" + mxFind.getInt(1) +  "}");
-                    int mxID = (int)jsonobj4.get("MX_EngineerID");
-                    if (tempID == mxID){
-                        System.out.println("User is a mechanical engineer failed");
-                        MXMenu mx = new MXMenu(con, scan);
-                        mx.MXPortal(id);
+                    boolean isMX = mxFind.next();
+                    if(isMX) {
+                        JSONObject jsonobj4 = new JSONObject("{\"MX_EngineerID\":" + mxFind.getInt(1) + "}");
+                        int mxID = (int) jsonobj4.get("MX_EngineerID");
+                        if (tempID == mxID) {
+                            System.out.println("User is a mechanical engineer failed");
+                            MXMenu mx = new MXMenu(con, scan);
+                            mx.MXPortal(id);
+                        }
                     }
                 }catch(Exception e) {
                     System.out.println(e);
@@ -95,13 +101,15 @@ public class Login {
                     CallableStatement cs5 = con.prepareCall("CALL SelectAdmin(?)");
                     cs5.setInt(1, tempID);
                     ResultSet adminFind = cs5.executeQuery();
-                    adminFind.next();
-                    JSONObject jsonobj5 = new JSONObject("{\"AdminID\":" + adminFind.getInt(1) +  "}");
-                    int adminID = (int)jsonobj5.get("AdminID");
-                    if (tempID == adminID){
-                        System.out.println("User is a admin");
-                        AdminMenu ad = new AdminMenu(con, scan);
-                        ad.AdminPortal(id);
+                    boolean isAdmin = adminFind.next();
+                    if(isAdmin) {
+                        JSONObject jsonobj5 = new JSONObject("{\"AdminID\":" + adminFind.getInt(1) + "}");
+                        int adminID = (int) jsonobj5.get("AdminID");
+                        if (tempID == adminID) {
+                            System.out.println("User is a admin");
+                            AdminMenu ad = new AdminMenu(con, scan);
+                            ad.AdminPortal(id);
+                        }
                     }
                 }catch(Exception e) {
                     System.out.println(e);

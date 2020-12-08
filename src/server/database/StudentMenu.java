@@ -6,6 +6,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class StudentMenu {
@@ -117,25 +118,49 @@ public class StudentMenu {
             scan.nextLine();
             System.out.println("Please enter the flight exercise");
             String ex = scan.nextLine();
-            System.out.println("Please enter the flight scheduled start time in DATETIME (YYYY-MM-DD hh: mm: ss.nnn)");
+            System.out.println("Please enter the flight scheduled start time in YYYY/MM/DD/hh/mm/ss");
             String start = scan.nextLine();
-            System.out.println("Please enter the flight scheduled end time in DATETIME (YYYY-MM-DD hh: mm: ss.nnn)");
+            String[] startAt = start.split("/");
+            int[] startInt = new int[startAt.length];
+            for(int i = 0; i < startAt.length; i++)
+                startInt[i] = Integer.parseInt(startAt[i]);
+            LocalDateTime newStart = LocalDateTime.of(startInt[0],startInt[1],startInt[2],startInt[3],startInt[4],startInt[5]);
+
+            System.out.println("Please enter the flight scheduled end time in YYYY/MM/DD/hh/mm/ss");
             String end = scan.nextLine();
+            String[] endAt = start.split("/");
+            int[] endInt = new int[endAt.length];
+            for(int i = 0; i < endAt.length; i++)
+                endInt[i] = Integer.parseInt(endAt[i]);
+            LocalDateTime newEnd = LocalDateTime.of(startInt[0],startInt[1],startInt[2],startInt[3],startInt[4],startInt[5]);
 
-            CallableStatement cs3a = con.prepareCall("CALL SelectAllFlights");
-            ResultSet rs = cs3a.executeQuery();
-            JSONObject jsonobj = new JSONObject("{\"Flight_start_date\":" + rs.getDate(6) + ", \"Flight_end\":" + rs.getDate(7) + "}");
+            boolean isConflict = false;
 
-            System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
+            CallableStatement cs2 = con.prepareCall("CALL SelectAllFlights");
+            ResultSet allFlights = cs2.executeQuery();
+            while(allFlights.next()){
+                LocalDateTime flightStart = allFlights.getObject(6, LocalDateTime.class);
+                LocalDateTime flightEnd = allFlights.getObject(7, LocalDateTime.class);
 
-            CallableStatement cs3b = con.prepareCall("CALL BookFlight(?,?,?,?,?,?)");
-            cs3b.setInt(1, aid);
-            cs3b.setInt(2, sid);
-            cs3b.setInt(3, iid);
-            cs3b.setString(4, ex);
-            cs3b.setString(5, start);
-            cs3b.setString(6, end);
-            cs3b.executeUpdate();
+                if((newStart.isBefore(flightStart) && newEnd.isAfter(flightEnd)) || (newStart.isAfter(flightStart) && newStart.isBefore(flightEnd)) ||
+                        (newEnd.isAfter(flightStart) && newEnd.isBefore(flightEnd)) || (newStart.equals(flightStart)) || (newEnd.equals(flightEnd))){
+                    isConflict = true;
+                }
+
+            }
+
+            if(!isConflict) {
+                CallableStatement cs = con.prepareCall("CALL BookFlight(?,?,?,?,?,?,?)");
+                cs.setInt(1, aid);
+                cs.setInt(2, sid);
+                cs.setInt(3, iid);
+                cs.setString(4, ex);
+                cs.setString(5, start);
+                cs.setString(6, end);
+                cs.executeUpdate();
+            }else{
+                System.out.println("Flight already booked during this time");
+            }
         }catch(Exception e){
             System.out.println(e);
         }

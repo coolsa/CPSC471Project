@@ -7,6 +7,9 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.Scanner;
 
 public class AdminMenu {
@@ -757,23 +760,57 @@ public class AdminMenu {
             System.out.println("Please enter the flight's instructor ID");
             int iid = scan.nextInt();
             System.out.println("Please enter the flight exercise");
+            scan.nextLine();
             String ex = scan.nextLine();
-            System.out.println("Please enter the flight scheduled start time in DATETIME format");
+            //System.out.println("Please enter the flight scheduled start time in DATETIME format");
+            //String start = scan.nextLine();
+            //System.out.println("Please enter the flight scheduled end time in DATETIME format");
+            //String end = scan.nextLine();
+
+            System.out.println("Please enter the flight scheduled start time in YYYY/MM/DD/hh/mm/ss");
             String start = scan.nextLine();
-            System.out.println("Please enter the flight scheduled end time in DATETIME format");
+            String[] startAt = start.split("/");
+            int[] startInt = new int[startAt.length];
+            for(int i = 0; i < startAt.length; i++)
+                startInt[i] = Integer.parseInt(startAt[i]);
+            LocalDateTime newStart = LocalDateTime.of(startInt[0],startInt[1],startInt[2],startInt[3],startInt[4],startInt[5]);
+
+            System.out.println("Please enter the flight scheduled end time in YYYY/MM/DD/hh/mm/ss");
             String end = scan.nextLine();
+            String[] endAt = start.split("/");
+            int[] endInt = new int[endAt.length];
+            for(int i = 0; i < endAt.length; i++)
+                endInt[i] = Integer.parseInt(endAt[i]);
+            LocalDateTime newEnd = LocalDateTime.of(startInt[0],startInt[1],startInt[2],startInt[3],startInt[4],startInt[5]);
 
-            System.out.println("\n!!!!!!!!!!!We need to implement a check here for conflicting times in the Aircraft schedule!!!!!!!!!!!\n");
+            boolean isConflict = false;
 
-            CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?,?)");
-            cs.setInt(1, aid);
-            cs.setInt(2, sid);
-            cs.setInt(3, iid);
-            cs.setString(4, ex);
-            cs.setString(5, start);
-            cs.setString(6, end);
-            cs.setInt(7,id);
-            cs.executeUpdate();
+            CallableStatement cs2 = con.prepareCall("CALL SelectAllFlights");
+            ResultSet allFlights = cs2.executeQuery();
+            while(allFlights.next()){
+                LocalDateTime flightStart = allFlights.getObject(6, LocalDateTime.class);
+                LocalDateTime flightEnd = allFlights.getObject(7, LocalDateTime.class);
+
+                if((newStart.isBefore(flightStart) && newEnd.isAfter(flightEnd)) || (newStart.isAfter(flightStart) && newStart.isBefore(flightEnd)) ||
+                                (newEnd.isAfter(flightStart) && newEnd.isBefore(flightEnd)) || (newStart.equals(flightStart)) || (newEnd.equals(flightEnd))){
+                    isConflict = true;
+                }
+
+            }
+
+            if(!isConflict) {
+                CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?,?)");
+                cs.setInt(1, aid);
+                cs.setInt(2, sid);
+                cs.setInt(3, iid);
+                cs.setString(4, ex);
+                cs.setString(5, start);
+                cs.setString(6, end);
+                cs.setInt(7, id);
+                cs.executeUpdate();
+            }else{
+                System.out.println("Flight already booked during this time");
+            }
         }catch(Exception e){
             System.out.println(e);
         }
@@ -846,10 +883,12 @@ public class AdminMenu {
             CallableStatement cs4 = con.prepareCall("CALL SelectAllFlights");
             ResultSet allFlights = cs4.executeQuery();
             while (allFlights.next()) {
+                String start = allFlights.getObject(6, LocalDateTime.class).toString();
+                String end = allFlights.getObject(7, LocalDateTime.class).toString();
                 JSONObject jsonobj = new JSONObject("{\"FlightID\":" + allFlights.getInt(1) + ", \"Aircraft_id\":" +
                         allFlights.getInt(2) + ", \"Student_id\":" + allFlights.getInt(3) + ", \"Instructor_id\":" +
                         allFlights.getInt(4) + ", \"Exercise\":" + allFlights.getString(5) + ", \"Flight_start\":" +
-                        allFlights.getString(6) + ", \"Flight_end\":" + allFlights.getString(7) + "}");
+                        "'" + start + "'" + ", \"Flight_end\":" + "'" + end + "'" + "}");
                 System.out.println(jsonobj); //send this to client
             }
         }catch(Exception e){
