@@ -8,7 +8,7 @@ import io.swagger.jaxrs.*;
 
 import java.util.Map;
 import java.util.List;
-import org.openapitools.api.NotFoundException;
+import server.api.NotFoundException;
 
 import java.io.InputStream;
 
