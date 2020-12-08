@@ -1,0 +1,231 @@
+package org.openapitools.model;
+
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.jackson.nullable.JsonNullable;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+
+/**
+ * A **user**, be it a *Student*, *Instructor*, *Admin*, or *MX_Engineer*.
+ */
+@ApiModel(description = "A **user**, be it a *Student*, *Instructor*, *Admin*, or *MX_Engineer*.")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-12-07T22:58:45.808-07:00[Canada/Mountain]")
+
+public class AdminUserId   {
+  @JsonProperty("id")
+  private Long id;
+
+  @JsonProperty("email")
+  private String email;
+
+  @JsonProperty("firstName")
+  private String firstName;
+
+  @JsonProperty("lastName")
+  private String lastName;
+
+  @JsonProperty("password")
+  private String password;
+
+  @JsonProperty("phone")
+  private String phone;
+
+  @JsonProperty("userStatus")
+  private Integer userStatus;
+
+  public AdminUserId id(Long id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  @ApiModelProperty(value = "")
+
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public AdminUserId email(String email) {
+    this.email = email;
+    return this;
+  }
+
+  /**
+   * Get email
+   * @return email
+  */
+  @ApiModelProperty(value = "")
+
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public AdminUserId firstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  /**
+   * Get firstName
+   * @return firstName
+  */
+  @ApiModelProperty(value = "")
+
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public AdminUserId lastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  /**
+   * Get lastName
+   * @return lastName
+  */
+  @ApiModelProperty(value = "")
+
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public AdminUserId password(String password) {
+    this.password = password;
+    return this;
+  }
+
+  /**
+   * Get password
+   * @return password
+  */
+  @ApiModelProperty(value = "")
+
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public AdminUserId phone(String phone) {
+    this.phone = phone;
+    return this;
+  }
+
+  /**
+   * Get phone
+   * @return phone
+  */
+  @ApiModelProperty(value = "")
+
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public AdminUserId userStatus(Integer userStatus) {
+    this.userStatus = userStatus;
+    return this;
+  }
+
+  /**
+   * User Status, if is student, instructor, admin, or mx
+   * @return userStatus
+  */
+  @ApiModelProperty(value = "User Status, if is student, instructor, admin, or mx")
+
+
+  public Integer getUserStatus() {
+    return userStatus;
+  }
+
+  public void setUserStatus(Integer userStatus) {
+    this.userStatus = userStatus;
+  }
+
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AdminUserId adminUserId = (AdminUserId) o;
+    return Objects.equals(this.id, adminUserId.id) &&
+        Objects.equals(this.email, adminUserId.email) &&
+        Objects.equals(this.firstName, adminUserId.firstName) &&
+        Objects.equals(this.lastName, adminUserId.lastName) &&
+        Objects.equals(this.password, adminUserId.password) &&
+        Objects.equals(this.phone, adminUserId.phone) &&
+        Objects.equals(this.userStatus, adminUserId.userStatus);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, email, firstName, lastName, password, phone, userStatus);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AdminUserId {\n");
+    
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
+    sb.append("    userStatus: ").append(toIndentedString(userStatus)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+}
+
