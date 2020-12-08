@@ -104,11 +104,22 @@ public interface AircraftApi {
                 }
             }
         });
+        try {
+        	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+				"something_fun");
+        	AdminMenu am = new AdminMenu(con);
+        	am.AddFlight(flight, 8);
+    	}catch(Exception e) {
+    		System.out.println(e);
+    	}
+    	
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
 
 
+    // CALLED FROM FLIGHT
+    
     /**
      * POST /aircraft/{aircraft_id}/schedule/ : adds new schedual for an aircraft
      *
@@ -191,6 +202,8 @@ public interface AircraftApi {
     }
 
 
+    //CALLED FROM DELETE FLIGHT
+    
     /**
      * DELETE /aircraft/{aircraft_id}/schedule/{flight_id} : removes an instructor for a student.
      *
@@ -349,8 +362,17 @@ public interface AircraftApi {
         consumes = { "application/json" },
         method = RequestMethod.PUT)
     default ResponseEntity<Void> updateFlight(@ApiParam(value = "the id of the aircraft.",required=true) @PathVariable("flight_id") Long flightId,@ApiParam(value = "The updated flight, replaces at the id passed" ,required=true )  @Valid @RequestBody Flight flight) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
+        try {
+        	Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+				"something_fun");
+        	AdminMenu am = new AdminMenu(con);
+        	am.EditFlight(flight, 8);
+    	}catch(Exception e) {
+    		System.out.println(e);
+    	}
+    	
+    	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        
     }
 
 }

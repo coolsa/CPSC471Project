@@ -11,6 +11,8 @@ import org.openapitools.model.MXEngineer;
 import org.openapitools.model.Student;
 import org.openapitools.model.User;
 import io.swagger.annotations.*;
+import server.database.AdminMenu;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,7 +63,8 @@ public interface UserApi {
         consumes = { "application/json" },
         method = RequestMethod.POST)
     default ResponseEntity<Void> addAdmin(@ApiParam(value = "User admin that needs to be added"  )  @Valid @RequestBody(required = false) Object body) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    	
+    	return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
 

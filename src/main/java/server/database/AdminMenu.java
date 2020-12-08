@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -50,7 +51,7 @@ public class AdminMenu {
         try {
             CallableStatement cs = con.prepareCall("CALL SelectAllUsers");
             ResultSet allUsers = cs.executeQuery();
-            List<User> temp = new List<User>();
+            List<User> temp = new ArrayList<User>();
             while (allUsers.next()) {
             	User user = new User();
             	user.setId((long)allUsers.getInt(1));
@@ -64,6 +65,7 @@ public class AdminMenu {
             return temp;
         } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
     }
 
@@ -414,20 +416,24 @@ public class AdminMenu {
     /**
      * View all aircraft in the database
      */
-    public void ViewAllAircraft(){
+    public List<Aircraft> ViewAllAircraft(){
         try {
             CallableStatement cs4 = con.prepareCall("CALL SelectAllAircrafts");
             ResultSet allAircraft = cs4.executeQuery();
             
-            //INCOMPLETE
-            
+            List<Aircraft> temp = new ArrayList<Aircraft>();
             while (allAircraft.next()) {
-                JSONObject jsonobj = new JSONObject("{\"Aircraft_ID\":" + allAircraft.getInt(1) + ", \"Registration\":" +
-                        allAircraft.getString(2) + ", \"Type\":" + allAircraft.getString(3) + "}");
-                System.out.println(jsonobj); //send this to client
+            	Aircraft aircraft = new Aircraft();
+            	aircraft.setId((long)allAircraft.getInt(1));
+            	aircraft.setRegistration(allAircraft.getString(2));
+            	aircraft.setType(allAircraft.getString(3));
+            	aircraft.setSerialNo(allAircraft.getString(4));
+            	temp.add(aircraft);
             }
+            return temp;
         }catch(Exception e){
             System.out.println(e);
+            return null;
         }
     }
 
@@ -540,24 +546,30 @@ public class AdminMenu {
     /**
      * View all flights
      */
-    public void ViewAllFlight(){
+    public List<Flight> ViewAllFlight(){
         try {
             CallableStatement cs4 = con.prepareCall("CALL SelectAllFlights");
             ResultSet allFlights = cs4.executeQuery();
             
-            //IMPLEMENT LATER
-            
+            List<Flight> temp = new ArrayList<Flight>();
             while (allFlights.next()) {
-                String start = allFlights.getObject(6, LocalDateTime.class).toString();
-                String end = allFlights.getObject(7, LocalDateTime.class).toString();
-                JSONObject jsonobj = new JSONObject("{\"FlightID\":" + allFlights.getInt(1) + ", \"Aircraft_id\":" +
-                        allFlights.getInt(2) + ", \"Student_id\":" + allFlights.getInt(3) + ", \"Instructor_id\":" +
-                        allFlights.getInt(4) + ", \"Exercise\":" + allFlights.getString(5) + ", \"Flight_start\":" +
-                        "'" + start + "'" + ", \"Flight_end\":" + "'" + end + "'" + "}");
-                System.out.println(jsonobj); //send this to client
+            	Flight flight = new Flight();
+            	flight.setFlightId((long)allFlights.getInt(1));
+            	//INCOMPLETE
+            	/*
+            	flight.setAircraftId(allFlights.getInt(2));
+            	flight.setStudentId(allFlights.getInt(3));
+            	flight.setInstructorId(allFlights.getInt(4));
+            	*/
+            	flight.setExercise(allFlights.getString(5));
+            	flight.setFlightStart(allFlights.getObject(6, OffsetDateTime.class));
+            	flight.setFlightEnd(allFlights.getObject(7, OffsetDateTime.class));
+            	temp.add(flight);
             }
+            return temp;
         }catch(Exception e){
             System.out.println(e);
+            return null;
         }
     }
 
