@@ -401,7 +401,7 @@ public class AdminMenu {
             String type = aircraft.getType();
             String serial = aircraft.getSerialNo();
 
-            CallableStatement cs = con.prepareCall("CALL AddAircraft(?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL EditAircraft(?,?,?,?,?)");
             cs.setInt(1,aircraft.getId().intValue());
             cs.setString(2, reg);
             cs.setString(3, type);
@@ -490,6 +490,7 @@ public class AdminMenu {
         	CallableStatement cs = con.prepareCall("CALL SelectFlight(?)");
         	cs.setInt(1, fid);
         	ResultSet rs = cs.executeQuery();
+        	rs.next();
         	
             CallableStatement cs2 = con.prepareCall("CALL RemoveFlight(?,?,?)");
             cs2.setInt(1, fid);
@@ -530,7 +531,7 @@ public class AdminMenu {
             }
 
             if(!isConflict) {
-            	CallableStatement cs = con.prepareCall("CALL AddFlight(?,?,?,?,?,?,?,?)");
+            	CallableStatement cs = con.prepareCall("CALL EditFlight(?,?,?,?,?,?,?,?)");
             	cs.setInt(1,flight.getFlightId().intValue());
             	cs.setInt(2, aid);
             	cs.setInt(3, sid);

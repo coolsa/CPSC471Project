@@ -15,12 +15,8 @@ public class Login {
         this.con = con;
     }
 
-    public void login(int id, String password){
+    public String login(int id, String password){
         try {
-            // Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //Calls the login function and returns the user
-            //ResultSet rs = stmt.executeQuery("SELECT * FROM User WHERE UserID = " + id + " and Password = '" + password + "'");
             CallableStatement cs = con.prepareCall("CALL Login(?,?)");
             cs.setInt(1,id);
             cs.setString(2,password);
@@ -40,25 +36,26 @@ public class Login {
             if(tempID != -1) {
                 AdminMenu am = new AdminMenu(con);
                 if(am.isStudent(tempID)) {
-                	System.out.println("STUDENT LOGGED IN");
+                	return "STUDENT LOGGED IN";
+                }
+                else if(am.isInstructor(tempID)) {
+                	return "INSTRUCTOR LOGGED IN";
                 }
                 
-                if(am.isInstructor(tempID)) {
-                	System.out.println("INSTRUCTOR LOGGED IN");
+                else if(am.isMX(tempID)) {
+                	return "MECHANICAL ENGINEER LOGGED IN";
                 }
                 
-                if(am.isMX(tempID)) {
-                	System.out.println("MECHANICAL ENGINEER LOGGED IN");
+                else if(am.isAdmin(tempID)) {
+                	return "ADMIN LOGGED IN";
                 }
-                
-                if(am.isAdmin(tempID)) {
-                	System.out.println("ADMIN LOGGED IN");
-                }
+                return "Login failed";
             }else{
-                System.out.println("Login failed");
+                return "Login failed";
             }
         } catch (Exception e) {
             System.out.println(e);
+            return "Login Failed";
         }
     }
    
