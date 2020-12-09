@@ -697,7 +697,7 @@ public interface UserApi {
 //			}
 //		});
 
-		// SELECT INSTRUCTOR
+		// SELECT STUDENT
 		try {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
@@ -705,7 +705,7 @@ public interface UserApi {
 
 			AdminMenu am = new AdminMenu(con);
 			
-			if(am.isMX(id)) {
+			if(am.isStudent(id)) {
 				Student st = am.SelectStudent(id);
 				return new ResponseEntity<Student>(st, HttpStatus.OK);
 			}else if(am.isAdmin(id)) {

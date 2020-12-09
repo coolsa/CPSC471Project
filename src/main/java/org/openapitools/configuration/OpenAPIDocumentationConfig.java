@@ -24,7 +24,7 @@ import javax.servlet.ServletContext;
 public class OpenAPIDocumentationConfig {
 
 	ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Air Schedual API")
+		return new ApiInfoBuilder().title("Aircraft Scheduler API")
 				.description("Communication API specifications for an aircraft schedule API, mainly for use by client.")
 				.license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
 				.termsOfServiceUrl("").version("0.0.1").contact(new Contact("", "", "")).build();
