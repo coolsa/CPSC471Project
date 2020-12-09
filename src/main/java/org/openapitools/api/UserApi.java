@@ -70,11 +70,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.AddAdmin(admin, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -106,11 +106,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.AddInstructor(instructor, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -141,11 +141,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.AddMX(mx, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -175,11 +175,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.AddStudent(student, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -216,11 +216,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.AssignTeaches(userId.intValue(), instructor.getUserId().getId().intValue());
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -258,11 +258,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.AssignTeaches(student.getUserId().getId().intValue(), userId.intValue());
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -387,11 +387,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	if(am.isStudent(userId.intValue())) {
 	        		am.RemoveStudent(userId.intValue(), id);
 	        		return new ResponseEntity<>(HttpStatus.OK);
@@ -450,7 +450,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -520,7 +520,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -566,7 +566,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -612,7 +612,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -660,7 +660,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 2;
+	        int id = Login.getCurrentUser();;
 	        
 	        AdminMenu am = new AdminMenu(con);
 	        
@@ -713,7 +713,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 3;
+	        int id = Login.getCurrentUser();;
 	        
 	        AdminMenu am = new AdminMenu(con);
 	        
@@ -841,11 +841,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.EditAdmin(admin, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -881,11 +881,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.EditInstructor(instructor, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -923,11 +923,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.EditMX(mxEngineer, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -963,11 +963,11 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.EditStudent(student, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -1004,7 +1004,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-    		int id = 8;
+    		int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	

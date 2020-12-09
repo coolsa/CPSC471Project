@@ -12,6 +12,7 @@ import org.openapitools.model.Flight;
 import io.swagger.annotations.*;
 import server.database.AdminMenu;
 import server.database.InstructorMenu;
+import server.database.Login;
 import server.database.MXMenu;
 import server.database.StudentMenu;
 
@@ -70,11 +71,11 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.AddAircraft(aircraft, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -119,7 +120,7 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        
@@ -195,11 +196,11 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.RemoveAircraft(aircraftId.intValue(),id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -232,7 +233,7 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -248,7 +249,7 @@ public interface AircraftApi {
 	        	MXMenu mx = new MXMenu(con);
 	        	mx.CancelFlight(flightId.intValue(), id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }else if(am.isAdmin(8)) {
+	        }else if(am.isAdmin(id)) {
 	        	am.RemoveFlight(flightId.intValue(), id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -523,11 +524,11 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        if(am.isAdmin(8)) {
+	        if(am.isAdmin(id)) {
 	        	am.EditAircraft(aircraft, id);
 	        	return new ResponseEntity<>(HttpStatus.OK);
 	        }
@@ -564,7 +565,7 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = 8;
+	        int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        
