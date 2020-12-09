@@ -66,23 +66,24 @@ public interface UserApi {
 	default ResponseEntity<Void> addAdmin(
 			@ApiParam(value = "User admin that needs to be added") @Valid @RequestBody(required = false) Admin admin) {
 
-		//ADD ADMIN
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.AddAdmin(admin, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// ADD ADMIN
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.AddAdmin(admin, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -101,24 +102,25 @@ public interface UserApi {
 	@RequestMapping(value = "/user/instructor", consumes = { "application/json" }, method = RequestMethod.POST)
 	default ResponseEntity<Void> addInstructor(
 			@ApiParam(value = "User instructor that needs to be added") @Valid @RequestBody(required = false) Instructor instructor) {
-		
-		//ADD INSTRUCTOR
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.AddInstructor(instructor, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+		// ADD INSTRUCTOR
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.AddInstructor(instructor, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -137,23 +139,24 @@ public interface UserApi {
 	@RequestMapping(value = "/user/mx_engineer", consumes = { "application/json" }, method = RequestMethod.POST)
 	default ResponseEntity<Void> addMXEngineer(
 			@ApiParam(value = "User object that needs to be added", required = true) @Valid @RequestBody MXEngineer mx) {
-		//ADD MECHANICAL ENGINEER
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.AddMX(mx, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// ADD MECHANICAL ENGINEER
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.AddMX(mx, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -171,23 +174,24 @@ public interface UserApi {
 	@RequestMapping(value = "/user/student", consumes = { "application/json" }, method = RequestMethod.POST)
 	default ResponseEntity<Void> addStudent(
 			@ApiParam(value = "User student that needs to be added") @Valid @RequestBody(required = false) Student student) {
-		//ADD STUDENT
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.AddStudent(student, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// ADD STUDENT
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.AddStudent(student, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -212,23 +216,24 @@ public interface UserApi {
 	default ResponseEntity<Void> addTeacherForStudent(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "The Instructor to teach the student", required = true) @Valid @RequestBody Instructor instructor) {
-		//ADD STUDENT TEACHES INSTRUCTOR
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.AssignTeaches(userId.intValue(), instructor.getUserId().getId().intValue());
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// ADD STUDENT TEACHES INSTRUCTOR
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.AssignTeaches(userId.intValue(), instructor.getUserId().getId().intValue());
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -254,23 +259,24 @@ public interface UserApi {
 	default ResponseEntity<Void> addTeachingForInstructor(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "The Student to add for the instructor.", required = true) @Valid @RequestBody Student student) {
-		//ADD INSTRUCTOR TEACHES STUDENT
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.AssignTeaches(student.getUserId().getId().intValue(), userId.intValue());
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// ADD INSTRUCTOR TEACHES STUDENT
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.AssignTeaches(student.getUserId().getId().intValue(), userId.intValue());
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/**
@@ -281,31 +287,67 @@ public interface UserApi {
 	 *         405) or successful operation (status code 200)
 	 */
 	/*
-	@ApiOperation(value = "Add a new user to the system", nickname = "addUser", notes = "", response = Object.class, responseContainer = "List", tags = {
-			"user", })
-	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
-			@ApiResponse(code = 405, message = "Invalid input"),
-			@ApiResponse(code = 200, message = "successful operation", response = Object.class, responseContainer = "List") })
-	@RequestMapping(value = "/user", produces = { "application/json" }, consumes = {
-			"application/json" }, method = RequestMethod.POST)
-	default ResponseEntity<List<Object>> addUser(
-			@ApiParam(value = "User object that needs to be added") @Valid @RequestBody(required = false) Object body) {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-					String exampleString = "";
-					ApiUtil.setExampleResponse(request, "", exampleString);
-					break;
-				}
-			}
-		});
-		
-		//WHAT KIND OF USER?????
-		
+	 * @ApiOperation(value = "Add a new user to the system", nickname = "addUser",
+	 * notes = "", response = Object.class, responseContainer = "List", tags = {
+	 * "user", })
+	 * 
+	 * @ApiResponses(value = { @ApiResponse(code = 401, message =
+	 * "Permission Denied"),
+	 * 
+	 * @ApiResponse(code = 405, message = "Invalid input"),
+	 * 
+	 * @ApiResponse(code = 200, message = "successful operation", response =
+	 * Object.class, responseContainer = "List") })
+	 * 
+	 * @RequestMapping(value = "/user", produces = { "application/json" }, consumes
+	 * = { "application/json" }, method = RequestMethod.POST) default
+	 * ResponseEntity<List<Object>> addUser(
+	 * 
+	 * @ApiParam(value =
+	 * "User object that needs to be added") @Valid @RequestBody(required = false)
+	 * Object body) { getRequest().ifPresent(request -> { for (MediaType mediaType :
+	 * MediaType.parseMediaTypes(request.getHeader("Accept"))) { if
+	 * (mediaType.isCompatibleWith(MediaType.valueOf(""))) { String exampleString =
+	 * ""; ApiUtil.setExampleResponse(request, "", exampleString); break; } } });
+	 * 
+	 * //WHAT KIND OF USER?????
+	 * 
+	 * return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+	 * 
+	 * }
+	 */
+
+	/**
+	 * GET /user/{user_id}/flights : retrieves all flights for a specific User
+	 *
+	 * @param userId the id of the user, only should work if the id is of the
+	 *               current user. (required)
+	 * @return Invalid aircraft response (status code 400) or Permission Denied
+	 *         (status code 401) or Aircraft not found (status code 404) or success
+	 *         response (status code 200)
+	 */
+	@ApiOperation(value = "retrieves all flights for a specific User", nickname = "getAllMyFlights", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+			@Authorization(value = "airsched_auth") }, tags = {})
+
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
+			@ApiResponse(code = 401, message = "Permission Denied"),
+			@ApiResponse(code = 404, message = "Aircraft not found"),
+			@ApiResponse(code = 200, message = "success response", response = Object.class, responseContainer = "List") })
+	@RequestMapping(value = "/user/{user_id}/flights", produces = { "application/json" }, method = RequestMethod.GET)
+	default ResponseEntity<List<Object>> getAllMyFlights(
+			@ApiParam(value = "the id of the user, only should work if the id is of the current user. ", required = true) @PathVariable("user_id") Long userId) {
+//		getRequest().ifPresent(request -> {
+//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+//					String exampleString = "";
+//					ApiUtil.setExampleResponse(request, "", exampleString);
+//					break;
+//				}
+//			}
+//		});
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
-	*/
 
 	/**
 	 * DELETE /user/instructor/{user_id}/teaching/{student_id} : removes an
@@ -328,9 +370,9 @@ public interface UserApi {
 	default ResponseEntity<Void> deleteStudentFromTeacher(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "", required = true) @PathVariable("student_id") Long studentId) {
-		
-		//IMPLEMENT LATER
-		
+
+		// IMPLEMENT LATER
+
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
@@ -356,9 +398,9 @@ public interface UserApi {
 	default ResponseEntity<Void> deleteTeacherForStudent(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "", required = true) @PathVariable("instructor_id") Long instructorId) {
-		
-		//IMPLEMENT LATER
-		
+
+		// IMPLEMENT LATER
+
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
@@ -382,38 +424,36 @@ public interface UserApi {
 	@RequestMapping(value = "/user/{user_id}", method = RequestMethod.DELETE)
 	default ResponseEntity<Void> deleteUser(
 			@ApiParam(value = "The name that needs to be deleted", required = true) @PathVariable("user_id") Long userId) {
-    	
-		//DELETE USER
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	if(am.isStudent(userId.intValue())) {
-	        		am.RemoveStudent(userId.intValue(), id);
-	        		return new ResponseEntity<>(HttpStatus.OK);
-	        	}
-	        	else if(am.isInstructor(userId.intValue())) {
-	        		am.RemoveInstructor(userId.intValue(), id);
-	        		return new ResponseEntity<>(HttpStatus.OK);
-	        	}
-	        	else if(am.isMX(userId.intValue())) {
-	        		am.RemoveMX(userId.intValue(), id);
-	        		return new ResponseEntity<>(HttpStatus.OK);
-	        	}
-	        	else if(am.isAdmin(userId.intValue())) {
-	        		am.RemoveAdmin(userId.intValue(), id);
-	        		return new ResponseEntity<>(HttpStatus.OK);
-	        	}
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+		// DELETE USER
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				if (am.isStudent(userId.intValue())) {
+					am.RemoveStudent(userId.intValue(), id);
+					return new ResponseEntity<>(HttpStatus.OK);
+				} else if (am.isInstructor(userId.intValue())) {
+					am.RemoveInstructor(userId.intValue(), id);
+					return new ResponseEntity<>(HttpStatus.OK);
+				} else if (am.isMX(userId.intValue())) {
+					am.RemoveMX(userId.intValue(), id);
+					return new ResponseEntity<>(HttpStatus.OK);
+				} else if (am.isAdmin(userId.intValue())) {
+					am.RemoveAdmin(userId.intValue(), id);
+					return new ResponseEntity<>(HttpStatus.OK);
+				}
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -435,7 +475,7 @@ public interface UserApi {
 			@ApiResponse(code = 200, message = "Default response") })
 	@RequestMapping(value = "/user/admin/{user_id}", method = RequestMethod.GET)
 	default ResponseEntity<Admin> getAdminByID(
-		@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
+			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
 //			getRequest().ifPresent(request -> {
 //				for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
 //					if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
@@ -445,22 +485,23 @@ public interface UserApi {
 //					}
 //				}
 //			});
-		
-		//SELECT ADMIN
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        Admin admin = am.SelectAdmin(userId.intValue());
-	        return new ResponseEntity<Admin>(admin, HttpStatus.OK);
 
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// SELECT ADMIN
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			Admin admin = am.SelectAdmin(userId.intValue());
+			return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -516,21 +557,22 @@ public interface UserApi {
 //				}
 //			}
 //		});
-		//SELECT INSTRUCTOR
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        Instructor instructor = am.SelectInstructor(userId.intValue());
-	        return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+		// SELECT INSTRUCTOR
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
 
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+			AdminMenu am = new AdminMenu(con);
+
+			Instructor instructor = am.SelectInstructor(userId.intValue());
+			return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -562,22 +604,22 @@ public interface UserApi {
 //				}
 //			}
 //		});
-		//SELECT INSTRUCTOR
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        MXEngineer mx = am.SelectMX(userId.intValue());
-	        return new ResponseEntity<MXEngineer>(mx,HttpStatus.OK);
+		// SELECT INSTRUCTOR
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
 
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+			AdminMenu am = new AdminMenu(con);
 
+			MXEngineer mx = am.SelectMX(userId.intValue());
+			return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -607,22 +649,23 @@ public interface UserApi {
 //				}
 //			}
 //		});
-		
-		//SELECT INSTRUCTOR
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        Student st = am.SelectStudent(userId.intValue());
-	        return new ResponseEntity<Student>(st,HttpStatus.OK);
 
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// SELECT INSTRUCTOR
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			Student st = am.SelectStudent(userId.intValue());
+			return new ResponseEntity<Student>(st, HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -655,28 +698,29 @@ public interface UserApi {
 //				}
 //			}
 //		});
-		
-		//SELECT INSTRUCTORS THAT ARE TEACHING STUDENT
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	        
-	        AdminMenu am = new AdminMenu(con);
-	        
-	        if(am.isStudent(id)) {
-	        StudentMenu stMenu = new StudentMenu(con);
-	        	
-	        List<Instructor> teachers = stMenu.ViewAssignedInstructors(id);
-	        return new ResponseEntity<List<Instructor>>(teachers,HttpStatus.OK);
-	        }else {
-	        	return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-	        }
 
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// SELECT INSTRUCTORS THAT ARE TEACHING STUDENT
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isStudent(id)) {
+				StudentMenu stMenu = new StudentMenu(con);
+
+				List<Instructor> teachers = stMenu.ViewAssignedInstructors(id);
+				return new ResponseEntity<List<Instructor>>(teachers, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -709,27 +753,28 @@ public interface UserApi {
 //				}
 //			}
 //		});
-		//SELECT STUDENTS THAT ARE BEING TAUGHT BY INSTRUCTOR
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	        
-	        AdminMenu am = new AdminMenu(con);
-	        
-	        if(am.isInstructor(id)) {
-	        InstructorMenu inMenu = new InstructorMenu(con);
-	        	
-	        List<Student> students = inMenu.ViewAssignedStudents(id);
-	        return new ResponseEntity<List<Student>>(students,HttpStatus.OK);
-	        }else {
-	        	return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-	        }
+		// SELECT STUDENTS THAT ARE BEING TAUGHT BY INSTRUCTOR
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
 
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isInstructor(id)) {
+				InstructorMenu inMenu = new InstructorMenu(con);
+
+				List<Student> students = inMenu.ViewAssignedStudents(id);
+				return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -760,9 +805,9 @@ public interface UserApi {
 //				}
 //			}
 //		});
-		
-		//IMPLEMENTS
-		
+
+		// IMPLEMENTS
+
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
@@ -784,15 +829,15 @@ public interface UserApi {
 			@NotNull @ApiParam(value = "The id of the user for login", required = true) @Valid @RequestParam(value = "id", required = true) int id,
 			@NotNull @ApiParam(value = "The password for login in clear text", required = true) @Valid @RequestParam(value = "password", required = true) String password) {
 		try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-    		Login login = new Login(con);
-    		
-    		String message = login.login(id,password);
-    		
-    		return new ResponseEntity<String>(message, HttpStatus.OK);
-    		
-		}catch(Exception e) {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			Login login = new Login(con);
+
+			String message = login.login(id, password);
+
+			return new ResponseEntity<String>(message, HttpStatus.OK);
+
+		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<String>("Login Failed", HttpStatus.UNAUTHORIZED);
 		}
@@ -811,9 +856,9 @@ public interface UserApi {
 			@ApiResponse(code = 200, message = "successful operation") })
 	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
 	default ResponseEntity<Void> logoutUser() {
-		
-		//NOT YET IMPLEMENTED, WILL JUST WIPE THE LOCAL VERSION OF THE ID
-		
+
+		// NOT YET IMPLEMENTED, WILL JUST WIPE THE LOCAL VERSION OF THE ID
+
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
@@ -837,23 +882,24 @@ public interface UserApi {
 	default ResponseEntity<Void> updateAdmin(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "Updated user object") @Valid @RequestBody(required = false) Admin admin) {
-		//UPDATE ADMIN
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.EditAdmin(admin, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// UPDATE ADMIN
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.EditAdmin(admin, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -877,23 +923,24 @@ public interface UserApi {
 	default ResponseEntity<Void> updateInstructor(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "The updated instructor attributes.", required = true) @Valid @RequestBody Instructor instructor) {
-		//ADD INSTRUCTOR
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.EditInstructor(instructor, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// ADD INSTRUCTOR
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.EditInstructor(instructor, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -919,24 +966,24 @@ public interface UserApi {
 	default ResponseEntity<Void> updateMXEngineer(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "The updated mx_Engineer", required = true) @Valid @RequestBody MXEngineer mxEngineer) {
-		//ADD MECHANICAL ENGINEER
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.EditMX(mxEngineer, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// ADD MECHANICAL ENGINEER
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
 
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.EditMX(mxEngineer, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
@@ -959,27 +1006,27 @@ public interface UserApi {
 	default ResponseEntity<Void> updateStudent(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "The new updated student.", required = true) @Valid @RequestBody Student student) {
-		//EDIT STUDENT
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-	        int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        if(am.isAdmin(id)) {
-	        	am.EditStudent(student, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
-	        }
-	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+		// EDIT STUDENT
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			if (am.isAdmin(id)) {
+				am.EditStudent(student, id);
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
-	
-	
+
 	/**
 	 * PUT /user/{user_id} : Updated user This can only be done by the logged in
 	 * user.
@@ -1000,20 +1047,21 @@ public interface UserApi {
 	default ResponseEntity<Void> updateUser(
 			@ApiParam(value = "user that need to be updated", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "Updated user object", required = true) @Valid @RequestBody User user) {
-		
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
-	    			"something_fun");
-    		int id = Login.getCurrentUser();;
-	       	
-	        AdminMenu am = new AdminMenu(con);
-	        	
-	        am.EditUser(user,id);
-	        return new ResponseEntity<>(HttpStatus.OK);
-        }catch(Exception e) {
-        		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
+			;
+
+			AdminMenu am = new AdminMenu(con);
+
+			am.EditUser(user, id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
