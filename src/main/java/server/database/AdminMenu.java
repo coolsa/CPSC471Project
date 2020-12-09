@@ -702,7 +702,7 @@ public class AdminMenu {
 	        	newStudent.getUserId().setLastName(user.getString(4));
 	        	newStudent.getUserId().setPassword(user.getString(5));
 	        	newStudent.getUserId().setPhone(user.getString(6));
-	        	newStudent.setPilotLicenseNo(student.getString(7));
+	        	newStudent.setPilotLicenseNo(student.getString(2));
 	        	return newStudent;
 	        }else {
 	        	return null;
@@ -744,25 +744,31 @@ public class AdminMenu {
      */
     public Instructor SelectInstructor(int id) {
     	try {
-    		System.out.println("Entered Select Instructor");
     		CallableStatement cs3 = con.prepareCall("CALL SelectUser(?)");
 	        cs3.setInt(1,id);
 	        ResultSet user = cs3.executeQuery();
 	        CallableStatement cs4 = con.prepareCall("CALL SelectInstructor(?)");
 	        cs4.setInt(1,id);
 	        ResultSet instructor = cs4.executeQuery();
-	        System.out.println("Got the instructor");
 	        if(instructor.next() && user.next()){
-	        	System.out.println("retrieving the instructor");
 	        	Instructor newInstructor = new Instructor();
+	        	System.out.println("0");
 	        	newInstructor.getUserId().setId((long)user.getInt(1));
+	        	System.out.println("1");
 	        	newInstructor.getUserId().setEmail(user.getString(2));
+	        	System.out.println("2");
 	        	newInstructor.getUserId().setFirstName(user.getString(3));
+	        	System.out.println("3");
 	        	newInstructor.getUserId().setLastName(user.getString(4));
+	        	System.out.println("4");
 	        	newInstructor.getUserId().setPassword(user.getString(5));
+	        	System.out.println("5");
 	        	newInstructor.getUserId().setPhone(user.getString(6));
-	        	newInstructor.setPilotLicenseNo(instructor.getString(7));
-	        	newInstructor.setInstructorClass(instructor.getString(8));
+	        	System.out.println("6");
+	        	newInstructor.setPilotLicenseNo(instructor.getString(2));
+	        	System.out.println("7");
+	        	newInstructor.setInstructorClass(instructor.getString(3));
+	        	System.out.println("8");
 	        	return newInstructor;
 	        }else {
 	        	return null;
@@ -792,8 +798,8 @@ public class AdminMenu {
 	        	newMX.getUserId().setLastName(user.getString(4));
 	        	newMX.getUserId().setPassword(user.getString(5));
 	        	newMX.getUserId().setPhone(user.getString(6));
-	        	newMX.setEngLicenseNo(mx.getString(7));
-	        	newMX.setRating(mx.getString(8));
+	        	newMX.setEngLicenseNo(mx.getString(2));
+	        	newMX.setRating(mx.getString(3));
 	        	return newMX;
 	        }else {
 	        	return null;
@@ -823,7 +829,7 @@ public class AdminMenu {
 	        	newAdmin.getUserId().setLastName(user.getString(4));
 	        	newAdmin.getUserId().setPassword(user.getString(5));
 	        	newAdmin.getUserId().setPhone(user.getString(6));
-	        	newAdmin.setRole(admin.getString(7));
+	        	newAdmin.setRole(admin.getString(2));
 	        	return newAdmin;
 	        }else {
 	        	return null;
