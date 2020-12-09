@@ -893,8 +893,12 @@ public class AdminMenu {
 	        	AircraftSchedule newSchedule = new AircraftSchedule();
 	        	newSchedule.getAircraftId().setId((long)flight.getInt(1));
             	newSchedule.setFlightId((long)flight.getInt(2));
-            	newSchedule.setSchedStart(flight.getObject(3, OffsetDateTime.class));
-            	newSchedule.setSchedEnd(flight.getObject(4, OffsetDateTime.class));
+            	
+            	LocalDateTime start = flight.getObject(3, LocalDateTime.class);
+            	LocalDateTime end = flight.getObject(4, LocalDateTime.class);
+            	
+            	newSchedule.setSchedStart(start.atOffset(ZoneOffset.UTC));
+            	newSchedule.setSchedEnd(end.atOffset(ZoneOffset.UTC));
             	schedule.add(newSchedule);
 	        }
 	        return schedule;

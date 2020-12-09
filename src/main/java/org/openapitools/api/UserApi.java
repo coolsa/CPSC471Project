@@ -936,10 +936,14 @@ public interface UserApi {
 			@ApiResponse(code = 200, message = "successful operation") })
 	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
 	default ResponseEntity<Void> logoutUser() {
+		
+		int id = Login.getCurrentUser();
 
-		// NOT YET IMPLEMENTED, WILL JUST WIPE THE LOCAL VERSION OF THE ID
-
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		if(id > -1) {
+			Login.logout();
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
 	}
 

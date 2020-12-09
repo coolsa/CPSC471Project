@@ -70,6 +70,7 @@ public class Login {
     }
     
     public static void logout() {
+    	System.out.println("Logging out user");
     	currentUser = -1;
     }
     
