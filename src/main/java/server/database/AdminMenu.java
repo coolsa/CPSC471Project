@@ -3,6 +3,7 @@ package server.database;
 import org.json.JSONObject;
 import org.openapitools.model.Admin;
 import org.openapitools.model.Aircraft;
+import org.openapitools.model.AircraftSchedule;
 import org.openapitools.model.Flight;
 import org.openapitools.model.Instructor;
 import org.openapitools.model.MXEngineer;
@@ -221,7 +222,7 @@ public class AdminMenu {
             cs3.setInt(2,id);
             cs3.executeUpdate();
         }catch(Exception e){
-            System.out.println("Unable to delete  Mechanical Engineer");
+            System.out.println("Unable to delete Mechanical Engineer");
             System.out.println(e);
         }
     }
@@ -865,6 +866,29 @@ public class AdminMenu {
 	        }else {
 	        	return null;
 	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+    }
+    
+    public List<AircraftSchedule> SelectAircraftSchedule(int id){
+    	try {
+	        CallableStatement cs4 = con.prepareCall("CALL SelectAllAircraftsSchedule(?)");
+	        cs4.setInt(1,id);
+	        ResultSet flight = cs4.executeQuery();
+	        
+	        List<AircraftSchedule> schedule = new ArrayList<AircraftSchedule>();
+	        
+	        while(flight.next()) {
+	        	AircraftSchedule newSchedule = new AircraftSchedule();
+	        	newSchedule.getAircraftId().setId((long)flight.getInt(1));
+            	newSchedule.setFlightId((long)flight.getInt(2));
+            	newSchedule.setSchedStart(flight.getObject(3, OffsetDateTime.class));
+            	newSchedule.setSchedEnd(flight.getObject(4, OffsetDateTime.class));
+            	schedule.add(newSchedule);
+	        }
+	        return schedule;
     	}catch(Exception e) {
     		System.out.println(e);
     		return null;

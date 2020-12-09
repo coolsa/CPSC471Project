@@ -454,15 +454,16 @@ public interface AircraftApi {
 	}
 
 	/**
-	 * GET /aircraft/{aircraft_id}/schedule/ : fetches schedual for an aircraft
+	 * GET /aircraft/{aircraft_id}/schedule/ : fetches schedule for an aircraft
 	 *
 	 * @param aircraftId The aircraft that needs to be fetched. Use 1 for testing.
 	 *                   (required)
+	 * @return 
 	 * @return Invalid Instructor or Student (status code 400) or Permission Denied
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or Success response (status code 200)
 	 */
-	@ApiOperation(value = "fetches schedual for an aircraft", nickname = "getScheduleForAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "fetches schedule for an aircraft", nickname = "getScheduleForAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -470,7 +471,7 @@ public interface AircraftApi {
 			@ApiResponse(code = 200, message = "Success response", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/aircraft/{aircraft_id}/schedule/", produces = {
 			"application/json" }, method = RequestMethod.GET)
-	default ResponseEntity<List<Object>> getScheduleForAircraft(
+	default ResponseEntity<List<AircraftSchedule>> getScheduleForAircraft(
 			@ApiParam(value = "The aircraft  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("aircraft_id") Long aircraftId) {
 		getRequest().ifPresent(request -> {
 			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -481,10 +482,20 @@ public interface AircraftApi {
 				}
 			}
 		});
-		
-		// NOT IMPLEMENTED
-		
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		//SELECT AIRCRAFT SCHEDULE
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        List<AircraftSchedule> scheduleList = am.SelectAircraftSchedule(aircraftId.intValue());
+	        return new ResponseEntity<List<AircraftSchedule>>(scheduleList, HttpStatus.OK);
+
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
