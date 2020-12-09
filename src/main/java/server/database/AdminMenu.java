@@ -5,6 +5,7 @@ import org.openapitools.model.Admin;
 import org.openapitools.model.AdminUserId;
 import org.openapitools.model.Aircraft;
 import org.openapitools.model.AircraftSchedule;
+import org.openapitools.model.AircraftScheduleAircraftId;
 import org.openapitools.model.Flight;
 import org.openapitools.model.Instructor;
 import org.openapitools.model.MXEngineer;
@@ -900,7 +901,9 @@ public class AdminMenu {
 	        
 	        while(flight.next()) {
 	        	AircraftSchedule newSchedule = new AircraftSchedule();
-	        	newSchedule.getAircraftId().setId((long)flight.getInt(1));
+	        	AircraftScheduleAircraftId aid = new AircraftScheduleAircraftId();
+	        	aid.setId((long)flight.getInt(1));
+	        	newSchedule.setAircraftId(aid);
             	newSchedule.setFlightId((long)flight.getInt(2));
             	
             	LocalDateTime start = flight.getObject(3, LocalDateTime.class);

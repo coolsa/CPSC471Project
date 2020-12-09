@@ -159,9 +159,9 @@ public class StudentMenu {
 
 			List<Instructor> teachers = new ArrayList<Instructor>();
 			while (allInstructors.next()) {
-				teachers.add(am.SelectInstructor(allInstructors.getInt(1)));
+				Instructor instructor = am.SelectInstructor(allInstructors.getInt(2));
+				teachers.add(instructor);
 			}
-			
 			return teachers;
 		} catch (Exception e) {
 			System.out.println(e);
