@@ -53,13 +53,13 @@ public interface UserApi {
 	}
 
 	/**
-	 * POST /user/admin : Add a new user to the system
+	 * POST /user/admin : Add a New Admin User - (ADMIN access)
 	 *
 	 * @param body User admin that needs to be added (optional)
 	 * @return Permission Denied (status code 401) or Invalid input (status code
 	 *         405) or successful operation (status code 200)
 	 */
-	@ApiOperation(value = "Add a new user to the system", nickname = "addAdmin", notes = "", authorizations = {
+	@ApiOperation(value = "Add a New Admin User - (ADMIN access)", nickname = "addAdmin", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = { "user", })
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 405, message = "Invalid input"),
@@ -89,13 +89,13 @@ public interface UserApi {
 	}
 
 	/**
-	 * POST /user/instructor : Add a new instructor to the system
+	 * POST /user/instructor : Add a New Instructor User - (ADMIN access)
 	 *
 	 * @param body User instructor that needs to be added (optional)
 	 * @return Permission Denied (status code 401) or Invalid input (status code
 	 *         405) or successful operation (status code 200)
 	 */
-	@ApiOperation(value = "Add a new instructor to the system", nickname = "addInstructor", notes = "", authorizations = {
+	@ApiOperation(value = "Add a New Instructor User - (ADMIN access)", nickname = "addInstructor", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = { "user", })
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 405, message = "Invalid input"),
@@ -109,7 +109,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -126,13 +125,13 @@ public interface UserApi {
 	}
 
 	/**
-	 * POST /user/mx_engineer : Add a new user to the system
+	 * POST /user/mx_engineer : Add a New Mechanical Engineer User - (ADMIN access)
 	 *
 	 * @param body User object that needs to be added (required)
 	 * @return Permission Denied (status code 401) or Invalid input (status code
 	 *         405) or successful operation (status code 200)
 	 */
-	@ApiOperation(value = "Add a new user to the system", nickname = "addMXEngineer", notes = "", authorizations = {
+	@ApiOperation(value = "Add a New Mechanical Engineer User - (ADMIN access)", nickname = "addMXEngineer", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = { "user", })
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 405, message = "Invalid input"),
@@ -161,13 +160,13 @@ public interface UserApi {
 	}
 
 	/**
-	 * POST /user/student : Add a new user to the system
+	 * POST /user/student : Add a New Student User - (ADMIN access)
 	 *
 	 * @param body User student that needs to be added (optional)
 	 * @return Permission Denied (status code 401) or Invalid input (status code
 	 *         405) or successful operation (status code 200)
 	 */
-	@ApiOperation(value = "Add a new user to the system", nickname = "addStudent", notes = "", tags = { "user", })
+	@ApiOperation(value = "Add a New Student User - (ADMIN access)", nickname = "addStudent", notes = "", tags = { "user", })
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 405, message = "Invalid input"),
 			@ApiResponse(code = 200, message = "successful operation") })
@@ -196,7 +195,7 @@ public interface UserApi {
 	}
 
 	/**
-	 * POST /user/student/{user_id}/teachers : adds new instructor for a student.
+	 * POST /user/student/{user_id}/teachers : Add New Instructor that Teaches Student - (ADMIN access)
 	 *
 	 * @param userId     The user that needs to be fetched. Use 1 for testing.
 	 *                   (required)
@@ -205,7 +204,7 @@ public interface UserApi {
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or success response (status code 200)
 	 */
-	@ApiOperation(value = "adds new instructor for a student.", nickname = "addTeacherForStudent", notes = "", authorizations = {
+	@ApiOperation(value = "Add New Instructor that Teaches Student - (ADMIN access)", nickname = "addTeacherForStudent", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -221,7 +220,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -238,8 +236,8 @@ public interface UserApi {
 	}
 
 	/**
-	 * POST /user/instructor/{user_id}/teaching : adds new students that an
-	 * instructor is teaching.
+	 * POST /user/instructor/{user_id}/teaching : Add New Student that gets Taught by Instructor - (ADMIN access)
+	 * 
 	 *
 	 * @param userId  The user that needs to be fetched. Use 1 for testing.
 	 *                (required)
@@ -248,7 +246,7 @@ public interface UserApi {
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or Success response (status code 200)
 	 */
-	@ApiOperation(value = "adds new students that an instructor is teaching.", nickname = "addTeachingForInstructor", notes = "", authorizations = {
+	@ApiOperation(value = "Add New Student that gets Taught by Instructor - (ADMIN access)", nickname = "addTeachingForInstructor", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -264,7 +262,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -318,7 +315,7 @@ public interface UserApi {
 	 */
 
 	/**
-	 * GET /user/{user_id}/flights : retrieves all flights for a specific User
+	 * GET /user/{user_id}/flights : Get All of a User's Flights
 	 *
 	 * @param userId the id of the user, only should work if the id is of the
 	 *               current user. (required)
@@ -326,7 +323,7 @@ public interface UserApi {
 	 *         (status code 401) or Aircraft not found (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "retrieves all flights for a specific User", nickname = "getAllMyFlights", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "View All of a User's Flights - (STUDENT, INSTRUCTOR, ADMIN access)", nickname = "getAllMyFlights", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
@@ -352,6 +349,17 @@ public interface UserApi {
 	        	InstructorMenu in = new InstructorMenu(con);
 		        List<Flight> flightList = in.ViewInstructorSchedule(id);
 		        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+	        }else if(am.isAdmin(id)){
+	        	if(am.isStudent(userId.intValue())) {
+		        	StudentMenu st = new StudentMenu(con);
+			        List<Flight> flightList = st.ViewStudentSchedule(userId.intValue());
+			        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+		        }else if(am.isInstructor(userId.intValue())){
+		        	InstructorMenu in = new InstructorMenu(con);
+			        List<Flight> flightList = in.ViewInstructorSchedule(userId.intValue());
+			        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+		        }
+	        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
@@ -430,7 +438,7 @@ public interface UserApi {
 	 *         (status code 401) or User not found (status code 404) or User
 	 *         successfully deleted (status code 200)
 	 */
-	@ApiOperation(value = "Delete user", nickname = "deleteUser", notes = "This can only be done by the logged in user. It also deletes associated admins, instructors, students, and MX-Engineers, and teacher/teaching relations.", authorizations = {
+	@ApiOperation(value = "Delete A User - (ADMIN access)", nickname = "deleteUser", notes = "This can only be done by the logged in user. It also deletes associated admins, instructors, students, and MX-Engineers, and teacher/teaching relations.", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = { "user", })
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid user id supplied"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -481,7 +489,7 @@ public interface UserApi {
 	 *         401) or Invalid admin supplied (status code 404) or Default response
 	 *         (status code 200)
 	 */
-	@ApiOperation(value = "fetches information about an admin, from their id.", nickname = "getAdminByID", notes = "", authorizations = {
+	@ApiOperation(value = "View Admin Profile - (ADMIN access)", nickname = "getAdminByID", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "admin not found"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -499,7 +507,7 @@ public interface UserApi {
 
 			AdminMenu am = new AdminMenu(con);
 			
-	        if(id > -1) {
+	        if(am.isAdmin(id)) {
 	        	Admin admin = am.SelectAdmin(userId.intValue());
 	        	return new ResponseEntity<Admin>(admin, HttpStatus.OK);
 	        }else {
@@ -519,13 +527,13 @@ public interface UserApi {
 	 * @return Permission Denied (status code 401) or Invalid input (status code
 	 *         405) or successful operation (status code 200)
 	 */
-	@ApiOperation(value = "Fetches all Users", nickname = "getAllUsers", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "View All User Profiles - (ADMIN access)", nickname = "getAllUsers", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 405, message = "Invalid input"),
 			@ApiResponse(code = 200, message = "successful operation", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/user", produces = { "application/json" }, method = RequestMethod.GET)
-	default ResponseEntity<List<Object>> getAllUsers() {
+	default ResponseEntity<List<User>> getAllUsers() {
 //		getRequest().ifPresent(request -> {
 //			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
 //				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
@@ -535,8 +543,26 @@ public interface UserApi {
 //				}
 //			}
 //		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        
+	        int id = Login.getCurrentUser();
+	        
+	        if(am.isAdmin(id)) {
+		        List<User> userList = am.ViewAllUsers();
+		        return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+	        
 
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 	}
 
 	/**
@@ -548,7 +574,7 @@ public interface UserApi {
 	 * @return instructor not found (status code 400) or invalid instructor response
 	 *         (status code 404) or success response (status code 200)
 	 */
-	@ApiOperation(value = "fetches information about an instructor, from their id.", nickname = "getInstructorByID", notes = "", authorizations = {
+	@ApiOperation(value = "View Instructor Profile - (INSTRUCTOR, ADMIN access)", nickname = "getInstructorByID", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "instructor not found"),
 			@ApiResponse(code = 404, message = "invalid instructor response"),
@@ -570,12 +596,19 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
-
-			Instructor instructor = am.SelectInstructor(userId.intValue());
-			return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+			
+			if(am.isInstructor(id)) {
+				Instructor instructor = am.SelectInstructor(id);
+				return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+			}else if(am.isAdmin(id)) {
+				Instructor instructor = am.SelectInstructor(userId.intValue());
+				return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
+			
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -594,7 +627,7 @@ public interface UserApi {
 	 *         code 401) or invalid MX_Engineer (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "fetches information about MX Engineer, from their id.", nickname = "getMXEngineerByID", notes = "", authorizations = {
+	@ApiOperation(value = "View Mechanical Engineer Profile - (MX_ENGINEER, ADMIN access)", nickname = "getMXEngineerByID", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "MX_Engineer not found."),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -617,12 +650,18 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
-			MXEngineer mx = am.SelectMX(userId.intValue());
-			return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+			if(am.isMX(id)) {
+				MXEngineer mx = am.SelectMX(id);
+				return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+			}else if(am.isAdmin(id)) {
+				MXEngineer mx = am.SelectMX(userId.intValue());
+				return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -640,7 +679,7 @@ public interface UserApi {
 	 * @return invalid student. (status code 400) or student not found (status code
 	 *         404) or success response (status code 200)
 	 */
-	@ApiOperation(value = "fetches information about student, from their id.", nickname = "getStudentByID", notes = "", authorizations = {
+	@ApiOperation(value = "View Student Profile - (STUDENT, ADMIN access)", nickname = "getStudentByID", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "invalid student."),
 			@ApiResponse(code = 404, message = "student not found"),
@@ -663,12 +702,18 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
-
-			Student st = am.SelectStudent(userId.intValue());
-			return new ResponseEntity<Student>(st, HttpStatus.OK);
+			
+			if(am.isMX(id)) {
+				Student st = am.SelectStudent(id);
+				return new ResponseEntity<Student>(st, HttpStatus.OK);
+			}else if(am.isAdmin(id)) {
+				Student st = am.SelectStudent(userId.intValue());
+				return new ResponseEntity<Student>(st, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -687,7 +732,7 @@ public interface UserApi {
 	 *         401) or Student not found (status code 404) or successful operation
 	 *         (status code 200)
 	 */
-	@ApiOperation(value = "fetches instructors that a student is learning from.", nickname = "getTeachersFromStudent", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "View a Student's Instructor - (STUDENT, ADMIN access)", nickname = "getTeachersFromStudent", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "invalid student"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -712,7 +757,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -721,7 +765,12 @@ public interface UserApi {
 
 				List<Instructor> teachers = stMenu.ViewAssignedInstructors(id);
 				return new ResponseEntity<List<Instructor>>(teachers, HttpStatus.OK);
-			} else {
+			} else if(am.isAdmin(id)){
+				StudentMenu stMenu = new StudentMenu(con);
+
+				List<Instructor> teachers = stMenu.ViewAssignedInstructors(userId.intValue());
+				return new ResponseEntity<List<Instructor>>(teachers, HttpStatus.OK);
+			}else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
@@ -742,7 +791,7 @@ public interface UserApi {
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or Success response (status code 200)
 	 */
-	@ApiOperation(value = "fetches students that an instructor is teaching.", nickname = "getTeachingFromInstructor", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "View Instructor's Students - (INSTRUCTOR, ADMIN access)", nickname = "getTeachingFromInstructor", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -775,6 +824,11 @@ public interface UserApi {
 
 				List<Student> students = inMenu.ViewAssignedStudents(id);
 				return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+			} else if(am.isAdmin(id)){
+				InstructorMenu inMenu = new InstructorMenu(con);
+
+				List<Student> students = inMenu.ViewAssignedStudents(userId.intValue());
+				return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
@@ -795,7 +849,7 @@ public interface UserApi {
 	 *         (status code 401) or User not found (status code 404) or successful
 	 *         operation (status code 200)
 	 */
-	@ApiOperation(value = "Get user by user id", nickname = "getUserByID", notes = "", response = User.class, authorizations = {
+	@ApiOperation(value = "View User Profile - (ADMIN access)", nickname = "getUserByID", notes = "", response = User.class, authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = { "user", })
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid user id supplied"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -814,21 +868,37 @@ public interface UserApi {
 //			}
 //		});
 
-		// IMPLEMENTS
+		// SELECT USER
+		try {
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
+			int id = Login.getCurrentUser();
 
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+			AdminMenu am = new AdminMenu(con);
+			
+	        if(am.isAdmin(id)) {
+	        	User user = am.SelectUser(userId.intValue());
+	        	return new ResponseEntity<User>(user, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 
 	}
 
 	/**
-	 * GET /user/login : Logs user into the system
+	 * GET /user/login : USER LOGIN - (ALL ACCESS)
 	 *
 	 * @param email    The email of the user for login (required)
 	 * @param password The password for login in clear text (required)
 	 * @return successful operation (status code 200) or Invalid username/password
 	 *         supplied (status code 400)
 	 */
-	@ApiOperation(value = "Logs user into the system", nickname = "loginUser", notes = "", response = String.class, tags = {
+	@ApiOperation(value = "USER LOGIN - (ALL ACCESS)", nickname = "loginUser", notes = "", response = String.class, tags = {
 			"user", })
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "successful operation", response = String.class),
 			@ApiResponse(code = 400, message = "Invalid username/password supplied") })
@@ -858,7 +928,7 @@ public interface UserApi {
 	 * @return Permission Denied (status code 401) or successful operation (status
 	 *         code 200)
 	 */
-	@ApiOperation(value = "Logs out current logged in user session", nickname = "logoutUser", notes = "", tags = {
+	@ApiOperation(value = "USER LOGOUT - (ALL ACCESS)", nickname = "logoutUser", notes = "", tags = {
 			"user", })
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
 			@ApiResponse(code = 200, message = "successful operation") })
@@ -881,7 +951,7 @@ public interface UserApi {
 	 * @return admin not found (status code 400) or Invalid admin supplied (status
 	 *         code 404) or Default response (status code 200)
 	 */
-	@ApiOperation(value = "updates information about an admin, from their id.", nickname = "updateAdmin", notes = "", authorizations = {
+	@ApiOperation(value = "Update Admin Profile - (ADMIN access)", nickname = "updateAdmin", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "admin not found"),
 			@ApiResponse(code = 404, message = "Invalid admin supplied"),
@@ -895,7 +965,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -922,7 +991,7 @@ public interface UserApi {
 	 * @return instructor not found (status code 400) or invalid instructor response
 	 *         (status code 404) or success response (status code 200)
 	 */
-	@ApiOperation(value = "updates information about an instructor", nickname = "updateInstructor", notes = "uses the instructor id, and a new attribute for the instructor, to update the instructor in question.", authorizations = {
+	@ApiOperation(value = "Update Instructor Profile - (ADMIN access)", nickname = "updateInstructor", notes = "uses the instructor id, and a new attribute for the instructor, to update the instructor in question.", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "instructor not found"),
 			@ApiResponse(code = 404, message = "invalid instructor response"),
@@ -936,7 +1005,7 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
+
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -963,7 +1032,7 @@ public interface UserApi {
 	 *         code 401) or invalid MX_Engineer (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "updates information about MX Engineer, from their id.", nickname = "updateMXEngineer", notes = "", authorizations = {
+	@ApiOperation(value = "Update Mechanical Engineer Profile - (ADMIN access)", nickname = "updateMXEngineer", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "MX_Engineer not found."),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -979,7 +1048,7 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
+
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -1005,7 +1074,7 @@ public interface UserApi {
 	 * @return invalid student. (status code 400) or student not found (status code
 	 *         404) or success response (status code 200)
 	 */
-	@ApiOperation(value = "updates information about student, from their id, with new student.", nickname = "updateStudent", notes = "", authorizations = {
+	@ApiOperation(value = "Update Student Profile - (ADMIN access)", nickname = "updateStudent", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "invalid student."),
 			@ApiResponse(code = 404, message = "student not found"),
@@ -1019,7 +1088,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -1045,7 +1113,7 @@ public interface UserApi {
 	 *         code 401) or User not found (status code 404) or Successful Update
 	 *         (status code 200)
 	 */
-	@ApiOperation(value = "Updated user", nickname = "updateUser", notes = "This can only be done by the logged in user.", authorizations = {
+	@ApiOperation(value = "Update User Profile - (ADMIN access)", nickname = "updateUser", notes = "This can only be done by the logged in user.", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = { "user", })
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid user supplied"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -1060,7 +1128,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 

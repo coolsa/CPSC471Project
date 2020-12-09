@@ -59,7 +59,7 @@ public interface AircraftApi {
 	 * @return Invalid aircraft response (status code 400) or Permission Denied
 	 *         (status code 401) or success response (status code 200)
 	 */
-	@ApiOperation(value = "adds a new aircraft", nickname = "addAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "Add a New Aircraft - (ADMIN access)", nickname = "addAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -98,7 +98,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Aircraft not found (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "adds a new flight", nickname = "addFlight", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "Book a New Flight - (STUDENT, INSTRUCTOR, ADMIN access)", nickname = "addFlight", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -184,7 +184,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Aircraft not found (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "delete an aircraft, based on its id.", nickname = "deleteAircraft", notes = "", authorizations = {
+	@ApiOperation(value = "Delete a Aircraft - (ADMIN access)", nickname = "deleteAircraft", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -221,7 +221,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Flight or aircraft not found (status code 404)
 	 *         or success response (status code 200)
 	 */
-	@ApiOperation(value = "delete a flight by its id.", nickname = "deleteFlight", notes = "", authorizations = {
+	@ApiOperation(value = "Cancel a Flight - (ALL ACCESS)", nickname = "deleteFlight", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid flight or aircraft"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -298,7 +298,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Aircraft not found (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "fetch an aircraft by its id.", nickname = "getAircraftByID", notes = "", response = Object.class, authorizations = {
+	@ApiOperation(value = "View an Aircraft - (ALL ACCESS)", nickname = "getAircraftByID", notes = "", response = Object.class, authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -347,7 +347,7 @@ public interface AircraftApi {
 	 * @return Invalid aircraft response (status code 400) or Permission Denied
 	 *         (status code 401) or success response (status code 200)
 	 */
-	@ApiOperation(value = "retrieves all aircrafts", nickname = "getAllAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "View All Aircraft - (ALL ACCESS)", nickname = "getAllAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -395,7 +395,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Aircraft not found (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "retrieves all flights", nickname = "getAllFlights", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "View All Flights - (ALL ACCESS)", nickname = "getAllFlights", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -444,7 +444,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Flight or aircraft not found (status code 404)
 	 *         or success response (status code 200)
 	 */
-	@ApiOperation(value = "fetch an flight by its id.", nickname = "getFlightByID", notes = "", authorizations = {
+	@ApiOperation(value = "View a Flight - (ALL ACCESS)", nickname = "getFlightByID", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid flight or aircraft"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -497,7 +497,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or Success response (status code 200)
 	 */
-	@ApiOperation(value = "fetches schedule for an aircraft", nickname = "getScheduleForAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
+	@ApiOperation(value = "View an Aircraft's Schedule - (ALL ACCESS)", nickname = "getScheduleForAircraft", notes = "", response = Object.class, responseContainer = "List", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -550,7 +550,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Aircraft not found (status code 404) or success
 	 *         response (status code 200)
 	 */
-	@ApiOperation(value = "update an aircraft", nickname = "updateAircraft", notes = "", authorizations = {
+	@ApiOperation(value = "Update an Aircraft - (ADMIN access)", nickname = "updateAircraft", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid aircraft response"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
@@ -590,7 +590,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Flight or aircraft not found (status code 404)
 	 *         or success response (status code 200)
 	 */
-	@ApiOperation(value = "update a flight", nickname = "updateFlight", notes = "", authorizations = {
+	@ApiOperation(value = "Update a Flight - (MX ENGINEER, ADMIN access)", nickname = "updateFlight", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid flight or aircraft"),
 			@ApiResponse(code = 401, message = "Permission Denied"),
