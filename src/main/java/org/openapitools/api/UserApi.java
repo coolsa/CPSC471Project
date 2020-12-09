@@ -6,6 +6,7 @@
 package org.openapitools.api;
 
 import org.openapitools.model.Admin;
+import org.openapitools.model.Aircraft;
 import org.openapitools.model.Instructor;
 import org.openapitools.model.MXEngineer;
 import org.openapitools.model.Student;
@@ -476,18 +477,22 @@ public interface UserApi {
 			@ApiResponse(code = 405, message = "Invalid input"),
 			@ApiResponse(code = 200, message = "successful operation", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/user", produces = { "application/json" }, method = RequestMethod.GET)
-	default ResponseEntity<List<Object>> getAllUsers() {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-					String exampleString = "";
-					ApiUtil.setExampleResponse(request, "", exampleString);
-					break;
-				}
-			}
-		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+	default ResponseEntity<List<User>> getAllUsers() {
+		//SELECT ALL USER
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        List<User> userList = am.ViewAllUsers();
+	        return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+		
 	}
 
 	/**
@@ -812,10 +817,8 @@ public interface UserApi {
 	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
 	default ResponseEntity<Void> logoutUser() {
 		
-		//NOT YET IMPLEMENTED, WILL JUST WIPE THE LOCAL VERSION OF THE ID
-		
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
+	    Login.logout();
+	    return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	/**

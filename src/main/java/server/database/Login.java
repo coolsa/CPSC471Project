@@ -69,7 +69,7 @@ public class Login {
     	}
     }
     
-    public void logout() {
+    public static void logout() {
     	currentUser = -1;
     }
     
