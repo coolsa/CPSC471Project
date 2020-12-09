@@ -106,15 +106,15 @@ public interface AircraftApi {
 			"application/json" }, method = RequestMethod.POST)
 	default ResponseEntity<List<Object>> addFlight(
 			@ApiParam(value = "The new flight to add. As flight needs a referenced aircraft, this should be fine.") @Valid @RequestBody(required = false) Flight flight) {
-        getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-                if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-                    String exampleString = "";
-                    ApiUtil.setExampleResponse(request, "", exampleString);
-                    break;
-                }
-            }
-        });
+//        getRequest().ifPresent(request -> {
+//            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+//                if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+//                    String exampleString = "";
+//                    ApiUtil.setExampleResponse(request, "", exampleString);
+//                    break;
+//                }
+//            }
+//        });
         
         //ADD FLIGHT
     	try {
@@ -305,15 +305,15 @@ public interface AircraftApi {
 	@RequestMapping(value = "/aircraft/{aircraft_id}", produces = { "application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<Aircraft> getAircraftByID(
 			@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("aircraft_id") Long aircraftId) {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-					String exampleString = "";
-					ApiUtil.setExampleResponse(request, "", exampleString);
-					break;
-				}
-			}
-		});
+//		getRequest().ifPresent(request -> {
+//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+//					String exampleString = "";
+//					ApiUtil.setExampleResponse(request, "", exampleString);
+//					break;
+//				}
+//			}
+//		});
 		//SELECT AIRCRAFT
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
@@ -344,15 +344,15 @@ public interface AircraftApi {
 			@ApiResponse(code = 200, message = "success response", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/aircraft", produces = { "application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<List<Aircraft>> getAllAircraft() {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-					String exampleString = "";
-					ApiUtil.setExampleResponse(request, "", exampleString);
-					break;
-				}
-			}
-		});
+//		getRequest().ifPresent(request -> {
+//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+//					String exampleString = "";
+//					ApiUtil.setExampleResponse(request, "", exampleString);
+//					break;
+//				}
+//			}
+//		});
 		//SELECT ALL AIRCRAFT
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
@@ -385,15 +385,15 @@ public interface AircraftApi {
 			@ApiResponse(code = 200, message = "success response", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/aircraft/flight/", produces = { "application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<List<Flight>> getAllFlights() {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-					String exampleString = "";
-					ApiUtil.setExampleResponse(request, "", exampleString);
-					break;
-				}
-			}
-		});
+//		getRequest().ifPresent(request -> {
+//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+//					String exampleString = "";
+//					ApiUtil.setExampleResponse(request, "", exampleString);
+//					break;
+//				}
+//			}
+//		});
 		//SELECT ALL FLIGHT
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
@@ -428,15 +428,15 @@ public interface AircraftApi {
 	@RequestMapping(value = "/aircraft/flight/{flight_id}", method = RequestMethod.GET)
 		default ResponseEntity<Flight> getFlightByID(
 				@ApiParam(value = "the id of the aircraft.", required = true) @PathVariable("flight_id") Long flightId) {
-			getRequest().ifPresent(request -> {
-				for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-					if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-						String exampleString = "";
-						ApiUtil.setExampleResponse(request, "", exampleString);
-						break;
-					}
-				}
-			});
+//			getRequest().ifPresent(request -> {
+//				for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+//					if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+//						String exampleString = "";
+//						ApiUtil.setExampleResponse(request, "", exampleString);
+//						break;
+//					}
+//				}
+//			});
 		
 		//SELECT FLIGHT
     	try {
@@ -474,15 +474,15 @@ public interface AircraftApi {
 			"application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<List<AircraftSchedule>> getScheduleForAircraft(
 			@ApiParam(value = "The aircraft  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("aircraft_id") Long aircraftId) {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-					String exampleString = "";
-					ApiUtil.setExampleResponse(request, "", exampleString);
-					break;
-				}
-			}
-		});
+//		getRequest().ifPresent(request -> {
+//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+//					String exampleString = "";
+//					ApiUtil.setExampleResponse(request, "", exampleString);
+//					break;
+//				}
+//			}
+//		});
 		//SELECT AIRCRAFT SCHEDULE
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
