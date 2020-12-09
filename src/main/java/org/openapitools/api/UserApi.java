@@ -280,6 +280,7 @@ public interface UserApi {
 	 * @return Permission Denied (status code 401) or Invalid input (status code
 	 *         405) or successful operation (status code 200)
 	 */
+	/*
 	@ApiOperation(value = "Add a new user to the system", nickname = "addUser", notes = "", response = Object.class, responseContainer = "List", tags = {
 			"user", })
 	@ApiResponses(value = { @ApiResponse(code = 401, message = "Permission Denied"),
@@ -304,6 +305,7 @@ public interface UserApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
+	*/
 
 	/**
 	 * DELETE /user/instructor/{user_id}/teaching/{student_id} : removes an
@@ -976,7 +978,8 @@ public interface UserApi {
         }
 
 	}
-
+	
+	
 	/**
 	 * PUT /user/{user_id} : Updated user This can only be done by the logged in
 	 * user.
@@ -998,9 +1001,19 @@ public interface UserApi {
 			@ApiParam(value = "user that need to be updated", required = true) @PathVariable("user_id") Long userId,
 			@ApiParam(value = "Updated user object", required = true) @Valid @RequestBody User user) {
 		
-		//NOT YET IMPLEMENTED
-		
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+    		int id = 8;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        am.EditUser(user,id);
+	        return new ResponseEntity<>(HttpStatus.OK);
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 

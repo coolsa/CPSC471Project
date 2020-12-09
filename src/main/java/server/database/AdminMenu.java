@@ -216,7 +216,7 @@ public class AdminMenu {
      */
     public void RemoveMX(int mid, int id){
         try {
-            CallableStatement cs3 = con.prepareCall("CALL RemoveMXEngineer(?,?)");
+            CallableStatement cs3 = con.prepareCall("CALL RemoveMX_Engineer(?,?)");
             cs3.setInt(1, mid);
             cs3.setInt(2,id);
             cs3.executeUpdate();
@@ -262,6 +262,32 @@ public class AdminMenu {
             cs.setString(6,phone);
             cs.setString(7,license);
             cs.setInt(8,id);
+            cs.executeQuery();
+        }catch(Exception e){
+            System.out.println("Unable to add new Student");
+            System.out.println(e);
+        }
+    }
+    
+    /**
+     * Admin menu to edit the desired user
+     */
+    public void EditUser(User user, int id){
+        try {
+            String email = user.getEmail();
+            String fname = user.getFirstName();
+            String lname = user.getLastName();
+            String pass = user.getPassword();
+            String phone = user.getPhone();
+
+            CallableStatement cs = con.prepareCall("CALL EditUser(?,?,?,?,?,?,?)");
+            cs.setInt(1, user.getId().intValue());
+            cs.setString(2, email);
+            cs.setString(3,fname);
+            cs.setString(4,lname);
+            cs.setString(5,pass);
+            cs.setString(6,phone);
+            cs.setInt(7,id);
             cs.executeQuery();
         }catch(Exception e){
             System.out.println("Unable to add new Student");
@@ -671,6 +697,32 @@ public class AdminMenu {
 	        	newStudent.getUserId().setPhone(user.getString(6));
 	        	newStudent.setPilotLicenseNo(student.getString(7));
 	        	return newStudent;
+	        }else {
+	        	return null;
+	        }
+    	}catch(Exception e) {
+    		System.out.println(e);
+    		return null;
+    	}
+    }
+    
+    /**
+     * Returns true if a student, false if not
+     */
+    public User SelectUser(int id) {
+    	try {
+    		CallableStatement cs3 = con.prepareCall("CALL SelectUser(?)");
+	        cs3.setInt(1,id);
+	        ResultSet user = cs3.executeQuery();
+	        if(user.next()){
+	        	User newUser = new User();
+	        	newUser.setId((long)user.getInt(1));
+	        	newUser.setEmail(user.getString(2));
+	        	newUser.setFirstName(user.getString(3));
+	        	newUser.setLastName(user.getString(4));
+	        	newUser.setPassword(user.getString(5));
+	        	newUser.setPhone(user.getString(6));
+	        	return newUser;
 	        }else {
 	        	return null;
 	        }

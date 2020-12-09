@@ -154,6 +154,7 @@ public interface AircraftApi {
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or Success response (status code 200)
 	 */
+	/*
 	@ApiOperation(value = "adds new schedual for an aircraft", nickname = "addScheduleForAircraft", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
@@ -170,6 +171,7 @@ public interface AircraftApi {
 		//NO LONGER NEEDED, IS HANDLED BY ADD FLIGHT
 
 	}
+	*/
 
 	/**
 	 * DELETE /aircraft/{aircraft_id} : delete an aircraft, based on its id.
@@ -268,6 +270,7 @@ public interface AircraftApi {
 	 *         Denied (status code 401) or Aircraft, Schedule, or Flight not found
 	 *         (status code 404) or success response (status code 200)
 	 */
+	/*
 	@ApiOperation(value = "removes an instructor for a student.", nickname = "deleteFlightFromSchedule", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Aircraft, Flight, or Schedule"),
@@ -281,8 +284,8 @@ public interface AircraftApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 		//NO LONGER NEEDED, HANDLED BY DELETE FLIGHT
-		
 	}
+	*/
 
 	/**
 	 * GET /aircraft/{aircraft_id} : fetch an aircraft by its id.
