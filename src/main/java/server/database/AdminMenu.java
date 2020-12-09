@@ -369,7 +369,7 @@ public class AdminMenu {
             String phone = admin.getUserId().getPhone();
             String role = admin.getRole();
 
-            CallableStatement cs = con.prepareCall("CALL AddAdmin(?,?,?,?,?,?,?,?)");
+            CallableStatement cs = con.prepareCall("CALL EditAdmin(?,?,?,?,?,?,?,?)");
             cs.setInt(1,admin.getUserId().getId().intValue());
             cs.setString(2, email);
             cs.setString(3,fname);
