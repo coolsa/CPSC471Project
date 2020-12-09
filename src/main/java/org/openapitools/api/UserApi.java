@@ -6,6 +6,7 @@
 package org.openapitools.api;
 
 import org.openapitools.model.Admin;
+import org.openapitools.model.Aircraft;
 import org.openapitools.model.Instructor;
 import org.openapitools.model.MXEngineer;
 import org.openapitools.model.Student;
@@ -71,7 +72,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -144,7 +144,6 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
 
@@ -348,62 +347,62 @@ public interface UserApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
-
-	/**
-	 * DELETE /user/instructor/{user_id}/teaching/{student_id} : removes an
-	 * instructor for a student.
-	 *
-	 * @param userId    The user that needs to be fetched. Use 1 for testing.
-	 *                  (required)
-	 * @param studentId (required)
-	 * @return Invalid Instructor or Student (status code 400) or Permission Denied
-	 *         (status code 401) or Instructor or Student not found (status code
-	 *         404) or success response (status code 200)
-	 */
-	@ApiOperation(value = "removes an instructor for a student.", nickname = "deleteStudentFromTeacher", notes = "", authorizations = {
-			@Authorization(value = "airsched_auth") }, tags = {})
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
-			@ApiResponse(code = 401, message = "Permission Denied"),
-			@ApiResponse(code = 404, message = "Instructor or Student not found"),
-			@ApiResponse(code = 200, message = "success response") })
-	@RequestMapping(value = "/user/instructor/{user_id}/teaching/{student_id}", method = RequestMethod.DELETE)
-	default ResponseEntity<Void> deleteStudentFromTeacher(
-			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
-			@ApiParam(value = "", required = true) @PathVariable("student_id") Long studentId) {
-
-		// IMPLEMENT LATER
-
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-	}
-
-	/**
-	 * DELETE /user/student/{user_id}/teachers/{instructor_id} : removes an
-	 * instructor for a student.
-	 *
-	 * @param userId       The user that needs to be fetched. Use 1 for testing.
-	 *                     (required)
-	 * @param instructorId (required)
-	 * @return Invalid Instructor or Student (status code 400) or Permission Denied
-	 *         (status code 401) or Instructor or Student not found (status code
-	 *         404) or success response (status code 200)
-	 */
-	@ApiOperation(value = "removes an instructor for a student.", nickname = "deleteTeacherForStudent", notes = "", authorizations = {
-			@Authorization(value = "airsched_auth") }, tags = {})
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
-			@ApiResponse(code = 401, message = "Permission Denied"),
-			@ApiResponse(code = 404, message = "Instructor or Student not found"),
-			@ApiResponse(code = 200, message = "success response") })
-	@RequestMapping(value = "/user/student/{user_id}/teachers/{instructor_id}", method = RequestMethod.DELETE)
-	default ResponseEntity<Void> deleteTeacherForStudent(
-			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
-			@ApiParam(value = "", required = true) @PathVariable("instructor_id") Long instructorId) {
-
-		// IMPLEMENT LATER
-
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-	}
+//
+//	/**
+//	 * DELETE /user/instructor/{user_id}/teaching/{student_id} : removes an
+//	 * instructor for a student.
+//	 *
+//	 * @param userId    The user that needs to be fetched. Use 1 for testing.
+//	 *                  (required)
+//	 * @param studentId (required)
+//	 * @return Invalid Instructor or Student (status code 400) or Permission Denied
+//	 *         (status code 401) or Instructor or Student not found (status code
+//	 *         404) or success response (status code 200)
+//	 */
+//	@ApiOperation(value = "removes an instructor for a student.", nickname = "deleteStudentFromTeacher", notes = "", authorizations = {
+//			@Authorization(value = "airsched_auth") }, tags = {})
+//	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
+//			@ApiResponse(code = 401, message = "Permission Denied"),
+//			@ApiResponse(code = 404, message = "Instructor or Student not found"),
+//			@ApiResponse(code = 200, message = "success response") })
+//	@RequestMapping(value = "/user/instructor/{user_id}/teaching/{student_id}", method = RequestMethod.DELETE)
+//	default ResponseEntity<Void> deleteStudentFromTeacher(
+//			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
+//			@ApiParam(value = "", required = true) @PathVariable("student_id") Long studentId) {
+//
+//		// IMPLEMENT LATER
+//
+//		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+//
+//	}
+//
+//	/**
+//	 * DELETE /user/student/{user_id}/teachers/{instructor_id} : removes an
+//	 * instructor for a student.
+//	 *
+//	 * @param userId       The user that needs to be fetched. Use 1 for testing.
+//	 *                     (required)
+//	 * @param instructorId (required)
+//	 * @return Invalid Instructor or Student (status code 400) or Permission Denied
+//	 *         (status code 401) or Instructor or Student not found (status code
+//	 *         404) or success response (status code 200)
+//	 */
+//	@ApiOperation(value = "removes an instructor for a student.", nickname = "deleteTeacherForStudent", notes = "", authorizations = {
+//			@Authorization(value = "airsched_auth") }, tags = {})
+//	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
+//			@ApiResponse(code = 401, message = "Permission Denied"),
+//			@ApiResponse(code = 404, message = "Instructor or Student not found"),
+//			@ApiResponse(code = 200, message = "success response") })
+//	@RequestMapping(value = "/user/student/{user_id}/teachers/{instructor_id}", method = RequestMethod.DELETE)
+//	default ResponseEntity<Void> deleteTeacherForStudent(
+//			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId,
+//			@ApiParam(value = "", required = true) @PathVariable("instructor_id") Long instructorId) {
+//
+//		// IMPLEMENT LATER
+//
+//		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+//
+//	}
 
 	/**
 	 * DELETE /user/{user_id} : Delete user This can only be done by the logged in
@@ -430,8 +429,7 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
-
+			
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
@@ -476,27 +474,21 @@ public interface UserApi {
 	@RequestMapping(value = "/user/admin/{user_id}", method = RequestMethod.GET)
 	default ResponseEntity<Admin> getAdminByID(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-//			getRequest().ifPresent(request -> {
-//				for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//					if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//						String exampleString = "";
-//						ApiUtil.setExampleResponse(request, "", exampleString);
-//						break;
-//					}
-//				}
-//			});
 
 		// SELECT ADMIN
 		try {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
-
-			Admin admin = am.SelectAdmin(userId.intValue());
-			return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+			
+	        if(id > -1) {
+	        	Admin admin = am.SelectAdmin(userId.intValue());
+	        	return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -518,16 +510,27 @@ public interface UserApi {
 			@ApiResponse(code = 200, message = "successful operation", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/user", produces = { "application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<List<Object>> getAllUsers() {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//					String exampleString = "";
-//					ApiUtil.setExampleResponse(request, "", exampleString);
-//					break;
-//				}
-//			}
-//		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		//SELECT ALL USER
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+    		
+    		int id = Login.getCurrentUser();
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+
+	        if(id > -1) {
+		        List<User> userList = am.ViewAllUsers();
+		        return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
@@ -548,15 +551,6 @@ public interface UserApi {
 	@RequestMapping(value = "/user/instructor/{user_id}", method = RequestMethod.GET)
 	default ResponseEntity<Instructor> getInstructorByID(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//					String exampleString = "";
-//					ApiUtil.setExampleResponse(request, "", exampleString);
-//					break;
-//				}
-//			}
-//		});
 		// SELECT INSTRUCTOR
 		try {
 			Connection con = DriverManager.getConnection(
@@ -566,8 +560,12 @@ public interface UserApi {
 
 			AdminMenu am = new AdminMenu(con);
 
-			Instructor instructor = am.SelectInstructor(userId.intValue());
-			return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+	        if(id > -1) {
+		        Instructor instructor = am.SelectInstructor(userId.intValue());
+		        return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -595,15 +593,6 @@ public interface UserApi {
 	@RequestMapping(value = "/user/mx_engineer/{user_id}", method = RequestMethod.GET)
 	default ResponseEntity<MXEngineer> getMXEngineerByID(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//					String exampleString = "";
-//					ApiUtil.setExampleResponse(request, "", exampleString);
-//					break;
-//				}
-//			}
-//		});
 		// SELECT INSTRUCTOR
 		try {
 			Connection con = DriverManager.getConnection(
@@ -612,9 +601,13 @@ public interface UserApi {
 			;
 
 			AdminMenu am = new AdminMenu(con);
-
-			MXEngineer mx = am.SelectMX(userId.intValue());
-			return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+        	
+	        if(id > -1) {
+		        MXEngineer mx = am.SelectMX(userId.intValue());
+		        return new ResponseEntity<MXEngineer>(mx,HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -640,15 +633,6 @@ public interface UserApi {
 	@RequestMapping(value = "/user/student/{user_id}", method = RequestMethod.GET)
 	default ResponseEntity<Student> getStudentByID(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//					String exampleString = "";
-//					ApiUtil.setExampleResponse(request, "", exampleString);
-//					break;
-//				}
-//			}
-//		});
 
 		// SELECT INSTRUCTOR
 		try {
@@ -657,10 +641,14 @@ public interface UserApi {
 			int id = Login.getCurrentUser();
 			;
 
-			AdminMenu am = new AdminMenu(con);
-
-			Student st = am.SelectStudent(userId.intValue());
-			return new ResponseEntity<Student>(st, HttpStatus.OK);
+			AdminMenu am = new AdminMenu(con);	  
+			
+	        if(id > -1) {
+		        Student st = am.SelectStudent(userId.intValue());
+		        return new ResponseEntity<Student>(st,HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -689,16 +677,6 @@ public interface UserApi {
 			"application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<List<Instructor>> getTeachersFromStudent(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//					String exampleString = "";
-//					ApiUtil.setExampleResponse(request, "", exampleString);
-//					break;
-//				}
-//			}
-//		});
-
 		// SELECT INSTRUCTORS THAT ARE TEACHING STUDENT
 		try {
 			Connection con = DriverManager.getConnection(
@@ -744,15 +722,6 @@ public interface UserApi {
 			"application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<List<Student>> getTeachingFromInstructor(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//					String exampleString = "";
-//					ApiUtil.setExampleResponse(request, "", exampleString);
-//					break;
-//				}
-//			}
-//		});
 		// SELECT STUDENTS THAT ARE BEING TAUGHT BY INSTRUCTOR
 		try {
 			Connection con = DriverManager.getConnection(
@@ -796,19 +765,26 @@ public interface UserApi {
 	@RequestMapping(value = "/user/{user_id}", produces = { "application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<User> getUserByID(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-//					String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"password\" : \"password\", \"userStatus\" : 6, \"phone\" : \"phone\", \"id\" : 0, \"email\" : \"email\" }";
-//					ApiUtil.setExampleResponse(request, "application/json", exampleString);
-//					break;
-//				}
-//			}
-//		});
 
-		// IMPLEMENTS
+		//SELECT INSTRUCTOR
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = Login.getCurrentUser();;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        if(id > -1) {
+		        User us = am.SelectUser(userId.intValue());
+		        return new ResponseEntity<User>(us,HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
@@ -828,6 +804,8 @@ public interface UserApi {
 	default ResponseEntity<String> loginUser(
 			@NotNull @ApiParam(value = "The id of the user for login", required = true) @Valid @RequestParam(value = "id", required = true) int id,
 			@NotNull @ApiParam(value = "The password for login in clear text", required = true) @Valid @RequestParam(value = "password", required = true) String password) {
+		//LOGIN
+		
 		try {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
@@ -856,11 +834,14 @@ public interface UserApi {
 			@ApiResponse(code = 200, message = "successful operation") })
 	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
 	default ResponseEntity<Void> logoutUser() {
-
-		// NOT YET IMPLEMENTED, WILL JUST WIPE THE LOCAL VERSION OF THE ID
-
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
+		int id = Login.getCurrentUser();;
+		
+		if(id > -1) {
+			Login.logout();
+			return new ResponseEntity<>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -1052,11 +1033,17 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-			;
 
 			AdminMenu am = new AdminMenu(con);
-
-			am.EditUser(user, id);
+			
+	        if(id > -1 && userId == id) {
+	        	am.EditUser(user,id);
+	        }else if(am.isAdmin(id)){
+	        	am.EditUser(user,id);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+	        
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
