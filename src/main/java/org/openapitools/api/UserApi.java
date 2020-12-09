@@ -7,6 +7,7 @@ package org.openapitools.api;
 
 import org.openapitools.model.Admin;
 import org.openapitools.model.Aircraft;
+import org.openapitools.model.Flight;
 import org.openapitools.model.Instructor;
 import org.openapitools.model.MXEngineer;
 import org.openapitools.model.Student;
@@ -333,18 +334,33 @@ public interface UserApi {
 			@ApiResponse(code = 404, message = "Aircraft not found"),
 			@ApiResponse(code = 200, message = "success response", response = Object.class, responseContainer = "List") })
 	@RequestMapping(value = "/user/{user_id}/flights", produces = { "application/json" }, method = RequestMethod.GET)
-	default ResponseEntity<List<Object>> getAllMyFlights(
+	default ResponseEntity<List<Flight>> getAllMyFlights(
 			@ApiParam(value = "the id of the user, only should work if the id is of the current user. ", required = true) @PathVariable("user_id") Long userId) {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-					String exampleString = "";
-					ApiUtil.setExampleResponse(request, "", exampleString);
-					break;
-				}
-			}
-		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        
+	        int id = Login.getCurrentUser();
+	        
+	        if(am.isStudent(id)) {
+	        	StudentMenu st = new StudentMenu(con);
+		        List<Flight> flightList = st.ViewStudentSchedule(id);
+		        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+	        }else if(am.isInstructor(id)){
+	        	InstructorMenu in = new InstructorMenu(con);
+		        List<Flight> flightList = in.ViewInstructorSchedule(id);
+		        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+	        	
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+		
 
 	}
 //
