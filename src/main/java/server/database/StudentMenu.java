@@ -102,14 +102,13 @@ public class StudentMenu {
 			}
 
 			if (!isConflict) {
-				CallableStatement cs = con.prepareCall("CALL BookFlight(?,?,?,?,?,?,?)");
+				CallableStatement cs = con.prepareCall("CALL BookFlight(?,?,?,?,?,?)");
 				cs.setInt(1, aid);
 				cs.setInt(2, sid);
 				cs.setInt(3, iid);
 				cs.setString(4, ex);
 				cs.setString(5, newStart.toString());
 				cs.setString(6, newEnd.toString());
-				cs.setInt(7,  id);
 				cs.executeUpdate();
 			} else {
 				System.out.println("Flight already booked during this time");
