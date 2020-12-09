@@ -336,15 +336,15 @@ public interface UserApi {
 	@RequestMapping(value = "/user/{user_id}/flights", produces = { "application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<List<Object>> getAllMyFlights(
 			@ApiParam(value = "the id of the user, only should work if the id is of the current user. ", required = true) @PathVariable("user_id") Long userId) {
-//		getRequest().ifPresent(request -> {
-//			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-//				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-//					String exampleString = "";
-//					ApiUtil.setExampleResponse(request, "", exampleString);
-//					break;
-//				}
-//			}
-//		});
+		getRequest().ifPresent(request -> {
+			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+				if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
+					String exampleString = "";
+					ApiUtil.setExampleResponse(request, "", exampleString);
+					break;
+				}
+			}
+		});
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
