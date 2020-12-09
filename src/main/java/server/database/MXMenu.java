@@ -29,6 +29,7 @@ public class MXMenu {
         	CallableStatement cs2 = con.prepareCall("CALL SelectFlight(?)");
         	cs2.setInt(1, fid);
         	ResultSet rs = cs2.executeQuery();
+        	rs.next();
         	
             CallableStatement cs = con.prepareCall("CALL CancelMXFlight(?,?,?)");
             cs.setInt(1, fid);

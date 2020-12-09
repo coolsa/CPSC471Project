@@ -694,7 +694,7 @@ public class AdminMenu {
 	        CallableStatement cs4 = con.prepareCall("CALL SelectStudent(?)");
 	        cs4.setInt(1,id);
 	        ResultSet student = cs4.executeQuery();
-	        if(student.next()){
+	        if(student.next() && user.next()){
 	        	Student newStudent = new Student();
 	        	newStudent.getUserId().setId((long)user.getInt(1));
 	        	newStudent.getUserId().setEmail(user.getString(2));
@@ -750,7 +750,7 @@ public class AdminMenu {
 	        CallableStatement cs4 = con.prepareCall("CALL SelectInstructor(?)");
 	        cs4.setInt(1,id);
 	        ResultSet instructor = cs4.executeQuery();
-	        if(instructor.next()){
+	        if(instructor.next() && user.next()){
 	        	Instructor newInstructor = new Instructor();
 	        	newInstructor.getUserId().setId((long)user.getInt(1));
 	        	newInstructor.getUserId().setEmail(user.getString(2));
@@ -781,7 +781,7 @@ public class AdminMenu {
 	        CallableStatement cs4 = con.prepareCall("CALL SelectMX_Engineer(?)");
 	        cs4.setInt(1,id);
 	        ResultSet mx = cs4.executeQuery();
-	        if(mx.next()){
+	        if(mx.next() && user.next()){
 	        	MXEngineer newMX = new MXEngineer();
 	        	newMX.getUserId().setId((long)user.getInt(1));
 	        	newMX.getUserId().setEmail(user.getString(2));
@@ -812,7 +812,7 @@ public class AdminMenu {
 	        CallableStatement cs4 = con.prepareCall("CALL SelectAdmin(?)");
 	        cs4.setInt(1,id);
 	        ResultSet admin = cs4.executeQuery();
-	        if(admin.next()){
+	        if(admin.next() && user.next()){
 	        	Admin newAdmin = new Admin();
 	        	newAdmin.getUserId().setId((long)user.getInt(1));
 	        	newAdmin.getUserId().setEmail(user.getString(2));
