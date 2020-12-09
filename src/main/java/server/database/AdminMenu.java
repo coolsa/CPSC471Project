@@ -2,6 +2,7 @@ package server.database;
 
 import org.json.JSONObject;
 import org.openapitools.model.Admin;
+import org.openapitools.model.AdminUserId;
 import org.openapitools.model.Aircraft;
 import org.openapitools.model.AircraftSchedule;
 import org.openapitools.model.Flight;
@@ -696,12 +697,14 @@ public class AdminMenu {
 	        ResultSet student = cs4.executeQuery();
 	        if(student.next() && user.next()){
 	        	Student newStudent = new Student();
-	        	newStudent.getUserId().setId((long)user.getInt(1));
-	        	newStudent.getUserId().setEmail(user.getString(2));
-	        	newStudent.getUserId().setFirstName(user.getString(3));
-	        	newStudent.getUserId().setLastName(user.getString(4));
-	        	newStudent.getUserId().setPassword(user.getString(5));
-	        	newStudent.getUserId().setPhone(user.getString(6));
+	        	AdminUserId aUser = new AdminUserId();
+	        	aUser.setId((long)user.getInt(1));
+	        	aUser.setEmail(user.getString(2));
+	        	aUser.setFirstName(user.getString(3));
+	        	aUser.setLastName(user.getString(4));
+	        	aUser.setPassword(user.getString(5));
+	        	aUser.setPhone(user.getString(6));
+	        	newStudent.setUserId(aUser);
 	        	newStudent.setPilotLicenseNo(student.getString(2));
 	        	return newStudent;
 	        }else {
@@ -752,23 +755,16 @@ public class AdminMenu {
 	        ResultSet instructor = cs4.executeQuery();
 	        if(instructor.next() && user.next()){
 	        	Instructor newInstructor = new Instructor();
-	        	System.out.println("0");
-	        	newInstructor.getUserId().setId((long)user.getInt(1));
-	        	System.out.println("1");
-	        	newInstructor.getUserId().setEmail(user.getString(2));
-	        	System.out.println("2");
-	        	newInstructor.getUserId().setFirstName(user.getString(3));
-	        	System.out.println("3");
-	        	newInstructor.getUserId().setLastName(user.getString(4));
-	        	System.out.println("4");
-	        	newInstructor.getUserId().setPassword(user.getString(5));
-	        	System.out.println("5");
-	        	newInstructor.getUserId().setPhone(user.getString(6));
-	        	System.out.println("6");
+	        	AdminUserId aUser = new AdminUserId();
+	        	aUser.setId((long)user.getInt(1));
+	        	aUser.setEmail(user.getString(2));
+	        	aUser.setFirstName(user.getString(3));
+	        	aUser.setLastName(user.getString(4));
+	        	aUser.setPassword(user.getString(5));
+	        	aUser.setPhone(user.getString(6));
+	        	newInstructor.setUserId(aUser);
 	        	newInstructor.setPilotLicenseNo(instructor.getString(2));
-	        	System.out.println("7");
 	        	newInstructor.setInstructorClass(instructor.getString(3));
-	        	System.out.println("8");
 	        	return newInstructor;
 	        }else {
 	        	return null;
@@ -792,12 +788,14 @@ public class AdminMenu {
 	        ResultSet mx = cs4.executeQuery();
 	        if(mx.next() && user.next()){
 	        	MXEngineer newMX = new MXEngineer();
-	        	newMX.getUserId().setId((long)user.getInt(1));
-	        	newMX.getUserId().setEmail(user.getString(2));
-	        	newMX.getUserId().setFirstName(user.getString(3));
-	        	newMX.getUserId().setLastName(user.getString(4));
-	        	newMX.getUserId().setPassword(user.getString(5));
-	        	newMX.getUserId().setPhone(user.getString(6));
+	        	AdminUserId aUser = new AdminUserId();
+	        	aUser.setId((long)user.getInt(1));
+	        	aUser.setEmail(user.getString(2));
+	        	aUser.setFirstName(user.getString(3));
+	        	aUser.setLastName(user.getString(4));
+	        	aUser.setPassword(user.getString(5));
+	        	aUser.setPhone(user.getString(6));
+	        	newMX.setUserId(aUser);
 	        	newMX.setEngLicenseNo(mx.getString(2));
 	        	newMX.setRating(mx.getString(3));
 	        	return newMX;
@@ -823,12 +821,14 @@ public class AdminMenu {
 	        ResultSet admin = cs4.executeQuery();
 	        if(admin.next() && user.next()){
 	        	Admin newAdmin = new Admin();
-	        	newAdmin.getUserId().setId((long)user.getInt(1));
-	        	newAdmin.getUserId().setEmail(user.getString(2));
-	        	newAdmin.getUserId().setFirstName(user.getString(3));
-	        	newAdmin.getUserId().setLastName(user.getString(4));
-	        	newAdmin.getUserId().setPassword(user.getString(5));
-	        	newAdmin.getUserId().setPhone(user.getString(6));
+	        	AdminUserId aUser = new AdminUserId();
+	        	aUser.setId((long)user.getInt(1));
+	        	aUser.setEmail(user.getString(2));
+	        	aUser.setFirstName(user.getString(3));
+	        	aUser.setLastName(user.getString(4));
+	        	aUser.setPassword(user.getString(5));
+	        	aUser.setPhone(user.getString(6));
+	        	newAdmin.setUserId(aUser);
 	        	newAdmin.setRole(admin.getString(2));
 	        	return newAdmin;
 	        }else {
