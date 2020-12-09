@@ -912,7 +912,9 @@ public interface UserApi {
 			Login login = new Login(con);
 
 			String message = login.login(id, password);
-
+			if(message.compareTo("Login Failed") == 0) {
+				return new ResponseEntity<String>(message, HttpStatus.UNAUTHORIZED);
+			}
 			return new ResponseEntity<String>(message, HttpStatus.OK);
 
 		} catch (Exception e) {

@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -547,6 +548,7 @@ public class AdminMenu {
             CallableStatement cs2 = con.prepareCall("CALL SelectAllFlights");
             ResultSet allFlights = cs2.executeQuery();
             while(allFlights.next()){
+            	
                 LocalDateTime flightStart = allFlights.getObject(6, LocalDateTime.class);
                 LocalDateTime flightEnd = allFlights.getObject(7, LocalDateTime.class);
 
@@ -590,8 +592,12 @@ public class AdminMenu {
             	flight.setStudentId(SelectStudent(allFlights.getInt(3)));
             	flight.setInstructorId(SelectInstructor(allFlights.getInt(4)));
             	flight.setExercise(allFlights.getString(5));
-            	flight.setFlightStart(allFlights.getObject(6, OffsetDateTime.class));
-            	flight.setFlightEnd(allFlights.getObject(7, OffsetDateTime.class));
+
+            	LocalDateTime start = allFlights.getObject(6, LocalDateTime.class);
+            	LocalDateTime end = allFlights.getObject(7, LocalDateTime.class);
+            	
+            	flight.setFlightStart(start.atOffset(ZoneOffset.UTC));
+            	flight.setFlightEnd(end.atOffset(ZoneOffset.UTC));
             	temp.add(flight);
             }
             return temp;
@@ -860,8 +866,11 @@ public class AdminMenu {
             	newFlight.setStudentId(SelectStudent(flight.getInt(3)));
             	newFlight.setInstructorId(SelectInstructor(flight.getInt(4)));
             	newFlight.setExercise(flight.getString(5));
-            	newFlight.setFlightStart(flight.getObject(6, OffsetDateTime.class));
-            	newFlight.setFlightEnd(flight.getObject(7, OffsetDateTime.class));
+            	LocalDateTime start = flight.getObject(6, LocalDateTime.class);
+            	LocalDateTime end = flight.getObject(7, LocalDateTime.class);
+            	
+            	newFlight.setFlightStart(start.atOffset(ZoneOffset.UTC));
+            	newFlight.setFlightEnd(end.atOffset(ZoneOffset.UTC));
             	return newFlight;
 	        }else {
 	        	return null;
