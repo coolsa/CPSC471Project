@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -44,8 +45,11 @@ public class StudentMenu {
 				newFlight.setStudentId(am.SelectStudent(id));
 				newFlight.setInstructorId(am.SelectInstructor(allUsersFlights.getInt(4)));
 				newFlight.setExercise(allUsersFlights.getString(5));
-				newFlight.setFlightStart(allUsersFlights.getObject(6, OffsetDateTime.class));
-				newFlight.setFlightEnd(allUsersFlights.getObject(7, OffsetDateTime.class));
+				LocalDateTime start = allUsersFlights.getObject(6, LocalDateTime.class);
+            	LocalDateTime end = allUsersFlights.getObject(7, LocalDateTime.class);
+            	
+            	newFlight.setFlightStart(start.atOffset(ZoneOffset.UTC));
+            	newFlight.setFlightEnd(end.atOffset(ZoneOffset.UTC));
 				flights.add(newFlight);
 			}
 			return flights;

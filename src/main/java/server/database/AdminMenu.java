@@ -744,13 +744,16 @@ public class AdminMenu {
      */
     public Instructor SelectInstructor(int id) {
     	try {
+    		System.out.println("Entered Select Instructor");
     		CallableStatement cs3 = con.prepareCall("CALL SelectUser(?)");
 	        cs3.setInt(1,id);
 	        ResultSet user = cs3.executeQuery();
 	        CallableStatement cs4 = con.prepareCall("CALL SelectInstructor(?)");
 	        cs4.setInt(1,id);
 	        ResultSet instructor = cs4.executeQuery();
+	        System.out.println("Got the instructor");
 	        if(instructor.next() && user.next()){
+	        	System.out.println("retrieving the instructor");
 	        	Instructor newInstructor = new Instructor();
 	        	newInstructor.getUserId().setId((long)user.getInt(1));
 	        	newInstructor.getUserId().setEmail(user.getString(2));
