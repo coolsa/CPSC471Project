@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import org.openapitools.model.Aircraft;
 import org.openapitools.model.AircraftSchedule;
 import org.openapitools.model.Flight;
+import org.openapitools.model.Student;
+
 import io.swagger.annotations.*;
 import server.database.AdminMenu;
 import server.database.InstructorMenu;
@@ -120,7 +122,7 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        
@@ -196,7 +198,7 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -233,7 +235,7 @@ public interface AircraftApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -320,9 +322,17 @@ public interface AircraftApi {
 	    			"something_fun");
 	       	
 	        AdminMenu am = new AdminMenu(con);
+	        
+	        int id = Login.getCurrentUser();
+	        
+	        if(id > -1) {
+	        	Aircraft aircraft = am.SelectAircraft(aircraftId.intValue());
+		        return new ResponseEntity<Aircraft>(aircraft, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 	        	
-	        Aircraft aircraft = am.SelectAircraft(aircraftId.intValue());
-	        return new ResponseEntity<Aircraft>(aircraft, HttpStatus.OK);
+	        
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -359,9 +369,17 @@ public interface AircraftApi {
 	    			"something_fun");
 	       	
 	        AdminMenu am = new AdminMenu(con);
+	        
+	        int id = Login.getCurrentUser();
+	        
+	        if(id > -1) {
+		        List<Aircraft> aircraftList = am.ViewAllAircraft();
+		        return new ResponseEntity<List<Aircraft>>(aircraftList, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 	        	
-	        List<Aircraft> aircraftList = am.ViewAllAircraft();
-	        return new ResponseEntity<List<Aircraft>>(aircraftList, HttpStatus.OK);
+
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -400,9 +418,16 @@ public interface AircraftApi {
 	    			"something_fun");
 	       	
 	        AdminMenu am = new AdminMenu(con);
-	        	
-	        List<Flight> flightList = am.ViewAllFlight();
-	        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+	        
+	        int id = Login.getCurrentUser();
+	        
+	        if(id > -1) {
+		        List<Flight> flightList = am.ViewAllFlight();
+		        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+	        
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -445,8 +470,16 @@ public interface AircraftApi {
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        Flight flight = am.SelectFlight(flightId.intValue());
-	        return new ResponseEntity<Flight>(flight, HttpStatus.OK);
+
+	        
+	        int id = Login.getCurrentUser();
+	        
+	        if(id > -1) {
+		        Flight flight = am.SelectFlight(flightId.intValue());
+		        return new ResponseEntity<Flight>(flight, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -489,9 +522,17 @@ public interface AircraftApi {
 	    			"something_fun");
 	       	
 	        AdminMenu am = new AdminMenu(con);
-	        	
-	        List<AircraftSchedule> scheduleList = am.SelectAircraftSchedule(aircraftId.intValue());
-	        return new ResponseEntity<List<AircraftSchedule>>(scheduleList, HttpStatus.OK);
+	        
+	        int id = Login.getCurrentUser();
+	        
+	        if(id > -1) {
+		        List<AircraftSchedule> scheduleList = am.SelectAircraftSchedule(aircraftId.intValue());
+		        return new ResponseEntity<List<AircraftSchedule>>(scheduleList, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+	       
+	        
 
         }catch(Exception e) {
         		System.out.println(e);

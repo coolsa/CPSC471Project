@@ -71,7 +71,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -107,7 +107,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -142,7 +142,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -176,7 +176,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -217,7 +217,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -259,7 +259,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -319,6 +319,7 @@ public interface UserApi {
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or success response (status code 200)
 	 */
+	/*
 	@ApiOperation(value = "removes an instructor for a student.", nickname = "deleteStudentFromTeacher", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
@@ -335,6 +336,7 @@ public interface UserApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
+	*/
 
 	/**
 	 * DELETE /user/student/{user_id}/teachers/{instructor_id} : removes an
@@ -347,6 +349,7 @@ public interface UserApi {
 	 *         (status code 401) or Instructor or Student not found (status code
 	 *         404) or success response (status code 200)
 	 */
+	/*
 	@ApiOperation(value = "removes an instructor for a student.", nickname = "deleteTeacherForStudent", notes = "", authorizations = {
 			@Authorization(value = "airsched_auth") }, tags = {})
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid Instructor or Student"),
@@ -363,6 +366,7 @@ public interface UserApi {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
+	*/
 
 	/**
 	 * DELETE /user/{user_id} : Delete user This can only be done by the logged in
@@ -388,7 +392,7 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
@@ -437,26 +441,22 @@ public interface UserApi {
 	@RequestMapping(value = "/user/admin/{user_id}", method = RequestMethod.GET)
 	default ResponseEntity<Admin> getAdminByID(
 		@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-			getRequest().ifPresent(request -> {
-				for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-					if (mediaType.isCompatibleWith(MediaType.valueOf(""))) {
-						String exampleString = "";
-						ApiUtil.setExampleResponse(request, "", exampleString);
-						break;
-					}
-				}
-			});
 		
 		//SELECT ADMIN
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        Admin admin = am.SelectAdmin(userId.intValue());
-	        return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+	        
+	        if(id > -1) {
+	        	Admin admin = am.SelectAdmin(userId.intValue());
+	        	return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -482,11 +482,18 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
+    		
+    		int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        List<User> userList = am.ViewAllUsers();
-	        return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+
+	        if(id > -1) {
+		        List<User> userList = am.ViewAllUsers();
+		        return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -525,12 +532,17 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        Instructor instructor = am.SelectInstructor(userId.intValue());
-	        return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+	        if(id > -1) {
+		        Instructor instructor = am.SelectInstructor(userId.intValue());
+		        return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -571,12 +583,16 @@ public interface UserApi {
     	try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
-	        int id = Login.getCurrentUser();;
+	        int id = Login.getCurrentUser();
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        MXEngineer mx = am.SelectMX(userId.intValue());
-	        return new ResponseEntity<MXEngineer>(mx,HttpStatus.OK);
+	        if(id > -1) {
+		        MXEngineer mx = am.SelectMX(userId.intValue());
+		        return new ResponseEntity<MXEngineer>(mx,HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -621,8 +637,12 @@ public interface UserApi {
 	       	
 	        AdminMenu am = new AdminMenu(con);
 	        	
-	        Student st = am.SelectStudent(userId.intValue());
-	        return new ResponseEntity<Student>(st,HttpStatus.OK);
+	        if(id > -1) {
+		        Student st = am.SelectStudent(userId.intValue());
+		        return new ResponseEntity<Student>(st,HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 
         }catch(Exception e) {
         		System.out.println(e);
@@ -670,10 +690,10 @@ public interface UserApi {
 	        AdminMenu am = new AdminMenu(con);
 	        
 	        if(am.isStudent(id)) {
-	        StudentMenu stMenu = new StudentMenu(con);
+	        	StudentMenu stMenu = new StudentMenu(con);
 	        	
-	        List<Instructor> teachers = stMenu.ViewAssignedInstructors(id);
-	        return new ResponseEntity<List<Instructor>>(teachers,HttpStatus.OK);
+	        	List<Instructor> teachers = stMenu.ViewAssignedInstructors(id);
+	        	return new ResponseEntity<List<Instructor>>(teachers,HttpStatus.OK);
 	        }else {
 	        	return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	        }
@@ -723,10 +743,10 @@ public interface UserApi {
 	        AdminMenu am = new AdminMenu(con);
 	        
 	        if(am.isInstructor(id)) {
-	        InstructorMenu inMenu = new InstructorMenu(con);
+	        	InstructorMenu inMenu = new InstructorMenu(con);
 	        	
-	        List<Student> students = inMenu.ViewAssignedStudents(id);
-	        return new ResponseEntity<List<Student>>(students,HttpStatus.OK);
+	        	List<Student> students = inMenu.ViewAssignedStudents(id);
+	        	return new ResponseEntity<List<Student>>(students,HttpStatus.OK);
 	        }else {
 	        	return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	        }
@@ -756,19 +776,26 @@ public interface UserApi {
 	@RequestMapping(value = "/user/{user_id}", produces = { "application/json" }, method = RequestMethod.GET)
 	default ResponseEntity<User> getUserByID(
 			@ApiParam(value = "The user  that needs to be fetched. Use 1 for testing. ", required = true) @PathVariable("user_id") Long userId) {
-		getRequest().ifPresent(request -> {
-			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-				if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-					String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"password\" : \"password\", \"userStatus\" : 6, \"phone\" : \"phone\", \"id\" : 0, \"email\" : \"email\" }";
-					ApiUtil.setExampleResponse(request, "application/json", exampleString);
-					break;
-				}
-			}
-		});
-		
-		//IMPLEMENTS
-		
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+		//SELECT INSTRUCTOR
+    	try {
+    		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
+	    			"something_fun");
+	        int id = Login.getCurrentUser();;
+	       	
+	        AdminMenu am = new AdminMenu(con);
+	        	
+	        if(id > -1) {
+		        User us = am.SelectUser(userId.intValue());
+		        return new ResponseEntity<User>(us,HttpStatus.OK);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
+
+        }catch(Exception e) {
+        		System.out.println(e);
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
 	}
 
@@ -788,6 +815,8 @@ public interface UserApi {
 	default ResponseEntity<String> loginUser(
 			@NotNull @ApiParam(value = "The id of the user for login", required = true) @Valid @RequestParam(value = "id", required = true) int id,
 			@NotNull @ApiParam(value = "The password for login in clear text", required = true) @Valid @RequestParam(value = "password", required = true) String password) {
+		//LOGIN
+		
 		try {
     		Connection con = DriverManager.getConnection("jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user",
 	    			"something_fun");
@@ -816,9 +845,14 @@ public interface UserApi {
 			@ApiResponse(code = 200, message = "successful operation") })
 	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
 	default ResponseEntity<Void> logoutUser() {
+		int id = Login.getCurrentUser();;
 		
-	    Login.logout();
-	    return new ResponseEntity<>(HttpStatus.OK);
+		if(id > -1) {
+			Login.logout();
+			return new ResponseEntity<>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	/**
@@ -1010,8 +1044,16 @@ public interface UserApi {
     		int id = Login.getCurrentUser();;
 	       	
 	        AdminMenu am = new AdminMenu(con);
+	        
+	        if(id > -1 && userId == id) {
+	        	am.EditUser(user,id);
+	        }else if(am.isAdmin(id)){
+	        	am.EditUser(user,id);
+	        }else {
+	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+	        }
 	        	
-	        am.EditUser(user,id);
+	        
 	        return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e) {
         		System.out.println(e);
