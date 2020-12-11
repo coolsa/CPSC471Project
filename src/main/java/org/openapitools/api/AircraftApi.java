@@ -78,13 +78,17 @@ public interface AircraftApi {
 	        AdminMenu am = new AdminMenu(con);
 	        	
 	        if(am.isAdmin(id)) {
-	        	am.AddAircraft(aircraft, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = am.AddAircraft(aircraft, id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
 	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     	
 	}
@@ -128,21 +132,39 @@ public interface AircraftApi {
 	        
 	        if(am.isStudent(id)) {
 	        	StudentMenu st = new StudentMenu(con);
-	        	st.BookFlight(flight, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = st.BookFlight(flight, id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else if(res == -2) {
+	        		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else if(am.isInstructor(id)) {
 	        	InstructorMenu in = new InstructorMenu(con);
-	        	in.BookFlight(flight,id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = in.BookFlight(flight,id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else if(res == -2) {
+	        		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
 	        else if(am.isAdmin(8)) {
-	        	am.AddFlight(flight, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = am.AddFlight(flight, id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else if(res == -2) {
+	        		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
 	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
 	}
@@ -203,13 +225,17 @@ public interface AircraftApi {
 	        AdminMenu am = new AdminMenu(con);
 	        	
 	        if(am.isAdmin(id)) {
-	        	am.RemoveAircraft(aircraftId.intValue(),id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = am.RemoveAircraft(aircraftId.intValue(),id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
 	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 	}
 
@@ -241,24 +267,40 @@ public interface AircraftApi {
 	        	
 	        if(am.isStudent(id)) {
 	        	StudentMenu st = new StudentMenu(con);
-	        	st.CancelFlight(flightId.intValue(), id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = st.CancelFlight(flightId.intValue(), id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else if(am.isInstructor(id)) {
 	        	InstructorMenu in = new InstructorMenu(con);
-	        	in.CancelFlight(flightId.intValue(),id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = in.CancelFlight(flightId.intValue(),id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else if(am.isMX(id)) {
 	        	MXMenu mx = new MXMenu(con);
-	        	mx.CancelFlight(flightId.intValue(), id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = mx.CancelFlight(flightId.intValue(), id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else if(am.isAdmin(id)) {
-	        	am.RemoveFlight(flightId.intValue(), id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = am.RemoveFlight(flightId.intValue(), id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
 	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 	}
 
@@ -327,7 +369,11 @@ public interface AircraftApi {
 	        
 	        if(id > -1) {
 	        	Aircraft aircraft = am.SelectAircraft(aircraftId.intValue());
-		        return new ResponseEntity<Aircraft>(aircraft, HttpStatus.OK);
+	        	if(aircraft != null) {
+	        		return new ResponseEntity<Aircraft>(aircraft, HttpStatus.OK);
+        		}else {
+        			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		}	
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
@@ -336,7 +382,7 @@ public interface AircraftApi {
 
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
 	}
@@ -374,7 +420,11 @@ public interface AircraftApi {
 	        
 	        if(id > -1) {
 		        List<Aircraft> aircraftList = am.ViewAllAircraft();
-		        return new ResponseEntity<List<Aircraft>>(aircraftList, HttpStatus.OK);
+		        if(aircraftList != null) {
+		        	return new ResponseEntity<List<Aircraft>>(aircraftList, HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
@@ -383,7 +433,7 @@ public interface AircraftApi {
 
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
 	}
@@ -423,15 +473,17 @@ public interface AircraftApi {
 	        
 	        if(id > -1) {
 		        List<Flight> flightList = am.ViewAllFlight();
-		        return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+		        if(flightList != null) {
+		        	return new ResponseEntity<List<Flight>>(flightList, HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
-	        
-
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
 	}
@@ -476,14 +528,18 @@ public interface AircraftApi {
 	        
 	        if(id > -1) {
 		        Flight flight = am.SelectFlight(flightId.intValue());
-		        return new ResponseEntity<Flight>(flight, HttpStatus.OK);
+		        if(flight != null) {
+		        	return new ResponseEntity<Flight>(flight, HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
 
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 	}
 
@@ -527,16 +583,17 @@ public interface AircraftApi {
 	        
 	        if(id > -1) {
 		        List<AircraftSchedule> scheduleList = am.SelectAircraftSchedule(aircraftId.intValue());
-		        return new ResponseEntity<List<AircraftSchedule>>(scheduleList, HttpStatus.OK);
+		        if(scheduleList != null) {
+		        	return new ResponseEntity<List<AircraftSchedule>>(scheduleList, HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
-	       
-	        
-
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
 	}
@@ -570,13 +627,17 @@ public interface AircraftApi {
 	        AdminMenu am = new AdminMenu(con);
 	        	
 	        if(am.isAdmin(id)) {
-	        	am.EditAircraft(aircraft, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = am.EditAircraft(aircraft, id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
 	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 		
 	}
@@ -612,18 +673,29 @@ public interface AircraftApi {
 	        
 	        if(am.isMX(id)) {
 	        	MXMenu mx = new MXMenu(con);
-	        	mx.ModifyFlight(flight, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        	int res = mx.ModifyFlight(flight, id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else if(res == -2){
+	        		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
-	        else if(am.isAdmin(8)) {
-	        	am.EditFlight(flight, id);
-	        	return new ResponseEntity<>(HttpStatus.OK);
+	        else if(am.isAdmin(id)) {
+	        	int res = am.EditFlight(flight, id);
+	        	if(res == 1) {
+	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else if(res == -2){
+	        		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }
-	        
 	        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         
 	}

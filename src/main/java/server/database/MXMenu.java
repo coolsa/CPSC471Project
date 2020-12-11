@@ -24,8 +24,12 @@ public class MXMenu {
     /**
      * Allows mechanical engineers to cancel a flight
      */
-    public void CancelFlight(int fid, int id){
+    public int CancelFlight(int fid, int id){
         try {
+        	AdminMenu am = new AdminMenu(con);
+        	if(am.SelectFlight(fid) == null) {
+        		return -1;
+        	}
         	CallableStatement cs2 = con.prepareCall("CALL SelectFlight(?)");
         	cs2.setInt(1, fid);
         	ResultSet rs = cs2.executeQuery();
@@ -36,16 +40,18 @@ public class MXMenu {
             cs.setInt(2, rs.getInt(2));
             cs.setInt(3,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to cancel flight");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Allows mechanical engineers to modify the time of a flight
      */
-    public void ModifyFlight(Flight flight, int id){
+    public int ModifyFlight(Flight flight, int id){
         try {
             int fid = flight.getFlightId().intValue();
             int aid = flight.getAircraftId().getId().intValue();
@@ -59,9 +65,11 @@ public class MXMenu {
             cs.setString(4,end.toString());
             cs.setInt(5,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to cancel flight");
             System.out.println(e);
+            return -1;
         }
     }
 }

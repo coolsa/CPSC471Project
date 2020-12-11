@@ -36,15 +36,17 @@ public class AdminMenu {
     /**
      * Assign a instructor to teach a student
      */
-    public void AssignTeaches(int sid, int iid) {
+    public int AssignTeaches(int sid, int iid) {
         try {
             CallableStatement cs = con.prepareCall("CALL AssignTeaches(?,?)");
             cs.setInt(1, sid);
             cs.setInt(2, iid);
             cs.executeUpdate();
+            return 1;
         } catch (Exception e) {
             System.out.println("Unable to assign instructor to student");
             System.out.println(e);
+            return -1;
         }
     }
 
@@ -76,7 +78,7 @@ public class AdminMenu {
     /**
      * Adds the user inputed student to the database
      */
-    public void AddStudent(Student student, int id){
+    public int AddStudent(Student student, int id){
         try{;
             String email = student.getUserId().getEmail();
             String fname = student.getUserId().getFirstName();
@@ -94,16 +96,18 @@ public class AdminMenu {
             cs.setString(6,license);
             cs.setInt(7,id);
             cs.executeQuery();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Student");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Adds the user inputed instructor to the database
      */
-    public void AddInstructor(Instructor instructor, int id){
+    public int AddInstructor(Instructor instructor, int id){
         try {
             String email = instructor.getUserId().getEmail();
             String fname = instructor.getUserId().getFirstName();
@@ -123,16 +127,18 @@ public class AdminMenu {
             cs.setString(7,iClass);
             cs.setInt(8,id);
             cs.executeQuery();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Instructor");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Adds the user inputed mechanical engineer to the database
      */
-    public void AddMX(MXEngineer mx, int id){
+    public int AddMX(MXEngineer mx, int id){
         try{
             String email = mx.getUserId().getEmail();
             String fname = mx.getUserId().getFirstName();
@@ -152,16 +158,18 @@ public class AdminMenu {
             cs.setString(7,rating);
             cs.setInt(8,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Mechanical Engineer");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Adds the user inputed admin to the database
      */
-    public void AddAdmin(Admin admin, int id){
+    public int AddAdmin(Admin admin, int id){
         try{
             String email = admin.getUserId().getEmail();
             String fname = admin.getUserId().getFirstName();
@@ -179,76 +187,95 @@ public class AdminMenu {
             cs.setString(6,role);
             cs.setInt(7,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Admin");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to remove the user selected student
      */
-    public void RemoveStudent(int sid, int id){
+    public int RemoveStudent(int sid, int id){
         try {
+        	if(SelectStudent(sid) == null) {
+        		return -1;
+        	}
             CallableStatement cs1 = con.prepareCall("CALL RemoveStudent(?,?)");
             cs1.setInt(1, sid);
             cs1.setInt(2, id);
             cs1.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to delete Student");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to remove the user selected instructor
      */
-    public void RemoveInstructor(int iid, int id){
+    public int RemoveInstructor(int iid, int id){
         try {
+        	if(SelectInstructor(iid) == null) {
+        		return -1;
+        	}
             CallableStatement cs2 = con.prepareCall("CALL RemoveInstructor(?,?)");
             cs2.setInt(1, iid);
             cs2.setInt(2,id);
             cs2.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to delete Instructor");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to remove the user selected mechanical engineer
      */
-    public void RemoveMX(int mid, int id){
+    public int RemoveMX(int mid, int id){
         try {
             CallableStatement cs3 = con.prepareCall("CALL RemoveMX_Engineer(?,?)");
             cs3.setInt(1, mid);
             cs3.setInt(2,id);
             cs3.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to delete Mechanical Engineer");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to remove the user selected admin
      */
-    public void RemoveAdmin(int aid, int id){
+    public int RemoveAdmin(int aid, int id){
         try {
+        	if(SelectAdmin(aid) == null) {
+        		return -1;
+        	}
             CallableStatement cs4 = con.prepareCall("CALL RemoveAdmin(?,?)");
             cs4.setInt(1, aid);
             cs4.setInt(2,id);
             cs4.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to delete Admin");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to edit the desired student
      */
-    public void EditStudent(Student student, int id){
+    public int EditStudent(Student student, int id){
         try {
             String email = student.getUserId().getEmail();
             String fname = student.getUserId().getFirstName();
@@ -267,16 +294,18 @@ public class AdminMenu {
             cs.setString(7,license);
             cs.setInt(8,id);
             cs.executeQuery();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Student");
             System.out.println(e);
+            return -1;
         }
     }
     
     /**
      * Admin menu to edit the desired user
      */
-    public void EditUser(User user, int id){
+    public int EditUser(User user, int id){
         try {
             String email = user.getEmail();
             String fname = user.getFirstName();
@@ -293,16 +322,18 @@ public class AdminMenu {
             cs.setString(6,phone);
             cs.setInt(7,id);
             cs.executeQuery();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Student");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to edit the desired instructor
      */
-    public void EditInstructor(Instructor instructor, int id){
+    public int EditInstructor(Instructor instructor, int id){
         try {
             String email = instructor.getUserId().getEmail();
             String fname = instructor.getUserId().getFirstName();
@@ -323,16 +354,18 @@ public class AdminMenu {
             cs.setString(8,iClass);
             cs.setInt(9,id);
             cs.executeQuery();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Instructor");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to edit the desired mechanical engineer
      */
-    public void EditMX(MXEngineer mx, int id){
+    public int EditMX(MXEngineer mx, int id){
         try{
             String email = mx.getUserId().getEmail();
             String fname = mx.getUserId().getFirstName();
@@ -353,16 +386,18 @@ public class AdminMenu {
             cs.setString(8,rating);
             cs.setInt(9,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Mechanical Engineer");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Admin menu to edit the desired admin
      */
-    public void EditAdmin(Admin admin, int id){
+    public int EditAdmin(Admin admin, int id){
         try{
             String email = admin.getUserId().getEmail();
             String fname = admin.getUserId().getFirstName();
@@ -381,16 +416,18 @@ public class AdminMenu {
             cs.setString(7,role);
             cs.setInt(8,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to add new Admin");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Add the inputed aircraft to the database
      */
-    public void AddAircraft(Aircraft aircraft, int id){
+    public int AddAircraft(Aircraft aircraft, int id){
         try {
             String reg = aircraft.getRegistration();
             String type = aircraft.getType();
@@ -402,30 +439,37 @@ public class AdminMenu {
             cs.setString(3, serial);
             cs.setInt(4,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Remove the desired aircraft from the database
      */
-    public void RemoveAircraft(int aid, int id){
+    public int RemoveAircraft(int aid, int id){
         try {
+        	if(SelectAircraft(aid) == null) {
+        		return -1;
+        	}
             CallableStatement cs2 = con.prepareCall("CALL RemoveAircraft(?,?)");
             cs2.setInt(1, aid);
             cs2.setInt(2,id);
             cs2.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to delete Aircraft");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Edit the desired aircraft from the database
      */
-    public void EditAircraft(Aircraft aircraft, int id){
+    public int EditAircraft(Aircraft aircraft, int id){
         try {
             String reg = aircraft.getRegistration();
             String type = aircraft.getType();
@@ -438,8 +482,10 @@ public class AdminMenu {
             cs.setString(4, serial);
             cs.setInt(5,id);
             cs.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println(e);
+            return -1;
         }
     }
 
@@ -470,7 +516,7 @@ public class AdminMenu {
     /**
      * Add user inputed flight to the database
      */
-    public void AddFlight(Flight flight, int id){
+    public int AddFlight(Flight flight, int id){
         try {
             int aid = flight.getAircraftId().getId().intValue();
             int sid = flight.getStudentId().getUserId().getId().intValue();
@@ -504,19 +550,25 @@ public class AdminMenu {
                 cs.setString(6, newEnd.toString());
                 cs.setInt(7, id);
                 cs.executeUpdate();
+                return 1;
             }else{
                 System.out.println("Flight already booked during this time");
+                return -2;
             }
         }catch(Exception e){
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Remove desired flight from the database
      */
-    public void RemoveFlight(int fid, int id){
+    public int RemoveFlight(int fid, int id){
         try {
+        	if(SelectFlight(fid) == null) {
+        		return -1;
+        	}
         	CallableStatement cs = con.prepareCall("CALL SelectFlight(?)");
         	cs.setInt(1, fid);
         	ResultSet rs = cs.executeQuery();
@@ -527,16 +579,18 @@ public class AdminMenu {
             cs2.setInt(2, rs.getInt(2));
             cs2.setInt(3, id);
             cs2.executeUpdate();
+            return 1;
         }catch(Exception e){
             System.out.println("Unable to delete Flight");
             System.out.println(e);
+            return -1;
         }
     }
 
     /**
      * Edit desired flight from the database
      */
-    public void EditFlight(Flight flight, int id){
+    public int EditFlight(Flight flight, int id){
         try {
             int aid = flight.getAircraftId().getId().intValue();
             int sid = flight.getStudentId().getUserId().getId().intValue();
@@ -572,9 +626,12 @@ public class AdminMenu {
             	cs.setString(7, newEnd.toString());
             	cs.setInt(8,id);
             	cs.executeUpdate();
+            	return 1;
             }
+            return -2;
         }catch(Exception e){
             System.out.println(e);
+            return -1;
         }
     }
 
@@ -846,7 +903,6 @@ public class AdminMenu {
 	        CallableStatement cs4 = con.prepareCall("CALL SelectAircraft(?)");
 	        cs4.setInt(1,aid);
 	        ResultSet aircraft = cs4.executeQuery();
-	        
 	        if(aircraft.next()) {
 	        	Aircraft newAircraft = new Aircraft();
 	        	newAircraft.setId((long)aid);

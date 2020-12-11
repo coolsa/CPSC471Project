@@ -78,7 +78,7 @@ public class InstructorMenu {
      * Allows instructors to book a flight with or without a student
      * @param id ID of instructor
      */
-    public void BookFlight(Flight flight, int id){
+    public int BookFlight(Flight flight, int id){
         try{
         	int aid = flight.getAircraftId().getId().intValue();
 			int sid = flight.getStudentId().getUserId().getId().intValue();
@@ -113,11 +113,14 @@ public class InstructorMenu {
 				cs.setString(5, newStart.toString());
 				cs.setString(6, newEnd.toString());
 				cs.executeUpdate();
+				return 1;
 			} else {
 				System.out.println("Flight already booked during this time");
+				return -2;
 			}
 		} catch (Exception e) {
 			System.out.println(e);
+			return -1;
 		}
     }
 
@@ -125,9 +128,12 @@ public class InstructorMenu {
      * Allows instructors to cancel their own flight
      * @param id ID of instructor
      */
-    public void CancelFlight(int fid, int id){
+    public int CancelFlight(int fid, int id){
         try {
-
+        	AdminMenu am = new AdminMenu(con);
+        	if(am.SelectFlight(fid) == null) {
+        		return -1;
+        	}
             CallableStatement cs4a = con.prepareCall("CALL SelectFlight(?)");
             cs4a.setInt(1, fid);
             ResultSet rs = cs4a.executeQuery();
@@ -140,12 +146,15 @@ public class InstructorMenu {
                 cs4b.setInt(1, fid);
                 cs4b.setInt(2, aid2);
                 cs4b.executeUpdate();
+                return 1;
             }else{
                 System.out.println("The flight entered is not your flight");
+                return -2;
             }
         }catch(Exception e){
             System.out.println("Unable to delete Flight");
             System.out.println(e);
+            return -1;
         }
     }
 

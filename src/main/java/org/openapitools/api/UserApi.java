@@ -77,13 +77,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.AddAdmin(admin, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.AddAdmin(admin, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -113,13 +117,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.AddInstructor(instructor, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.AddInstructor(instructor, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -148,13 +156,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.AddMX(mx, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.AddMX(mx, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -183,13 +195,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.AddStudent(student, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.AddStudent(student, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -224,13 +240,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.AssignTeaches(userId.intValue(), instructor.getUserId().getId().intValue());
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.AssignTeaches(userId.intValue(), instructor.getUserId().getId().intValue());
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -266,13 +286,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.AssignTeaches(student.getUserId().getId().intValue(), userId.intValue());
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.AssignTeaches(student.getUserId().getId().intValue(), userId.intValue());
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}		
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 	}
 
@@ -362,14 +386,11 @@ public interface UserApi {
 	        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
-	        }
-	        	
+	        }	
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-		
-
 	}
 //
 //	/**
@@ -458,23 +479,40 @@ public interface UserApi {
 
 			if (am.isAdmin(id)) {
 				if (am.isStudent(userId.intValue())) {
-					am.RemoveStudent(userId.intValue(), id);
-					return new ResponseEntity<>(HttpStatus.OK);
+					int res = am.RemoveStudent(userId.intValue(), id);
+					if(res == 1) {
+						return new ResponseEntity<>(HttpStatus.OK);
+					}else {
+						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					}
 				} else if (am.isInstructor(userId.intValue())) {
-					am.RemoveInstructor(userId.intValue(), id);
-					return new ResponseEntity<>(HttpStatus.OK);
+					int res = am.RemoveInstructor(userId.intValue(), id);
+					if(res == 1) {
+						return new ResponseEntity<>(HttpStatus.OK);
+					}else {
+						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					}
 				} else if (am.isMX(userId.intValue())) {
-					am.RemoveMX(userId.intValue(), id);
-					return new ResponseEntity<>(HttpStatus.OK);
+					int res = am.RemoveMX(userId.intValue(), id);
+					if(res == 1) {
+						return new ResponseEntity<>(HttpStatus.OK);
+					}else {
+						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					}
 				} else if (am.isAdmin(userId.intValue())) {
-					am.RemoveAdmin(userId.intValue(), id);
-					return new ResponseEntity<>(HttpStatus.OK);
+					int res = am.RemoveAdmin(userId.intValue(), id);
+					if(res == 1) {
+						return new ResponseEntity<>(HttpStatus.OK);
+					}else {
+						return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					}
 				}
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -509,14 +547,18 @@ public interface UserApi {
 			
 	        if(am.isAdmin(id)) {
 	        	Admin admin = am.SelectAdmin(userId.intValue());
-	        	return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+	        	if(admin != null) {
+	        		return new ResponseEntity<Admin>(admin, HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
 
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -553,15 +595,18 @@ public interface UserApi {
 	        
 	        if(am.isAdmin(id)) {
 		        List<User> userList = am.ViewAllUsers();
-		        return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+		        if(userList != null) {
+		        	return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
-	        
-
+	       
         }catch(Exception e) {
         		System.out.println(e);
-        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        		return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 	}
 
@@ -601,18 +646,24 @@ public interface UserApi {
 			
 			if(am.isInstructor(id)) {
 				Instructor instructor = am.SelectInstructor(id);
-				return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+				if(instructor != null) {
+					return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}else if(am.isAdmin(id)) {
 				Instructor instructor = am.SelectInstructor(userId.intValue());
-				return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+				if(instructor != null) {
+					return new ResponseEntity<Instructor>(instructor, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
-			
-
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -655,17 +706,24 @@ public interface UserApi {
 
 			if(am.isMX(id)) {
 				MXEngineer mx = am.SelectMX(id);
-				return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+				if(mx != null) {
+					return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}else if(am.isAdmin(id)) {
 				MXEngineer mx = am.SelectMX(userId.intValue());
-				return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+				if(mx != null) {
+					return new ResponseEntity<MXEngineer>(mx, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
-
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -707,17 +765,25 @@ public interface UserApi {
 			
 			if(am.isStudent(id)) {
 				Student st = am.SelectStudent(id);
-				return new ResponseEntity<Student>(st, HttpStatus.OK);
+				if(st != null) {
+					return new ResponseEntity<Student>(st, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}else if(am.isAdmin(id)) {
 				Student st = am.SelectStudent(userId.intValue());
-				return new ResponseEntity<Student>(st, HttpStatus.OK);
+				if(st != null) {
+					return new ResponseEntity<Student>(st, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -762,21 +828,26 @@ public interface UserApi {
 
 			if (am.isStudent(id)) {
 				StudentMenu stMenu = new StudentMenu(con);
-
 				List<Instructor> teachers = stMenu.ViewAssignedInstructors(id);
-				return new ResponseEntity<List<Instructor>>(teachers, HttpStatus.OK);
+				if(teachers != null) {
+					return new ResponseEntity<List<Instructor>>(teachers, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			} else if(am.isAdmin(id)){
 				StudentMenu stMenu = new StudentMenu(con);
-
 				List<Instructor> teachers = stMenu.ViewAssignedInstructors(userId.intValue());
+				if(teachers != null) {
 				return new ResponseEntity<List<Instructor>>(teachers, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
-
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -821,21 +892,27 @@ public interface UserApi {
 
 			if (am.isInstructor(id)) {
 				InstructorMenu inMenu = new InstructorMenu(con);
-
 				List<Student> students = inMenu.ViewAssignedStudents(id);
-				return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+				if(students != null) {
+					return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}	
 			} else if(am.isAdmin(id)){
 				InstructorMenu inMenu = new InstructorMenu(con);
-
 				List<Student> students = inMenu.ViewAssignedStudents(userId.intValue());
-				return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+				if(students != null) {
+					return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}	
 			} else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -878,14 +955,18 @@ public interface UserApi {
 			
 	        if(am.isAdmin(id)) {
 	        	User user = am.SelectUser(userId.intValue());
-	        	return new ResponseEntity<User>(user, HttpStatus.OK);
+	        	if(user != null) {
+	        		return new ResponseEntity<User>(user, HttpStatus.OK);
+	        	}else {
+	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	        	}
 	        }else {
 	        	return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
 	        }
 
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -916,10 +997,9 @@ public interface UserApi {
 				return new ResponseEntity<String>(message, HttpStatus.UNAUTHORIZED);
 			}
 			return new ResponseEntity<String>(message, HttpStatus.OK);
-
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<String>("Login Failed", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<String>("Failed to Connect to Database", HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -944,7 +1024,6 @@ public interface UserApi {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-
 	}
 
 	/**
@@ -975,13 +1054,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.EditAdmin(admin, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.EditAdmin(admin, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -1016,13 +1099,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.EditInstructor(instructor, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.EditInstructor(instructor, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -1059,13 +1146,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.EditMX(mxEngineer, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.EditMX(mxEngineer, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -1098,13 +1189,17 @@ public interface UserApi {
 			AdminMenu am = new AdminMenu(con);
 
 			if (am.isAdmin(id)) {
-				am.EditStudent(student, id);
-				return new ResponseEntity<>(HttpStatus.OK);
+				int res = am.EditStudent(student, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
@@ -1134,14 +1229,19 @@ public interface UserApi {
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://158.69.217.205:12345/Airport_Scheduling_Database", "user", "something_fun");
 			int id = Login.getCurrentUser();
-
 			AdminMenu am = new AdminMenu(con);
-
-			am.EditUser(user, id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			if (am.isAdmin(id)) {
+				int res = am.EditUser(user, id);
+				if(res == 1) {
+					return new ResponseEntity<>(HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			}
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 
 	}
