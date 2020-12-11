@@ -270,6 +270,8 @@ public interface AircraftApi {
 	        	int res = st.CancelFlight(flightId.intValue(), id);
 	        	if(res == 1) {
 	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else if(res == -2){
+	        		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	        	}else {
 	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        	}
@@ -278,6 +280,8 @@ public interface AircraftApi {
 	        	int res = in.CancelFlight(flightId.intValue(),id);
 	        	if(res == 1) {
 	        		return new ResponseEntity<>(HttpStatus.OK);
+	        	}else if(res == -2){
+	        		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	        	}else {
 	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        	}
@@ -286,7 +290,7 @@ public interface AircraftApi {
 	        	int res = mx.CancelFlight(flightId.intValue(), id);
 	        	if(res == 1) {
 	        		return new ResponseEntity<>(HttpStatus.OK);
-	        	}else {
+	        	}else{
 	        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	        	}
 	        }else if(am.isAdmin(id)) {

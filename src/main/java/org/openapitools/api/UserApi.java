@@ -995,6 +995,8 @@ public interface UserApi {
 			String message = login.login(id, password);
 			if(message.compareTo("Login Failed") == 0) {
 				return new ResponseEntity<String>(message, HttpStatus.UNAUTHORIZED);
+			}else if(message.compareTo("User Already Logged In") == 0) {
+				return new ResponseEntity<String>(message, HttpStatus.UNAUTHORIZED);
 			}
 			return new ResponseEntity<String>(message, HttpStatus.OK);
 		} catch (Exception e) {
