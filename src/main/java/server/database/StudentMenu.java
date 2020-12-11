@@ -126,6 +126,10 @@ public class StudentMenu {
 	 */
 	public int CancelFlight(int fid, int id) {
 		try {
+        	AdminMenu am = new AdminMenu(con);
+        	if(am.SelectFlight(fid) == null) {
+        		return -1;
+        	}
 			CallableStatement cs4a = con.prepareCall("CALL SelectFlight(?)");
 			cs4a.setInt(1, fid);
 			ResultSet rs = cs4a.executeQuery();

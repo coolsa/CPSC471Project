@@ -26,6 +26,10 @@ public class MXMenu {
      */
     public int CancelFlight(int fid, int id){
         try {
+        	AdminMenu am = new AdminMenu(con);
+        	if(am.SelectFlight(fid) == null) {
+        		return -1;
+        	}
         	CallableStatement cs2 = con.prepareCall("CALL SelectFlight(?)");
         	cs2.setInt(1, fid);
         	ResultSet rs = cs2.executeQuery();

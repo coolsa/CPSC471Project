@@ -200,6 +200,9 @@ public class AdminMenu {
      */
     public int RemoveStudent(int sid, int id){
         try {
+        	if(SelectStudent(sid) == null) {
+        		return -1;
+        	}
             CallableStatement cs1 = con.prepareCall("CALL RemoveStudent(?,?)");
             cs1.setInt(1, sid);
             cs1.setInt(2, id);
@@ -217,6 +220,9 @@ public class AdminMenu {
      */
     public int RemoveInstructor(int iid, int id){
         try {
+        	if(SelectInstructor(iid) == null) {
+        		return -1;
+        	}
             CallableStatement cs2 = con.prepareCall("CALL RemoveInstructor(?,?)");
             cs2.setInt(1, iid);
             cs2.setInt(2,id);
@@ -251,6 +257,9 @@ public class AdminMenu {
      */
     public int RemoveAdmin(int aid, int id){
         try {
+        	if(SelectAdmin(aid) == null) {
+        		return -1;
+        	}
             CallableStatement cs4 = con.prepareCall("CALL RemoveAdmin(?,?)");
             cs4.setInt(1, aid);
             cs4.setInt(2,id);
@@ -442,6 +451,9 @@ public class AdminMenu {
      */
     public int RemoveAircraft(int aid, int id){
         try {
+        	if(SelectAircraft(aid) == null) {
+        		return -1;
+        	}
             CallableStatement cs2 = con.prepareCall("CALL RemoveAircraft(?,?)");
             cs2.setInt(1, aid);
             cs2.setInt(2,id);
@@ -554,6 +566,9 @@ public class AdminMenu {
      */
     public int RemoveFlight(int fid, int id){
         try {
+        	if(SelectFlight(fid) == null) {
+        		return -1;
+        	}
         	CallableStatement cs = con.prepareCall("CALL SelectFlight(?)");
         	cs.setInt(1, fid);
         	ResultSet rs = cs.executeQuery();
@@ -888,7 +903,6 @@ public class AdminMenu {
 	        CallableStatement cs4 = con.prepareCall("CALL SelectAircraft(?)");
 	        cs4.setInt(1,aid);
 	        ResultSet aircraft = cs4.executeQuery();
-	        
 	        if(aircraft.next()) {
 	        	Aircraft newAircraft = new Aircraft();
 	        	newAircraft.setId((long)aid);
