@@ -75,7 +75,7 @@ public class StudentMenu {
 	/**
 	 * Allows students to book flights with or without a instructor
 	 */
-	public void BookFlight(Flight flight, int id) {
+	public int BookFlight(Flight flight, int id) {
 		try {
 			int aid = flight.getAircraftId().getId().intValue();
 			int sid = id;
@@ -110,18 +110,21 @@ public class StudentMenu {
 				cs.setString(5, newStart.toString());
 				cs.setString(6, newEnd.toString());
 				cs.executeUpdate();
+				return 1;
 			} else {
 				System.out.println("Flight already booked during this time");
+				return -2;
 			}
 		} catch (Exception e) {
 			System.out.println(e);
+			return -1;
 		}
 	}
 
 	/**
 	 * Allows students to cancel their own flights
 	 */
-	public void CancelFlight(int fid, int id) {
+	public int CancelFlight(int fid, int id) {
 		try {
 			CallableStatement cs4a = con.prepareCall("CALL SelectFlight(?)");
 			cs4a.setInt(1, fid);
@@ -136,12 +139,15 @@ public class StudentMenu {
 				cs4b.setInt(1, fid);
 				cs4b.setInt(2, aid2);
 				cs4b.executeUpdate();
+				return 1;
 			} else {
 				System.out.println("The flight entered is not your flight");
+				return -2;
 			}
 		} catch (Exception e) {
 			System.out.println("Unable to delete Flight");
 			System.out.println(e);
+			return -1;
 		}
 	}
 
